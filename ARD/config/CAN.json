@@ -1,0 +1,78 @@
+[
+    {
+        "CANID":"0",
+        "CANID_NAME":"Clock Sync",
+        "CANID_FREQUENCY":"50",
+        "bytes":[
+            {  
+                "Size":4,
+                "NAME":"Milliseconds",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            }
+        ]
+    },
+    {
+        "CANID":"1",
+        "CANID_NAME":"Emergency Signal",
+        "CANID_FREQUENCY":"50",
+        "bits":[
+            {
+                "CTRLA":
+                [
+                
+                    {
+                        "Size":1,
+                        "NAME":"RESERVED",
+                        "Description":"RESERVED"
+                    },
+                    {
+                        "Size":1,
+                        "NAME":"ENABLE",
+                        "Description":"Enable",
+                        "0":"The peripheral is disabled",
+                        "1":"The peripheral is enabled"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "CANID":"100",
+        "CANID_NAME":"Helium Pressure",
+        "CANID_FREQUENCY":"50",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"Helium Pressure",
+                "Signed":"False",
+                "Units":"PSIG"
+            }
+        ]
+    },
+    {
+        "CANID":"300",
+        "CANID_NAME":"Helium Tank Temperature",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"Helium Tank Temperature",
+                "Signed":"True",
+                "Units":"Celcius"
+            }
+        ]
+    }
+]
