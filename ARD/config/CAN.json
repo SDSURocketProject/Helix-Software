@@ -6,8 +6,10 @@
         "bytes":[
             {  
                 "Size":4,
-                "NAME":"Milliseconds",
+                "Name":"UTC time",
                 "Signed":"False",
+                "MinValue":0,
+                "MaxValue":4294967295,
                 "Units":"Milliseconds"
             }
         ]
@@ -16,22 +18,15 @@
         "CANID":"1",
         "CANID_NAME":"Emergency Signal",
         "CANID_FREQUENCY":"50",
-        "bits":[
+        "bytes":[
             {
-                "CTRLA":
-                [
-                
+                "Size":1,
+                "Name":"Status",
+                "Signed":"False",
+                "Units":"",
+                "bits":[
                     {
-                        "Size":1,
-                        "NAME":"RESERVED",
-                        "Description":"RESERVED"
-                    },
-                    {
-                        "Size":1,
-                        "NAME":"ENABLE",
-                        "Description":"Enable",
-                        "0":"The peripheral is disabled",
-                        "1":"The peripheral is enabled"
+                        "0-1":"System Status"
                     }
                 ]
             }
@@ -57,6 +52,120 @@
         ]
     },
     {
+        "CANID":"101",
+        "CANID_NAME":"Lox Pressure",
+        "CANID_FREQUENCY":"50",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"LOX Pressure",
+                "Signed":"False",
+                "Units":"PSIG"
+            }
+        ]
+    },
+    {
+        "CANID":"102",
+        "CANID_NAME":"Methane Pressure",
+        "CANID_FREQUENCY":"50",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"Methane Pressure",
+                "Signed":"False",
+                "Units":"PSIG"
+            }
+        ]
+    },
+    {
+        "CANID":"103",
+        "CANID_NAME":"Chamber Pressure",
+        "CANID_FREQUENCY":"50",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"Chamber Pressure",
+                "Signed":"False",
+                "Units":"PSIG"
+            }
+        ]
+    },
+    {
+        "CANID":"200",
+        "CANID_NAME":"Helium Fill Valve",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":1,
+                "Name":"Helium Fill Valve State",
+                "Signed":"False",
+                "Units":"Open/Closed"
+            }
+        ]
+    },
+    {
+        "CANID":"201",
+        "CANID_NAME":"LOX Fill Valve",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":1,
+                "Name":"LOX Fill Valve State",
+                "Signed":"False",
+                "Units":"Open/Closed"
+            }
+        ]
+    },
+    {
+        "CANID":"202",
+        "CANID_NAME":"Methane Fill Valve",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":1,
+                "Name":"Methane Fill Valve State",
+                "Signed":"False",
+                "Units":"Open/Closed"
+            }
+        ]
+    },
+    {
         "CANID":"300",
         "CANID_NAME":"Helium Tank Temperature",
         "CANID_FREQUENCY":"10",
@@ -72,6 +181,215 @@
                 "Name":"Helium Tank Temperature",
                 "Signed":"True",
                 "Units":"Celcius"
+            }
+        ]
+    },
+    {
+        "CANID":"301",
+        "CANID_NAME":"LOX Tank Temperature",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"LOX Tank Temperature",
+                "Signed":"True",
+                "Units":"Celcius"
+            }
+        ]
+    },
+    {
+        "CANID":"302",
+        "CANID_NAME":"Methane Tank Temperature",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"Methane Tank Temperature",
+                "Signed":"True",
+                "Units":"Celcius"
+            }
+        ]
+    },
+    {
+        "CANID":"303",
+        "CANID_NAME":"Nozzle Temperature",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"Nozzle Temperature",
+                "Signed":"True",
+                "Units":"Celcius"
+            }
+        ]
+    },
+    {
+        "CANID":"304",
+        "CANID_NAME":"Upper Air Frame Temperature",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"Upper Air Frame Temperature",
+                "Signed":"True",
+                "Units":"Celcius"
+            }
+        ]
+    },
+    {
+        "CANID":"400",
+        "CANID_NAME":"Helium PT Current",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"Helium PT Current",
+                "Signed":"True",
+                "Units":"milliamps"
+            }
+        ]
+    },
+    {
+        "CANID":"401",
+        "CANID_NAME":"LOX PT Current",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"LOX PT Current",
+                "Signed":"True",
+                "Units":"milliamps"
+            }
+        ]
+    },
+    {
+        "CANID":"402",
+        "CANID_NAME":"Methane PT Current",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"Methane PT Current",
+                "Signed":"True",
+                "Units":"milliamps"
+            }
+        ]
+    },
+    {
+        "CANID":"403",
+        "CANID_NAME":"Chamber PT Current",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"Chamber PT Current",
+                "Signed":"True",
+                "Units":"milliamps"
+            }
+        ]
+    },
+    {
+        "CANID":"404",
+        "CANID_NAME":"Helium Fill Hall Effect Current",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"Helium Fill Hall Effect Current",
+                "Signed":"True",
+                "Units":"milliamps"
+            }
+        ]
+    },
+    {
+        "CANID":"405",
+        "CANID_NAME":"LOX Fill Hall Effect Current",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"LOX Fill Hall Effect Current",
+                "Signed":"True",
+                "Units":"milliamps"
+            }
+        ]
+    },
+    {
+        "CANID":"406",
+        "CANID_NAME":"Methane Fill Hall Effect Current",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"Methane Fill Hall Effect Current",
+                "Signed":"True",
+                "Units":"milliamps"
             }
         ]
     }
