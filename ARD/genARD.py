@@ -1,5 +1,5 @@
 import os
-import genEEPROM
+import genEEPROMJSON as genEEPROM
 import genCANJSON as genCAN
 
 if __name__ == "__main__":
@@ -13,5 +13,5 @@ if __name__ == "__main__":
         print("Failed to create ARD.pdf.")
     else:
         print("ARD.pdf successfully written.")
-    #with open ("tex/EEPROM.tex", 'w') as EEPROM_TEX:
-    #    EEPROM_TEX.write(genEEPROM.genEEPROM("config/EEPROM.cfg"))
+    with open ("tex/EEPROM.tex", 'w') as EEPROM_TEX:
+        EEPROM_TEX.write(genEEPROM.genEEPROM("config/EEPROM.json"))

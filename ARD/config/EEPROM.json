@@ -1,0 +1,126 @@
+[
+    {
+        "VersionID":"1",
+        "VersionName":"Sensor Board Layout Rev 1",
+        "Data":[
+            {
+                "Size":4,
+                "Name":"Board Status"
+            },
+            {
+                "Size":4,
+                "Name":"Board VIN Voltage CanID"
+            },
+            {
+                "Size":4,
+                "Name":"Board current CanID"
+            },
+            {
+                "Size":4,
+                "Name":"PT0 Data CanID"
+            },
+            {
+                "Size":4,
+                "Name":"PT0 Current CanID"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Data CanID"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Current CanID"
+            },
+            {
+                "Size":4,
+                "Name":"PT2 Data CanID"
+            },
+            {
+                "Size":4,
+                "Name":"PT2 Current CanID"
+            },
+            {
+                "Size":4,
+                "Name":"Hall Effect 0 Data CanID"
+            },
+            {
+                "Size":4,
+                "Name":"Hall Effect 0 Current CanID"
+            },
+            {
+                "Size":4,
+                "Name":"Hall Effect 1 Data CanID"
+            },
+            {
+                "Size":4,
+                "Name":"Hall Effect 1 Current CanID"
+            },
+            {
+                "Size":4,
+                "Name":"Hall Effect 2 Data CanID"
+            },
+            {
+                "Size":4,
+                "Name":"Hall Effect 2 Current CanID"
+            },
+            {
+                "Size":4,
+                "Name":"TC0 Data CanID"
+            },
+            {
+                "Size":4,
+                "Name":"TC0 Current CanID"
+            },
+            {
+                "Size":4,
+                "Name":"TC1 Data CanID"
+            },
+            {
+                "Size":4,
+                "Name":"TC1 Current CanID"
+            },
+            {
+                "Size":4,
+                "Name":"RTD0 Data CanID"
+            },
+            {
+                "Size":4,
+                "Name":"RTD1 Data CanID"
+            }
+        ]
+    },
+    {
+        "VersionID":"2",
+        "VersionName":"Power Distro Board Layout Rev 1",
+        "Data":[
+            {
+                "Size":4,
+                "Name":"Board Status"
+            },
+            {
+                "Size":4,
+                "Name":"Offboard Battery Voltage CANID"
+            },
+            {
+                "Size":4,
+                "Name":"Offboard Battery Current CANID"
+            },
+            {
+                "Size":4,
+                "Name":"Onboard Battery Voltage CANID"
+            },
+            {
+                "Size":4,
+                "Name":"Onboard Battery Current CANID"
+            },
+            {
+                "Size":4,
+                "Name":"Helix Loop Voltage CANID"
+            },
+            {
+                "Size":4,
+                "Name":"Helix Loop Current CANID"
+            }
+        ]
+    }
+]
