@@ -5,146 +5,146 @@
 \section{CAN IDs}
 \subsection{ID 0 - Clock Sync}
 Frequency: 50Hz\\
-\begin{tabular}{ |l|l|l|l|l|l| }\hline
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False & 0 to 4294967295 & Milliseconds & UTC time\\\hline
 \end{tabular}
 \subsection{ID 1 - Emergency Signal}
 Frequency: 50Hz\\
-\begin{tabular}{ |l|l|l|l|l|l| }\hline
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0 &  & False &  &  & Status\\\hline
  & 0-1 & & & & System Status\\\hline
 \end{tabular}
 \subsection{ID 100 - Helium Pressure}
 Frequency: 50Hz\\
-\begin{tabular}{ |l|l|l|l|l|l| }\hline
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & False &  & PSIG & Helium Pressure\\\hline
 \end{tabular}
 \subsection{ID 101 - Lox Pressure}
 Frequency: 50Hz\\
-\begin{tabular}{ |l|l|l|l|l|l| }\hline
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & False &  & PSIG & LOX Pressure\\\hline
 \end{tabular}
 \subsection{ID 102 - Methane Pressure}
 Frequency: 50Hz\\
-\begin{tabular}{ |l|l|l|l|l|l| }\hline
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & False &  & PSIG & Methane Pressure\\\hline
 \end{tabular}
 \subsection{ID 103 - Chamber Pressure}
 Frequency: 50Hz\\
-\begin{tabular}{ |l|l|l|l|l|l| }\hline
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & False &  & PSIG & Chamber Pressure\\\hline
 \end{tabular}
 \subsection{ID 200 - Helium Fill Valve}
 Frequency: 10Hz\\
-\begin{tabular}{ |l|l|l|l|l|l| }\hline
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4 &  & False &  & Open/Closed & Helium Fill Valve State\\\hline
 \end{tabular}
 \subsection{ID 201 - LOX Fill Valve}
 Frequency: 10Hz\\
-\begin{tabular}{ |l|l|l|l|l|l| }\hline
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4 &  & False &  & Open/Closed & LOX Fill Valve State\\\hline
 \end{tabular}
 \subsection{ID 202 - Methane Fill Valve}
 Frequency: 10Hz\\
-\begin{tabular}{ |l|l|l|l|l|l| }\hline
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4 &  & False &  & Open/Closed & Methane Fill Valve State\\\hline
 \end{tabular}
 \subsection{ID 300 - Helium Tank Temperature}
 Frequency: 10Hz\\
-\begin{tabular}{ |l|l|l|l|l|l| }\hline
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & True &  & Celcius & Helium Tank Temperature\\\hline
 \end{tabular}
 \subsection{ID 301 - LOX Tank Temperature}
 Frequency: 10Hz\\
-\begin{tabular}{ |l|l|l|l|l|l| }\hline
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & True &  & Celcius & LOX Tank Temperature\\\hline
 \end{tabular}
 \subsection{ID 302 - Methane Tank Temperature}
 Frequency: 10Hz\\
-\begin{tabular}{ |l|l|l|l|l|l| }\hline
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & True &  & Celcius & Methane Tank Temperature\\\hline
 \end{tabular}
 \subsection{ID 303 - Nozzle Temperature}
 Frequency: 10Hz\\
-\begin{tabular}{ |l|l|l|l|l|l| }\hline
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & True &  & Celcius & Nozzle Temperature\\\hline
 \end{tabular}
 \subsection{ID 304 - Upper Air Frame Temperature}
 Frequency: 10Hz\\
-\begin{tabular}{ |l|l|l|l|l|l| }\hline
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & True &  & Celcius & Upper Air Frame Temperature\\\hline
 \end{tabular}
 \subsection{ID 400 - Helium PT Current}
 Frequency: 10Hz\\
-\begin{tabular}{ |l|l|l|l|l|l| }\hline
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & True &  & milliamps & Helium PT Current\\\hline
 \end{tabular}
 \subsection{ID 401 - LOX PT Current}
 Frequency: 10Hz\\
-\begin{tabular}{ |l|l|l|l|l|l| }\hline
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & True &  & milliamps & LOX PT Current\\\hline
 \end{tabular}
 \subsection{ID 402 - Methane PT Current}
 Frequency: 10Hz\\
-\begin{tabular}{ |l|l|l|l|l|l| }\hline
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & True &  & milliamps & Methane PT Current\\\hline
 \end{tabular}
 \subsection{ID 403 - Chamber PT Current}
 Frequency: 10Hz\\
-\begin{tabular}{ |l|l|l|l|l|l| }\hline
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & True &  & milliamps & Chamber PT Current\\\hline
 \end{tabular}
 \subsection{ID 404 - Helium Fill Hall Effect Current}
 Frequency: 10Hz\\
-\begin{tabular}{ |l|l|l|l|l|l| }\hline
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & True &  & milliamps & Helium Fill Hall Effect Current\\\hline
 \end{tabular}
 \subsection{ID 405 - LOX Fill Hall Effect Current}
 Frequency: 10Hz\\
-\begin{tabular}{ |l|l|l|l|l|l| }\hline
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & True &  & milliamps & LOX Fill Hall Effect Current\\\hline
 \end{tabular}
 \subsection{ID 406 - Methane Fill Hall Effect Current}
 Frequency: 10Hz\\
-\begin{tabular}{ |l|l|l|l|l|l| }\hline
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & True &  & milliamps & Methane Fill Hall Effect Current\\\hline

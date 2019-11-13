@@ -23,7 +23,7 @@ def genCANTex(config):
 
     texOut += "\subsection{ID " + config["CANID"] + " - " + config["CANID_NAME"] +"}\n"
     texOut += "Frequency: " + config["CANID_FREQUENCY"] + "Hz\\\\\n"
-    texOut += "\\begin{tabular}{ |l|l|l|l|l|l| }\hline\n"
+    texOut += "\\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline\n"
     texOut += "Byte & Bit & Signed & Range & Units & Description\\\\\hline\n"
     
     byteIdxLow = 0
