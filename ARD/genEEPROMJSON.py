@@ -15,7 +15,7 @@ def genEEPROM(filePath):
     
     
     texOut += genGeneric.autogenWarnEnd("EEPROM Config", os.path.abspath(__file__))
-    return (texOut)
+    return texOut
 
 def genLayoutVersionIDs(layouts):
     texOut = ""
@@ -50,7 +50,7 @@ def genEEPROMTex(layout):
             for i in range(index["Size"]-2, -1, -1):
                 data.append([f"{byteCounter} & ", (i == 0)])
                 byteCounter = byteCounter + 1
-
+    
     NumBytesPerPage = 128
     NumColumns = 3
     BytesPerColumn = 0
@@ -78,16 +78,16 @@ def genEEPROMTex(layout):
         texOut += " \\\\\hline\n"
         for i in range(NumBytesPerPage*page, (BytesPerColumn)+NumBytesPerPage*page):
             for j in range(NumColumns):
-                if (i+j*(BytesPerColumn) >= NumBytesPerPage):
+                if (i+j*(BytesPerColumn) >= NumBytesPerPage*(1+page)):
                     texOut += " & & "
                 else:
                     texOut += data[i+j*(BytesPerColumn)][0] + " & "
             texOut = texOut[:-3]
             texOut += " \\\\ "
             for j in range(NumColumns):
-                if (i+j*(BytesPerColumn) >= NumBytesPerPage):
+                if (i+j*(BytesPerColumn) >= NumBytesPerPage*(1+page)):
                     continue
-                if (i+j*(BytesPerColumn) == NumBytesPerPage-1):
+                if (i+j*(BytesPerColumn) == NumBytesPerPage*(1+page)-1):
                     texOut += "\cline{" + str(1+j*2) + "-" + str(2+j*2) + "} "
                 elif (data[i+j*(BytesPerColumn)][1]):
                     texOut += "\cline{" + str(1+j*2) + "-" + str(2+j*2) + "} "

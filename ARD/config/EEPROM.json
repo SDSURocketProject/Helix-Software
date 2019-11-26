@@ -25,6 +25,70 @@
             },
             {
                 "Size":4,
+                "Name":"PT0 Max Voltage"
+            },
+            {
+                "Size":4,
+                "Name":"PT0 Min Voltage"
+            },
+            {
+                "Size":4,
+                "Name":"PT0 Max Value"
+            },
+            {
+                "Size":4,
+                "Name":"PT0 Min Value"
+            },
+            {
+                "Size":4,
+                "Name":"PT0 Polyfit p1"
+            },
+            {
+                "Size":4,
+                "Name":"PT0 Polyfit p2"
+            },
+            {
+                "Size":4,
+                "Name":"PT0 Polyfit p3"
+            },
+            {
+                "Size":4,
+                "Name":"PT0 Polyfit p4"
+            },
+            {
+                "Size":4,
+                "Name":"PT0 Polyfit p5"
+            },
+            {
+                "Size":4,
+                "Name":"PT0 Polyfit p6"
+            },
+            {
+                "Size":4,
+                "Name":"PT0 Polyfit p7"
+            },
+            {
+                "Size":4,
+                "Name":"PT0 Biquad Filter b0"
+            },
+            {
+                "Size":4,
+                "Name":"PT0 Biquad Filter b1"
+            },
+            {
+                "Size":4,
+                "Name":"PT0 Biquad Filter b2"
+            },
+            {
+                "Size":4,
+                "Name":"PT0 Biquad Filter a1"
+            },
+            {
+                "Size":4,
+                "Name":"PT0 Biquad Filter a2"
+            },
+            {
+                "Size":4,
                 "Name":"PT1 Data CanID"
             },
             {
@@ -33,11 +97,139 @@
             },
             {
                 "Size":4,
+                "Name":"PT1 Max Voltage"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Min Voltage"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Max Value"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Min Value"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Polyfit p1"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Polyfit p2"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Polyfit p3"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Polyfit p4"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Polyfit p5"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Polyfit p6"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Polyfit p7"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Biquad Filter b0"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Biquad Filter b1"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Biquad Filter b2"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Biquad Filter a1"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Biquad Filter a2"
+            },
+            {
+                "Size":4,
                 "Name":"PT2 Data CanID"
             },
             {
                 "Size":4,
                 "Name":"PT2 Current CanID"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Max Voltage"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Min Voltage"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Max Value"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Min Value"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Polyfit p1"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Polyfit p2"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Polyfit p3"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Polyfit p4"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Polyfit p5"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Polyfit p6"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Polyfit p7"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Biquad Filter b0"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Biquad Filter b1"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Biquad Filter b2"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Biquad Filter a1"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Biquad Filter a2"
             },
             {
                 "Size":4,
@@ -69,7 +261,23 @@
             },
             {
                 "Size":4,
-                "Name":"TC0 Current CanID"
+                "Name":"TC0 Biquad Filter b0"
+            },
+            {
+                "Size":4,
+                "Name":"TC0 Biquad Filter b1"
+            },
+            {
+                "Size":4,
+                "Name":"TC0 Biquad Filter b2"
+            },
+            {
+                "Size":4,
+                "Name":"TC0 Biquad Filter a1"
+            },
+            {
+                "Size":4,
+                "Name":"TC0 Biquad Filter a2"
             },
             {
                 "Size":4,
@@ -77,7 +285,23 @@
             },
             {
                 "Size":4,
-                "Name":"TC1 Current CanID"
+                "Name":"TC1 Biquad Filter b0"
+            },
+            {
+                "Size":4,
+                "Name":"TC1 Biquad Filter b1"
+            },
+            {
+                "Size":4,
+                "Name":"TC1 Biquad Filter b2"
+            },
+            {
+                "Size":4,
+                "Name":"TC1 Biquad Filter a1"
+            },
+            {
+                "Size":4,
+                "Name":"TC1 Biquad Filter a2"
             },
             {
                 "Size":4,
@@ -85,7 +309,47 @@
             },
             {
                 "Size":4,
+                "Name":"RTD0 Biquad Filter b0"
+            },
+            {
+                "Size":4,
+                "Name":"RTD0 Biquad Filter b1"
+            },
+            {
+                "Size":4,
+                "Name":"RTD0 Biquad Filter b2"
+            },
+            {
+                "Size":4,
+                "Name":"RTD0 Biquad Filter a1"
+            },
+            {
+                "Size":4,
+                "Name":"RTD0 Biquad Filter a2"
+            },
+            {
+                "Size":4,
                 "Name":"RTD1 Data CanID"
+            },
+            {
+                "Size":4,
+                "Name":"RTD1 Biquad Filter b0"
+            },
+            {
+                "Size":4,
+                "Name":"RTD1 Biquad Filter b1"
+            },
+            {
+                "Size":4,
+                "Name":"RTD1 Biquad Filter b2"
+            },
+            {
+                "Size":4,
+                "Name":"RTD1 Biquad Filter a1"
+            },
+            {
+                "Size":4,
+                "Name":"RTD1 Biquad Filter a2"
             }
         ]
     },
@@ -115,11 +379,19 @@
             },
             {
                 "Size":4,
-                "Name":"Helix Loop Voltage CANID"
+                "Name":"Helix Loop CW Voltage CANID"
             },
             {
                 "Size":4,
-                "Name":"Helix Loop Current CANID"
+                "Name":"Helix Loop CW Current CANID"
+            },
+            {
+                "Size":4,
+                "Name":"Helix Loop CCW Voltage CANID"
+            },
+            {
+                "Size":4,
+                "Name":"Helix Loop CCW Current CANID"
             }
         ]
     }
