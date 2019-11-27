@@ -1,0 +1,57 @@
+[
+    {
+        "Hardware Type":"Pressure Transducer",
+        "Serial Number":"0000001",
+        "Model Number":"MLH05KPSB01G",
+        "Datasheet Link":"https://www.mouser.com/datasheet/2/187/honeywell-sensing-heavy-duty-pressure-mlh-series-d-1112521.pdf",
+        "Sensing Units":"PSIG",
+        "Pressure Port Type":"1/4-18 NPT (ANSI B1.20.1)",
+        "Accuracy":"+-0.25%",
+        "Min Pressure":"0",
+        "Max Pressure":"5000",
+        "Data Frequency":"50",
+        "Min Output Voltage":"1.0",
+        "Max Output Voltage":"5.0",
+        "Min Input Voltage":"8.0",
+        "Max Input Voltage":"30.0",
+        "Temperature Range":"-40 to +125",
+        "Calibration Polyfit p1":"1.0",
+        "Calibration Polyfit p2":"0.0",
+        "Calibration Polyfit p3":"0.0",
+        "Calibration Polyfit p4":"0.0",
+        "Calibration Polyfit p5":"0.0",
+        "Calibration Polyfit p6":"0.0",
+        "Calibration Polyfit p7":"0.0"
+    },
+    {
+        "Hardware Type":"Thermocouple",
+        "Serial Number":"0000001",
+        "Model Number":"240-080",
+        "Datasheet Link":"https://media.digikey.com/pdf/Data%20Sheets/Digilent%20PDFs/240-080_Web.pdf",
+        "Type":"K",
+        "Sensing Units":"Celcius",
+        "Temperature Range":"-73 to +482"
+    },
+    {
+        "Hardware Type":"RTD",
+        "Serial Number":"0000001",
+        "Model Number":"1PT100K2515",
+        "Datasheet Link":"https://assets.omega.com/spec/1PT100K-RTD-ELEMENTS.pdf",
+        "Type":"PT100",
+        "Sensing Units":"Celcius",
+        "Temperature Range":"-200 to 850"
+    },
+    {
+        "Hardware Type":"Hall Effect Sensor",
+        "Serial Number":"0000001",
+        "Model Number":"TCS40DPR",
+        "Datasheet Link":"https://toshiba.semicon-storage.com/info/docget.jsp?did=30107&prodName=TCS40DPR",
+        "Sensing Units":"mT",
+        "Trip":"+-4.4",
+        "Release":"+-0.9",
+        "Output Type":"Push-Pull",
+        "Min Input Voltage":"2.3",
+        "Max Input Voltage":"5.5",
+        "Operating Temperature":"-40 to +85"
+    }
+]
