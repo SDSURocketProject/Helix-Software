@@ -1,85 +1,79 @@
-import genGeneric, os, re
-
-paramsIdx = 0
-CANBytesIdx = 1
-CANBitsIdx = 2
+import json, os, genGeneric
 
 def getConfig(filePath):
-	config = ""
-	with open(filePath, 'r') as canConfig:
-		config = canConfig.readlines()
-	# Filter out lines that start with "#" as first non whitespace character
-	config = [value for value in config if value.lstrip() == "" or value.lstrip()[0] != "#"]
-	# Combine all lines into one string
-	config = "".join(config)
-	# Separate CANIDs by beginID tag
-	IDConfigs = config.split("\\beginID")
-	# Remove trailing endID tag
-	IDConfigs = [value.split("\endID")[0] for value in IDConfigs]
-	# Remove empty strings
-	IDConfigs = [value for value in IDConfigs if value != '']
-	# Parse all configs into basic components
-	IDConfigs = [parseConfig(value) for value in IDConfigs]
+    texOut = ""
+    headerOut = ""
+    texOut += genGeneric.autogenWarnStart("CAN Config", os.path.abspath(__file__))
+    headerOut += genGeneric.autogenWarnStart("CAN Config", os.path.abspath(__file__), commentChar="//")
 	
-	latexOut = ""
-	headerOut = ""
-	latexOut += genGeneric.autogenWarnStart("CAN Config", os.path.abspath(__file__))
-	headerOut += genGeneric.autogenWarnStart("CAN Config", os.path.abspath(__file__), commentChar="//")
-	for ID in IDConfigs:
-		#latexOut += genCANTex(ID)
-		headerOut += genCANHeader(ID)
-	latexOut += genGeneric.autogenWarnEnd("CAN Config", os.path.abspath(__file__))
-	headerOut += genGeneric.autogenWarnEnd("CAN Config", os.path.abspath(__file__), commentChar="//")
-	return (latexOut, headerOut)
-
-def parseConfig(config):
-	params = re.findall(r'param\s+(.*)=\"(.*)\"', config)
-	CANBytes = re.findall(r'bytes\s+(.*)\s+\"(.*)\"\s+Units=\"(.*)\"', config)
-	CANBits = re.findall(r'bits\s+(\d+)\s+BYTE=\"(.*)\"\s+NAME=\"(.*)\"\s+DESCRIPTION=\"(.*)\"\s+VALUES=\"(.*)\"', config)
-	CANBitDefs = re.findall(r'bitdef\s+(.*)=\"(.*)\"', config)
-
-	paramDict = {}
-	for param in params:
-		paramDict[param[0]] = param[1]
-	
-	if "CANID" not in paramDict:
-		print("Missing CANID in layout\n")
-		raise Exception()
-	if "CANID_NAME" not in paramDict:
-		print("Missing CANID_NAME in layout\n")
-		raise Exception()
-	if "CANID_FREQUENCY" not in paramDict:
-		print("Missing CANID_FREQUENCY in layout\n")
-		raise Exception()
-	
-	for byteDef in CANBytes:
-		if byteDef[2] == "BITDEF":
-			pass
-
-	return (paramDict, CANBytes, CANBits)
+    with open(filePath) as canIDs:
+        data = json.load(canIDs)
+    
+    texOut += "\section{CAN IDs}\n"
+    for ID in data:
+        texOut += genCANTex(ID)
+    
+    
+    texOut += genGeneric.autogenWarnEnd("CAN Config", os.path.abspath(__file__))
+    headerOut += genGeneric.autogenWarnEnd("CAN Config", os.path.abspath(__file__), commentChar="//")
+    return (texOut, headerOut)
 
 def genCANTex(config):
-	texOut = ""
-	texOut += "\subsection{ID " + config[paramsIdx]["CANID"] + " - " + config[paramsIdx]["CANID_NAME"] +"}\n"
-	texOut += "Frequency: " + config[paramsIdx]["CANID_FREQUENCY"] + "Hz\n"
-	texOut += "\setlength{\LTleft}{0pt}\n"
-	texOut += "    \\begin{longtable}{|c|c|c|} \\hline\n"
-	texOut += "    bytes & Units & Description \\\\ \hline\n"
-	byteCounterLow = 0
-	byteCounterHigh = -1
-	for CANBytes in config[CANBytesIdx]:
-		byteCounterHigh = byteCounterHigh+int(CANBytes[0])
-		texOut += f"    [{byteCounterHigh}:{byteCounterLow}] & {CANBytes[1]} & {CANBytes[2]} \\\\ \hline\n"
-		byteCounterLow = byteCounterHigh+1
-	texOut += "\end{longtable}\n"
-	texOut += "\pagebreak\n"
+    texOut = ""
 
-	return texOut
+    texOut += "\subsection{ID " + config["CANID"] + " - " + config["CANID_NAME"] +"}\n"
+    texOut += "Frequency: " + config["CANID_FREQUENCY"] + "Hz\\\\\n"
+    texOut += "\\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline\n"
+    texOut += "Byte & Bit & Signed & Range & Units & Description\\\\\hline\n"
+    
+    byteIdxLow = 0
+    byteIdxHigh = 0
+    ByteStr = ""
+    BitStr = ""
+    SignedStr = ""
+    UnitsStr = ""
+    DescriptionStr = ""
+    for byteDef in config["bytes"]:
+        if ("Size" in byteDef):
+            byteIdxHigh = byteIdxLow+byteDef["Size"]-1
+            if (byteIdxHigh == byteIdxLow):
+                texOut += str(byteIdxHigh) + " & "
+            else:
+                texOut += str(byteIdxLow) + "-" + str(byteIdxHigh) + " & "
+            byteIdxLow = byteIdxLow+byteDef["Size"]
+        else:
+            texOut += " & "
+        texOut += " & " # Bit
+        if ("Signed" in byteDef):
+            texOut += byteDef["Signed"] + " & "
+        else:
+            texOut += " & "
+        if ("MinValue" in byteDef and "MaxValue" in byteDef):
+            texOut += str(byteDef["MinValue"]) + " to " + str(byteDef["MaxValue"]) + " & "
+        else:
+            texOut += " & "
+        if ("Units" in byteDef):
+            texOut += byteDef["Units"] + " & "
+        else:
+            texOut += " & "
+        if ("Name" in byteDef):
+            texOut += byteDef["Name"]
+        else:
+            texOut += " & "
+
+        texOut += "\\\\\hline\n"
+        if ("bits" in byteDef):
+            for bitDef in byteDef["bits"]:
+                for i in bitDef:
+                    texOut += " & " + i + " & & & & " + bitDef[i] + "\\\\\hline\n"
+        
+    
+    texOut += "\end{tabular}\n"
+    return texOut
 
 def genCANHeader(config):
-	headerOut = ""
-
-	return headerOut
+    headerOut = ""
+    return headerOut
 
 if __name__ == "__main__":
-	pass
+    pass

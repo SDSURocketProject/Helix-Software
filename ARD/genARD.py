@@ -1,6 +1,6 @@
 import os
-import genEEPROMJSON as genEEPROM
-import genCANJSON as genCAN
+import genEEPROM as genEEPROM
+import genCAN as genCAN
 
 if __name__ == "__main__":
     os.chdir("ARD/")
