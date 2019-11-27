@@ -5,6 +5,14 @@
         "Data":[
             {
                 "Size":4,
+                "Name":"Layout Rev Number"
+            },
+            {
+                "Size":4,
+                "Name":"EEPROM Layout Compile Time"
+            },
+            {
+                "Size":4,
                 "Name":"Board Status"
             },
             {
