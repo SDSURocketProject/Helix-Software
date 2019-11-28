@@ -23,7 +23,7 @@
 
 \title{Avionics Reference Document}
 \author{David Knight}
-\date{July 2019}
+\date{\today}
 
 \begin{document}
 
@@ -43,38 +43,9 @@
 \subsection{Definitions and Acronyms}
 \newpage
 
-\section{Hardware}
-\subsection{Pressure}
-\begin{tabular}{|c|c|}
-    \hline
-    Measurement & HE Tank Pressure \\
-    \hline
-    Extension board \# & 2 \\
-    \hline
-    Model \# & MLH05KPSB01G \\
-    \hline
-    Link & \href{https://www.mouser.com/ProductDetail/Honeywell/MLH05KPSB01G?qs=sGAEpiMZZMvhQj7WZhFIAKF%2FsywqpPN6VSMIWdxu9r0%3D}{Mouser Page} \\
-    \hline
-    Range & 0 psig to 5000 psig \\
-    \hline
-    Accuracy & $\pm 0.25\%$ \\
-    \hline
-    Temperature range & -40\degree C to +125\degree C \\
-    \hline
-    Input Voltage & 8VDC to 30VDC \\
-    \hline
-    Output & 1VDC to 5VDC \\
-    \hline
-    Data Rate & 50Hz \\
-    \hline
-\end{tabular}
-\subsection{Temperature}
-\subsection{Electrical}
-\subsection{Mechanical}
-\newpage
-
 \pagebreak
 
+\input{tex/HARDWARE.tex}
 \input{tex/EEPROM.tex}
 \input{tex/CANIDs.tex}
 

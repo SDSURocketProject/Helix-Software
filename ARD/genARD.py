@@ -1,10 +1,16 @@
 import os
 import genEEPROM as genEEPROM
 import genCAN as genCAN
+import genHARDWARE
 
 if __name__ == "__main__":
     os.chdir("ARD/")
     
+    # HARDWARE
+    latexHARDWARE = genHARDWARE.getConfig("config/HARDWARE.json")
+    with open ("tex/HARDWARE.tex", "w") as HARDWARE_TEX:
+        HARDWARE_TEX.write(latexHARDWARE)
+
     # CAN
     latexCAN, headerCAN = genCAN.getConfig("config/CAN.json")
     with open ("tex/CANIDs.tex", "w") as CAN_TEX:
