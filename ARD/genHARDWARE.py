@@ -1,7 +1,7 @@
 import json, os, genGeneric
 
-def getConfig(filePath):	
-    with open(filePath) as hardwareIDs:
+def getLatex():	
+    with open("config/HARDWARE.json") as hardwareIDs:
         data = json.load(hardwareIDs)
 
     # Sort hardware based on hardware type

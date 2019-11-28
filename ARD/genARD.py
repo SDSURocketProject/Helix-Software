@@ -1,13 +1,13 @@
 import os
-import genEEPROM as genEEPROM
-import genCAN as genCAN
+import genEEPROM
+import genCAN
 import genHARDWARE
 
 if __name__ == "__main__":
     os.chdir("ARD/")
     
     # HARDWARE
-    latexHARDWARE = genHARDWARE.getConfig("config/HARDWARE.json")
+    latexHARDWARE = genHARDWARE.getLatex()
     if (latexHARDWARE == ""):
         print("Failed to generate HARDWARE.tex, exiting...")
         quit()
@@ -15,14 +15,16 @@ if __name__ == "__main__":
         HARDWARE_TEX.write(latexHARDWARE)
 
     # CAN
-    latexCAN, headerCAN = genCAN.getConfig("config/CAN.json")
+    latexCAN = genCAN.getLatex()
     with open ("tex/CANIDs.tex", "w") as CAN_TEX:
         CAN_TEX.write(latexCAN)
+    
+    headerCAN = genCAN.getHeader()
     with open ("../include/CANIDs.h", "w") as CAN_HEADER:
         CAN_HEADER.write(headerCAN)
 
     # EEPROM
-    latexEEPROM = genEEPROM.genEEPROM("config/EEPROM.json")
+    latexEEPROM = genEEPROM.getLatex()
     with open ("tex/EEPROM.tex", "w") as EEPROM_TEX:
         EEPROM_TEX.write(latexEEPROM)
 
@@ -32,4 +34,4 @@ if __name__ == "__main__":
     else:
         print("ARD.pdf successfully written.")
     with open ("tex/EEPROM.tex", 'w') as EEPROM_TEX:
-        EEPROM_TEX.write(genEEPROM.genEEPROM("config/EEPROM.json"))
+        EEPROM_TEX.write(genEEPROM.getLatex())

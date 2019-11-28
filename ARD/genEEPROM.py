@@ -1,10 +1,10 @@
 import json, os, genGeneric
 
-def genEEPROM(filePath):
+def getLatex():
     texOut = ""
     texOut += genGeneric.autogenWarnStart("EEPROM Config", os.path.abspath(__file__))
 	
-    with open(filePath) as EEPROMConfigs:
+    with open("config/EEPROM.json") as EEPROMConfigs:
         EEPROMLayouts = json.load(EEPROMConfigs)
     
     texOut += "\section{EEPROM Layouts}\n"

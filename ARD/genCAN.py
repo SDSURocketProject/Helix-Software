@@ -1,22 +1,25 @@
 import json, os, genGeneric
 
-def getConfig(filePath):
+def getLatex():
     texOut = ""
-    headerOut = ""
     texOut += genGeneric.autogenWarnStart("CAN Config", os.path.abspath(__file__))
-    headerOut += genGeneric.autogenWarnStart("CAN Config", os.path.abspath(__file__), commentChar="//")
-	
-    with open(filePath) as canIDs:
+    
+    with open("config/CAN.json") as canIDs:
         data = json.load(canIDs)
     
     texOut += "\section{CAN IDs}\n"
     for ID in data:
         texOut += genCANTex(ID)
     
-    
     texOut += genGeneric.autogenWarnEnd("CAN Config", os.path.abspath(__file__))
+    
+    return texOut
+
+def getHeader():
+    headerOut = ""
+    headerOut += genGeneric.autogenWarnStart("CAN Config", os.path.abspath(__file__), commentChar="//")
     headerOut += genGeneric.autogenWarnEnd("CAN Config", os.path.abspath(__file__), commentChar="//")
-    return (texOut, headerOut)
+    return headerOut
 
 def genCANTex(config):
     texOut = ""
