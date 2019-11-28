@@ -8,6 +8,9 @@ if __name__ == "__main__":
     
     # HARDWARE
     latexHARDWARE = genHARDWARE.getConfig("config/HARDWARE.json")
+    if (latexHARDWARE == ""):
+        print("Failed to generate HARDWARE.tex, exiting...")
+        quit()
     with open ("tex/HARDWARE.tex", "w") as HARDWARE_TEX:
         HARDWARE_TEX.write(latexHARDWARE)
 
