@@ -4,10 +4,11 @@
 \usepackage[open,openlevel=1]{bookmark}
 \usepackage{fancyhdr}
 \usepackage{gensymb}
-\usepackage{hyperref}
-\usepackage{multirow}
-\usepackage{adjustbox}
+\usepackage{hyperref}  % Allow embedded hyperlinks in text
+\usepackage{multirow}  % Allow contents spanning multiple rows in table
+\usepackage{adjustbox} % Ensure consistent width of tables in some sections
 
+% Make links not look like garbage
 \hypersetup{
     colorlinks=true,
     linkcolor=black,
@@ -16,10 +17,12 @@
 }
 
 \newcommand{\projectName}{Avionics Reference Document}
- 
+
 \pagestyle{fancy}
 \fancyhf{}
 \lhead{\projectName}
+\rhead{\includegraphics[width=1cm]{assets/LOGO-RocketProject-highres-trnsprnt-bckgd.png}}
+\lfoot{\thepage}
 
 \title{Avionics Reference Document}
 \author{David Knight}
