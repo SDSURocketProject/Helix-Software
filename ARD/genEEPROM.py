@@ -2,9 +2,9 @@ import json, os, genGeneric
 
 def getLatex():
     texOut = ""
-    texOut += genGeneric.autogenWarnStart("EEPROM Config", os.path.abspath(__file__))
+    texOut += genGeneric.autogenWarnStart("EEPROM Layouts", os.path.abspath(__file__))
 	
-    with open("config/EEPROM.json") as EEPROMConfigs:
+    with open("config/EEPROMLAYOUT.json") as EEPROMConfigs:
         EEPROMLayouts = json.load(EEPROMConfigs)
     
     texOut += "\section{EEPROM Layouts}\n"
@@ -14,7 +14,7 @@ def getLatex():
         texOut += genEEPROMTex(layout)
     
     
-    texOut += genGeneric.autogenWarnEnd("EEPROM Config", os.path.abspath(__file__))
+    texOut += genGeneric.autogenWarnEnd("EEPROM Layouts", os.path.abspath(__file__))
     return texOut
 
 def genLayoutVersionIDs(layouts):
