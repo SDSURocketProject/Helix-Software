@@ -33,6 +33,10 @@
             },
             {
                 "Size":4,
+                "Name":"PT0 Data Frequency"
+            },
+            {
+                "Size":4,
                 "Name":"PT0 Max Voltage"
             },
             {
@@ -41,39 +45,39 @@
             },
             {
                 "Size":4,
-                "Name":"PT0 Max Value"
+                "Name":"PT0 Max Pressure"
             },
             {
                 "Size":4,
-                "Name":"PT0 Min Value"
+                "Name":"PT0 Min Pressure"
             },
             {
                 "Size":4,
-                "Name":"PT0 Polyfit p1"
+                "Name":"PT0 Calibration Polyfit p1"
             },
             {
                 "Size":4,
-                "Name":"PT0 Polyfit p2"
+                "Name":"PT0 Calibration Polyfit p2"
             },
             {
                 "Size":4,
-                "Name":"PT0 Polyfit p3"
+                "Name":"PT0 Calibration Polyfit p3"
             },
             {
                 "Size":4,
-                "Name":"PT0 Polyfit p4"
+                "Name":"PT0 Calibration Polyfit p4"
             },
             {
                 "Size":4,
-                "Name":"PT0 Polyfit p5"
+                "Name":"PT0 Calibration Polyfit p5"
             },
             {
                 "Size":4,
-                "Name":"PT0 Polyfit p6"
+                "Name":"PT0 Calibration Polyfit p6"
             },
             {
                 "Size":4,
-                "Name":"PT0 Polyfit p7"
+                "Name":"PT0 Calibration Polyfit p7"
             },
             {
                 "Size":4,
@@ -105,47 +109,51 @@
             },
             {
                 "Size":4,
-                "Name":"PT1 Max Voltage"
+                "Name":"PT1 Data Frequency"
             },
             {
                 "Size":4,
-                "Name":"PT1 Min Voltage"
+                "Name":"PT1 Max Output Voltage"
             },
             {
                 "Size":4,
-                "Name":"PT1 Max Value"
+                "Name":"PT1 Min Output Voltage"
             },
             {
                 "Size":4,
-                "Name":"PT1 Min Value"
+                "Name":"PT1 Max Pressure"
             },
             {
                 "Size":4,
-                "Name":"PT1 Polyfit p1"
+                "Name":"PT1 Min Pressure"
             },
             {
                 "Size":4,
-                "Name":"PT1 Polyfit p2"
+                "Name":"PT1 Calibration Polyfit p1"
             },
             {
                 "Size":4,
-                "Name":"PT1 Polyfit p3"
+                "Name":"PT1 Calibration Polyfit p2"
             },
             {
                 "Size":4,
-                "Name":"PT1 Polyfit p4"
+                "Name":"PT1 Calibration Polyfit p3"
             },
             {
                 "Size":4,
-                "Name":"PT1 Polyfit p5"
+                "Name":"PT1 Calibration Polyfit p4"
             },
             {
                 "Size":4,
-                "Name":"PT1 Polyfit p6"
+                "Name":"PT1 Calibration Polyfit p5"
             },
             {
                 "Size":4,
-                "Name":"PT1 Polyfit p7"
+                "Name":"PT1 Calibration Polyfit p6"
+            },
+            {
+                "Size":4,
+                "Name":"PT1 Calibration Polyfit p7"
             },
             {
                 "Size":4,
@@ -177,67 +185,71 @@
             },
             {
                 "Size":4,
-                "Name":"PT1 Max Voltage"
+                "Name":"PT2 Data Frequency"
             },
             {
                 "Size":4,
-                "Name":"PT1 Min Voltage"
+                "Name":"PT2 Max Voltage"
             },
             {
                 "Size":4,
-                "Name":"PT1 Max Value"
+                "Name":"PT2 Min Voltage"
             },
             {
                 "Size":4,
-                "Name":"PT1 Min Value"
+                "Name":"PT2 Max Pressure"
             },
             {
                 "Size":4,
-                "Name":"PT1 Polyfit p1"
+                "Name":"PT2 Min Pressure"
             },
             {
                 "Size":4,
-                "Name":"PT1 Polyfit p2"
+                "Name":"PT2 Calibration Polyfit p1"
             },
             {
                 "Size":4,
-                "Name":"PT1 Polyfit p3"
+                "Name":"PT2 Calibration Polyfit p2"
             },
             {
                 "Size":4,
-                "Name":"PT1 Polyfit p4"
+                "Name":"PT2 Calibration Polyfit p3"
             },
             {
                 "Size":4,
-                "Name":"PT1 Polyfit p5"
+                "Name":"PT2 Calibration Polyfit p4"
             },
             {
                 "Size":4,
-                "Name":"PT1 Polyfit p6"
+                "Name":"PT2 Calibration Polyfit p5"
             },
             {
                 "Size":4,
-                "Name":"PT1 Polyfit p7"
+                "Name":"PT2 Calibration Polyfit p6"
             },
             {
                 "Size":4,
-                "Name":"PT1 Biquad Filter b0"
+                "Name":"PT2 Calibration Polyfit p7"
             },
             {
                 "Size":4,
-                "Name":"PT1 Biquad Filter b1"
+                "Name":"PT2 Biquad Filter b0"
             },
             {
                 "Size":4,
-                "Name":"PT1 Biquad Filter b2"
+                "Name":"PT2 Biquad Filter b1"
             },
             {
                 "Size":4,
-                "Name":"PT1 Biquad Filter a1"
+                "Name":"PT2 Biquad Filter b2"
             },
             {
                 "Size":4,
-                "Name":"PT1 Biquad Filter a2"
+                "Name":"PT2 Biquad Filter a1"
+            },
+            {
+                "Size":4,
+                "Name":"PT2 Biquad Filter a2"
             },
             {
                 "Size":4,
@@ -249,11 +261,19 @@
             },
             {
                 "Size":4,
+                "Name":"Hall Effect 0 Data Frequency"
+            },
+            {
+                "Size":4,
                 "Name":"Hall Effect 1 Data CanID"
             },
             {
                 "Size":4,
                 "Name":"Hall Effect 1 Current CanID"
+            },
+            {
+                "Size":4,
+                "Name":"Hall Effect 1 Data Frequency"
             },
             {
                 "Size":4,
@@ -265,7 +285,15 @@
             },
             {
                 "Size":4,
+                "Name":"Hall Effect 2 Data Frequency"
+            },
+            {
+                "Size":4,
                 "Name":"TC0 Data CanID"
+            },
+            {
+                "Size":4,
+                "Name":"TC0 Data Frequency"
             },
             {
                 "Size":4,
@@ -293,6 +321,10 @@
             },
             {
                 "Size":4,
+                "Name":"TC1 Data Frequency"
+            },
+            {
+                "Size":4,
                 "Name":"TC1 Biquad Filter b0"
             },
             {
@@ -317,6 +349,10 @@
             },
             {
                 "Size":4,
+                "Name":"RTD0 Data Frequency"
+            },
+            {
+                "Size":4,
                 "Name":"RTD0 Biquad Filter b0"
             },
             {
@@ -338,6 +374,10 @@
             {
                 "Size":4,
                 "Name":"RTD1 Data CanID"
+            },
+            {
+                "Size":4,
+                "Name":"RTD1 Data Frequency"
             },
             {
                 "Size":4,
