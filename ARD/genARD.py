@@ -1,5 +1,5 @@
 import os
-import genEEPROM
+import genEEPROMLAYOUT
 import genCAN
 import genHARDWARE
 
@@ -24,14 +24,14 @@ if __name__ == "__main__":
         CAN_HEADER.write(headerCAN)
 
     # EEPROM
-    latexEEPROM = genEEPROM.getLatex()
-    with open ("tex/EEPROM.tex", "w") as EEPROM_TEX:
-        EEPROM_TEX.write(latexEEPROM)
+    latexEEPROMLAYOUT = genEEPROMLAYOUT.getLatex()
+    with open ("tex/EEPROMLAYOUT.tex", "w") as EEPROMLAYOUT_TEX:
+        EEPROMLAYOUT_TEX.write(latexEEPROMLAYOUT)
 
     # Generate Tex
     if (os.system("xelatex --halt-on-error ARD.tex") != 0):
         print("Failed to create ARD.pdf.")
     else:
         print("ARD.pdf successfully written.")
-    with open ("tex/EEPROM.tex", 'w') as EEPROM_TEX:
-        EEPROM_TEX.write(genEEPROM.getLatex())
+    with open ("tex/EEPROMLAYOUT.tex", 'w') as EEPROMLAYOUT_TEX:
+        EEPROMLAYOUT_TEX.write(genEEPROMLAYOUT.getLatex())
