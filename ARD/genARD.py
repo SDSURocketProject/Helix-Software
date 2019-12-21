@@ -1,5 +1,6 @@
 import os
 import genEEPROMLAYOUT
+import genEEPROM
 import genCAN
 import genHARDWARE
 
@@ -35,3 +36,5 @@ if __name__ == "__main__":
         print("ARD.pdf successfully written.")
     with open ("tex/EEPROMLAYOUT.tex", 'w') as EEPROMLAYOUT_TEX:
         EEPROMLAYOUT_TEX.write(genEEPROMLAYOUT.getLatex())
+
+    genEEPROM.genEEPROMBIN()

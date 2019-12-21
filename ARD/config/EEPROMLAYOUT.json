@@ -5,398 +5,547 @@
         "Data":[
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"Layout Rev Number"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"EEPROM Layout Compile Time"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"Board Status"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"Board VIN Voltage CanID"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"Board current CanID"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"PT0 Data CanID"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"PT0 Current CanID"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"PT0 Data Frequency"
             },
             {
                 "Size":4,
+                "Data Type":"I",
+                "Name":"PT0 Sample Rate"
+            },
+            {
+                "Size":4,
+                "Data Type":"f",
                 "Name":"PT0 Max Voltage"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT0 Min Voltage"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT0 Max Pressure"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT0 Min Pressure"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT0 Calibration Polyfit p1"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT0 Calibration Polyfit p2"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT0 Calibration Polyfit p3"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT0 Calibration Polyfit p4"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT0 Calibration Polyfit p5"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT0 Calibration Polyfit p6"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT0 Calibration Polyfit p7"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT0 Biquad Filter b0"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT0 Biquad Filter b1"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT0 Biquad Filter b2"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT0 Biquad Filter a1"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT0 Biquad Filter a2"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"PT1 Data CanID"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"PT1 Current CanID"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"PT1 Data Frequency"
             },
             {
                 "Size":4,
+                "Data Type":"I",
+                "Name":"PT1 Sample Rate"
+            },
+            {
+                "Size":4,
+                "Data Type":"f",
                 "Name":"PT1 Max Output Voltage"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT1 Min Output Voltage"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT1 Max Pressure"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT1 Min Pressure"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT1 Calibration Polyfit p1"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT1 Calibration Polyfit p2"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT1 Calibration Polyfit p3"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT1 Calibration Polyfit p4"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT1 Calibration Polyfit p5"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT1 Calibration Polyfit p6"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT1 Calibration Polyfit p7"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT1 Biquad Filter b0"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT1 Biquad Filter b1"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT1 Biquad Filter b2"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT1 Biquad Filter a1"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT1 Biquad Filter a2"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"PT2 Data CanID"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"PT2 Current CanID"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"PT2 Data Frequency"
             },
             {
                 "Size":4,
+                "Data Type":"I",
+                "Name":"PT2 Sample Rate"
+            },
+            {
+                "Size":4,
+                "Data Type":"f",
                 "Name":"PT2 Max Voltage"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT2 Min Voltage"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT2 Max Pressure"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT2 Min Pressure"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT2 Calibration Polyfit p1"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT2 Calibration Polyfit p2"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT2 Calibration Polyfit p3"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT2 Calibration Polyfit p4"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT2 Calibration Polyfit p5"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT2 Calibration Polyfit p6"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT2 Calibration Polyfit p7"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT2 Biquad Filter b0"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT2 Biquad Filter b1"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT2 Biquad Filter b2"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT2 Biquad Filter a1"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"PT2 Biquad Filter a2"
             },
             {
                 "Size":4,
-                "Name":"Hall Effect 0 Data CanID"
+                "Data Type":"I",
+                "Name":"HE0 State CanID"
             },
             {
                 "Size":4,
-                "Name":"Hall Effect 0 Current CanID"
+                "Data Type":"I",
+                "Name":"HE0 Current CanID"
             },
             {
                 "Size":4,
-                "Name":"Hall Effect 0 Data Frequency"
+                "Data Type":"I",
+                "Name":"HE0 Data Frequency"
             },
             {
                 "Size":4,
-                "Name":"Hall Effect 1 Data CanID"
+                "Data Type":"I",
+                "Name":"HE0 Sample Rate"
             },
             {
                 "Size":4,
-                "Name":"Hall Effect 1 Current CanID"
+                "Data Type":"I",
+                "Name":"HE1 State CanID"
             },
             {
                 "Size":4,
-                "Name":"Hall Effect 1 Data Frequency"
+                "Data Type":"I",
+                "Name":"HE1 Current CanID"
             },
             {
                 "Size":4,
-                "Name":"Hall Effect 2 Data CanID"
+                "Data Type":"I",
+                "Name":"HE1 Data Frequency"
             },
             {
                 "Size":4,
-                "Name":"Hall Effect 2 Current CanID"
+                "Data Type":"I",
+                "Name":"HE1 Sample Rate"
             },
             {
                 "Size":4,
-                "Name":"Hall Effect 2 Data Frequency"
+                "Data Type":"I",
+                "Name":"HE2 State CanID"
             },
             {
                 "Size":4,
+                "Data Type":"I",
+                "Name":"HE2 Current CanID"
+            },
+            {
+                "Size":4,
+                "Data Type":"I",
+                "Name":"HE2 Data Frequency"
+            },
+            {
+                "Size":4,
+                "Data Type":"I",
+                "Name":"HE2 Sample Rate"
+            },
+            {
+                "Size":4,
+                "Data Type":"I",
                 "Name":"TC0 Data CanID"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"TC0 Data Frequency"
             },
             {
                 "Size":4,
+                "Data Type":"I",
+                "Name":"TC0 Sample Rate"
+            },
+            {
+                "Size":4,
+                "Data Type":"f",
                 "Name":"TC0 Biquad Filter b0"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"TC0 Biquad Filter b1"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"TC0 Biquad Filter b2"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"TC0 Biquad Filter a1"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"TC0 Biquad Filter a2"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"TC1 Data CanID"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"TC1 Data Frequency"
             },
             {
                 "Size":4,
+                "Data Type":"I",
+                "Name":"TC1 Sample Rate"
+            },
+            {
+                "Size":4,
+                "Data Type":"f",
                 "Name":"TC1 Biquad Filter b0"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"TC1 Biquad Filter b1"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"TC1 Biquad Filter b2"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"TC1 Biquad Filter a1"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"TC1 Biquad Filter a2"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"RTD0 Data CanID"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"RTD0 Data Frequency"
             },
             {
                 "Size":4,
+                "Data Type":"I",
+                "Name":"RTD0 Sample Rate"
+            },
+            {
+                "Size":4,
+                "Data Type":"f",
                 "Name":"RTD0 Biquad Filter b0"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"RTD0 Biquad Filter b1"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"RTD0 Biquad Filter b2"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"RTD0 Biquad Filter a1"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"RTD0 Biquad Filter a2"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"RTD1 Data CanID"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"RTD1 Data Frequency"
             },
             {
                 "Size":4,
+                "Data Type":"I",
+                "Name":"RTD1 Sample Rate"
+            },
+            {
+                "Size":4,
+                "Data Type":"f",
                 "Name":"RTD1 Biquad Filter b0"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"RTD1 Biquad Filter b1"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"RTD1 Biquad Filter b2"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"RTD1 Biquad Filter a1"
             },
             {
                 "Size":4,
+                "Data Type":"f",
                 "Name":"RTD1 Biquad Filter a2"
             }
         ]
@@ -407,38 +556,47 @@
         "Data":[
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"Board Status"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"Offboard Battery Voltage CANID"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"Offboard Battery Current CANID"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"Onboard Battery Voltage CANID"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"Onboard Battery Current CANID"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"Helix Loop CW Voltage CANID"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"Helix Loop CW Current CANID"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"Helix Loop CCW Voltage CANID"
             },
             {
                 "Size":4,
+                "Data Type":"I",
                 "Name":"Helix Loop CCW Current CANID"
             }
         ]

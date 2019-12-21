@@ -34,7 +34,7 @@
     },
     {
         "CANID":"100",
-        "CANID_NAME":"Helium Pressure",
+        "CANID_NAME":"Helium Pressure Data",
         "CANID_FREQUENCY":"50",
         "bytes":[
             {
@@ -53,7 +53,7 @@
     },
     {
         "CANID":"101",
-        "CANID_NAME":"Lox Pressure",
+        "CANID_NAME":"Lox Pressure Data",
         "CANID_FREQUENCY":"50",
         "bytes":[
             {
@@ -72,7 +72,7 @@
     },
     {
         "CANID":"102",
-        "CANID_NAME":"Methane Pressure",
+        "CANID_NAME":"Methane Pressure Data",
         "CANID_FREQUENCY":"50",
         "bytes":[
             {
@@ -91,7 +91,7 @@
     },
     {
         "CANID":"103",
-        "CANID_NAME":"Chamber Pressure",
+        "CANID_NAME":"Chamber Pressure Data",
         "CANID_FREQUENCY":"50",
         "bytes":[
             {
@@ -110,7 +110,7 @@
     },
     {
         "CANID":"200",
-        "CANID_NAME":"Helium Fill Valve",
+        "CANID_NAME":"Helium Fill Valve State",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -129,7 +129,7 @@
     },
     {
         "CANID":"201",
-        "CANID_NAME":"LOX Fill Valve",
+        "CANID_NAME":"LOX Fill Valve State",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -148,7 +148,7 @@
     },
     {
         "CANID":"202",
-        "CANID_NAME":"Methane Fill Valve",
+        "CANID_NAME":"Methane Fill Valve State",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -167,7 +167,7 @@
     },
     {
         "CANID":"300",
-        "CANID_NAME":"Helium Tank Temperature",
+        "CANID_NAME":"Helium Tank Temperature Data",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -186,7 +186,7 @@
     },
     {
         "CANID":"301",
-        "CANID_NAME":"LOX Tank Temperature",
+        "CANID_NAME":"LOX Tank Temperature Data",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -205,7 +205,7 @@
     },
     {
         "CANID":"302",
-        "CANID_NAME":"Methane Tank Temperature",
+        "CANID_NAME":"Methane Tank Temperature Data",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -224,7 +224,7 @@
     },
     {
         "CANID":"303",
-        "CANID_NAME":"Nozzle Temperature",
+        "CANID_NAME":"Nozzle Temperature Data",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -243,7 +243,7 @@
     },
     {
         "CANID":"304",
-        "CANID_NAME":"Upper Air Frame Temperature",
+        "CANID_NAME":"Upper Air Frame Temperature Data",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -262,7 +262,7 @@
     },
     {
         "CANID":"400",
-        "CANID_NAME":"Helium PT Current",
+        "CANID_NAME":"Helium Pressure PT Current",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -273,7 +273,7 @@
             },
             {
                 "Size":2,
-                "Name":"Helium PT Current",
+                "Name":"Helium Pressure PT Current",
                 "Signed":"True",
                 "Units":"milliamps"
             }
@@ -281,7 +281,7 @@
     },
     {
         "CANID":"401",
-        "CANID_NAME":"LOX PT Current",
+        "CANID_NAME":"LOX Pressure PT Current",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -292,7 +292,7 @@
             },
             {
                 "Size":2,
-                "Name":"LOX PT Current",
+                "Name":"LOX Pressure PT Current",
                 "Signed":"True",
                 "Units":"milliamps"
             }
@@ -300,7 +300,7 @@
     },
     {
         "CANID":"402",
-        "CANID_NAME":"Methane PT Current",
+        "CANID_NAME":"Methane Pressure PT Current",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -311,7 +311,7 @@
             },
             {
                 "Size":2,
-                "Name":"Methane PT Current",
+                "Name":"Methane Pressure PT Current",
                 "Signed":"True",
                 "Units":"milliamps"
             }
@@ -319,7 +319,7 @@
     },
     {
         "CANID":"403",
-        "CANID_NAME":"Chamber PT Current",
+        "CANID_NAME":"Chamber Pressure PT Current",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -330,7 +330,7 @@
             },
             {
                 "Size":2,
-                "Name":"Chamber PT Current",
+                "Name":"Chamber Pressure PT Current",
                 "Signed":"True",
                 "Units":"milliamps"
             }
@@ -390,6 +390,44 @@
                 "Name":"Methane Fill Hall Effect Current",
                 "Signed":"True",
                 "Units":"milliamps"
+            }
+        ]
+    },
+    {
+        "CANID":"407",
+        "CANID_NAME":"Upper Air Frame Board Current",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"Upper Air Frame Board Current",
+                "Signed":"True",
+                "Units":"Milliamps"
+            }
+        ]
+    },
+    {
+        "CANID":"500",
+        "CANID_NAME":"Upper Air Frame Board VIN Voltage",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"Upper Air Frame Board VIN Voltage",
+                "Signed":"True",
+                "Units":"Millivolts"
             }
         ]
     }

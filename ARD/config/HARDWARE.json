@@ -9,7 +9,7 @@
         "Accuracy":"+-0.25%",
         "Min Pressure":"0",
         "Max Pressure":"5000",
-        "Data Frequency":"50",
+        "Sample Rate":"50",
         "Min Output Voltage":"1.0",
         "Max Output Voltage":"5.0",
         "Min Input Voltage":"8.0",
@@ -34,7 +34,7 @@
         "Accuracy":"+-0.25%",
         "Min Pressure":"0",
         "Max Pressure":"1500",
-        "Data Frequency":"50",
+        "Sample Rate":"50",
         "Min Output Voltage":"0.5",
         "Max Output Voltage":"4.5",
         "Min Input Voltage":"8.0",
@@ -56,7 +56,7 @@
         "Datasheet Link":"https://media.digikey.com/pdf/Data%20Sheets/Digilent%20PDFs/240-080_Web.pdf",
         "Type":"K",
         "Sensing Units":"Celcius",
-        "Data Frequency":"10",
+        "Sample Rate":"10",
         "Min Temperature":"-73",
         "Max Temperature":"+482"
     },
@@ -67,7 +67,7 @@
         "Datasheet Link":"https://assets.omega.com/spec/1PT100K-RTD-ELEMENTS.pdf",
         "Type":"PT100",
         "Sensing Units":"Celcius",
-        "Data Frequency":"10",
+        "Sample Rate":"10",
         "Min Temperature":"-200",
         "Max Temperature":"+850"
     },
@@ -82,7 +82,7 @@
         "Output Type":"Push-Pull",
         "Min Input Voltage":"2.3",
         "Max Input Voltage":"5.5",
-        "Data Frequency":"10",
+        "Sample Rate":"10",
         "Min Temperature":"-40",
         "Max Temperature":"+85"
     }
