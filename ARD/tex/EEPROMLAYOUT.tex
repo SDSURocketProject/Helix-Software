@@ -35,7 +35,7 @@ Byte \# & Usage & Byte \# & Usage & Byte \# & Usage \\\hline
 13 &  & 61 &  & 109 &  \\ 
 14 &  & 62 &  & 110 &  \\ 
 15 &  & 63 &  & 111 &  \\ \cline{1-2} \cline{3-4} \cline{5-6} 
-16 & \multirow{4}{0.9\linewidth}{\centering Board current CanID} & 64 & \multirow{4}{0.9\linewidth}{\centering PT0 Calibration Polyfit p4} & 112 & \multirow{4}{0.9\linewidth}{\centering PT1 Sample Rate} \\ 
+16 & \multirow{4}{0.9\linewidth}{\centering Board VIN Current CanID} & 64 & \multirow{4}{0.9\linewidth}{\centering PT0 Calibration Polyfit p4} & 112 & \multirow{4}{0.9\linewidth}{\centering PT1 Sample Rate} \\ 
 17 &  & 65 &  & 113 &  \\ 
 18 &  & 66 &  & 114 &  \\ 
 19 &  & 67 &  & 115 &  \\ \cline{1-2} \cline{3-4} \cline{5-6} 
@@ -55,11 +55,11 @@ Byte \# & Usage & Byte \# & Usage & Byte \# & Usage \\\hline
 33 &  & 81 &  &  & \\ 
 34 &  & 82 &  &  & \\ 
 35 &  & 83 &  &  & \\ \cline{1-2} \cline{3-4} 
-36 & \multirow{4}{0.9\linewidth}{\centering PT0 Max Voltage} & 84 & \multirow{4}{0.9\linewidth}{\centering PT0 Biquad Filter b1} &  & \\ 
+36 & \multirow{4}{0.9\linewidth}{\centering PT0 Max Output Voltage} & 84 & \multirow{4}{0.9\linewidth}{\centering PT0 Biquad Filter b1} &  & \\ 
 37 &  & 85 &  &  & \\ 
 38 &  & 86 &  &  & \\ 
 39 &  & 87 &  &  & \\ \cline{1-2} \cline{3-4} 
-40 & \multirow{4}{0.9\linewidth}{\centering PT0 Min Voltage} & 88 & \multirow{4}{0.9\linewidth}{\centering PT0 Biquad Filter b2} &  & \\ 
+40 & \multirow{4}{0.9\linewidth}{\centering PT0 Min Output Voltage} & 88 & \multirow{4}{0.9\linewidth}{\centering PT0 Biquad Filter b2} &  & \\ 
 41 &  & 89 &  &  & \\ 
 42 &  & 90 &  &  & \\ 
 43 &  & 91 &  &  & \\ \cline{1-2} \cline{3-4} 
@@ -99,11 +99,11 @@ Byte \# & Usage & Byte \# & Usage & Byte \# & Usage \\\hline
 145 &  & 193 &  & 241 &  \\ 
 146 &  & 194 &  & 242 &  \\ 
 147 &  & 195 &  & 243 &  \\ \cline{1-2} \cline{3-4} \cline{5-6} 
-148 & \multirow{4}{0.9\linewidth}{\centering PT1 Calibration Polyfit p5} & 196 & \multirow{4}{0.9\linewidth}{\centering PT2 Max Voltage} & 244 & \multirow{4}{0.9\linewidth}{\centering PT2 Biquad Filter b1} \\ 
+148 & \multirow{4}{0.9\linewidth}{\centering PT1 Calibration Polyfit p5} & 196 & \multirow{4}{0.9\linewidth}{\centering PT2 Max Output Voltage} & 244 & \multirow{4}{0.9\linewidth}{\centering PT2 Biquad Filter b1} \\ 
 149 &  & 197 &  & 245 &  \\ 
 150 &  & 198 &  & 246 &  \\ 
 151 &  & 199 &  & 247 &  \\ \cline{1-2} \cline{3-4} \cline{5-6} 
-152 & \multirow{4}{0.9\linewidth}{\centering PT1 Calibration Polyfit p6} & 200 & \multirow{4}{0.9\linewidth}{\centering PT2 Min Voltage} & 248 & \multirow{4}{0.9\linewidth}{\centering PT2 Biquad Filter b2} \\ 
+152 & \multirow{4}{0.9\linewidth}{\centering PT1 Calibration Polyfit p6} & 200 & \multirow{4}{0.9\linewidth}{\centering PT2 Min Output Voltage} & 248 & \multirow{4}{0.9\linewidth}{\centering PT2 Biquad Filter b2} \\ 
 153 &  & 201 &  & 249 &  \\ 
 154 &  & 202 &  & 250 &  \\ 
 155 &  & 203 &  & 251 &  \\ \cline{1-2} \cline{3-4} \cline{5-6} 
@@ -151,7 +151,7 @@ Byte \# & Usage & Byte \# & Usage & Byte \# & Usage \\\hline
 265 &  & 313 &  & 361 &  \\ 
 266 &  & 314 &  & 362 &  \\ 
 267 &  & 315 &  & 363 &  \\ \cline{1-2} \cline{3-4} \cline{5-6} 
-268 & \multirow{4}{0.9\linewidth}{\centering HE0 Data Frequency} & 316 & \multirow{4}{0.9\linewidth}{\centering TC0 Sample Rate} & 364 & \multirow{4}{0.9\linewidth}{\centering TC1 Biquad Filter a1} \\ 
+268 & \multirow{4}{0.9\linewidth}{\centering HE0 State Data Frequency} & 316 & \multirow{4}{0.9\linewidth}{\centering TC0 Sample Rate} & 364 & \multirow{4}{0.9\linewidth}{\centering TC1 Biquad Filter a1} \\ 
 269 &  & 317 &  & 365 &  \\ 
 270 &  & 318 &  & 366 &  \\ 
 271 &  & 319 &  & 367 &  \\ \cline{1-2} \cline{3-4} \cline{5-6} 
@@ -167,7 +167,7 @@ Byte \# & Usage & Byte \# & Usage & Byte \# & Usage \\\hline
 281 &  & 329 &  & 377 &  \\ 
 282 &  & 330 &  & 378 &  \\ 
 283 &  & 331 &  & 379 &  \\ \cline{1-2} \cline{3-4} \cline{5-6} 
-284 & \multirow{4}{0.9\linewidth}{\centering HE1 Data Frequency} & 332 & \multirow{4}{0.9\linewidth}{\centering TC0 Biquad Filter a1} & 380 & \multirow{4}{0.9\linewidth}{\centering RTD0 Sample Rate} \\ 
+284 & \multirow{4}{0.9\linewidth}{\centering HE1 State Data Frequency} & 332 & \multirow{4}{0.9\linewidth}{\centering TC0 Biquad Filter a1} & 380 & \multirow{4}{0.9\linewidth}{\centering RTD0 Sample Rate} \\ 
 285 &  & 333 &  & 381 &  \\ 
 286 &  & 334 &  & 382 &  \\ 
 287 &  & 335 &  & 383 &  \\ \cline{1-2} \cline{3-4} \cline{5-6} 
@@ -183,7 +183,7 @@ Byte \# & Usage & Byte \# & Usage & Byte \# & Usage \\\hline
 297 &  & 345 &  &  & \\ 
 298 &  & 346 &  &  & \\ 
 299 &  & 347 &  &  & \\ \cline{1-2} \cline{3-4} 
-300 & \multirow{4}{0.9\linewidth}{\centering HE2 Data Frequency} & 348 & \multirow{4}{0.9\linewidth}{\centering TC1 Sample Rate} &  & \\ 
+300 & \multirow{4}{0.9\linewidth}{\centering HE2 State Data Frequency} & 348 & \multirow{4}{0.9\linewidth}{\centering TC1 Sample Rate} &  & \\ 
 301 &  & 349 &  &  & \\ 
 302 &  & 350 &  &  & \\ 
 303 &  & 351 &  &  & \\ \cline{1-2} \cline{3-4} 

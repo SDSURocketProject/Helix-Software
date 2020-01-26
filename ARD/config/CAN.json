@@ -34,7 +34,7 @@
     },
     {
         "CANID":"100",
-        "CANID_NAME":"Helium Pressure Data",
+        "CANID_NAME":"Helium Pressure PT Data",
         "CANID_FREQUENCY":"50",
         "bytes":[
             {
@@ -53,7 +53,7 @@
     },
     {
         "CANID":"101",
-        "CANID_NAME":"Lox Pressure Data",
+        "CANID_NAME":"LOX Pressure PT Data",
         "CANID_FREQUENCY":"50",
         "bytes":[
             {
@@ -72,7 +72,7 @@
     },
     {
         "CANID":"102",
-        "CANID_NAME":"Methane Pressure Data",
+        "CANID_NAME":"Methane Pressure PT Data",
         "CANID_FREQUENCY":"50",
         "bytes":[
             {
@@ -91,7 +91,7 @@
     },
     {
         "CANID":"103",
-        "CANID_NAME":"Chamber Pressure Data",
+        "CANID_NAME":"Chamber Pressure PT Data",
         "CANID_FREQUENCY":"50",
         "bytes":[
             {
@@ -110,7 +110,7 @@
     },
     {
         "CANID":"200",
-        "CANID_NAME":"Helium Fill Valve State",
+        "CANID_NAME":"Helium Fill Valve Hall Effect State",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -121,7 +121,7 @@
             },
             {
                 "Size":1,
-                "Name":"Helium Fill Valve State",
+                "Name":"Helium Fill Valve Hall Effect State",
                 "Signed":"False",
                 "Units":"Open/Closed"
             }
@@ -129,7 +129,7 @@
     },
     {
         "CANID":"201",
-        "CANID_NAME":"LOX Fill Valve State",
+        "CANID_NAME":"LOX Fill Valve Hall Effect State",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -140,7 +140,7 @@
             },
             {
                 "Size":1,
-                "Name":"LOX Fill Valve State",
+                "Name":"LOX Fill Valve Hall Effect State",
                 "Signed":"False",
                 "Units":"Open/Closed"
             }
@@ -148,7 +148,7 @@
     },
     {
         "CANID":"202",
-        "CANID_NAME":"Methane Fill Valve State",
+        "CANID_NAME":"Methane Fill Valve Hall Effect State",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -159,7 +159,7 @@
             },
             {
                 "Size":1,
-                "Name":"Methane Fill Valve State",
+                "Name":"Methane Fill Valve Hall Effect State",
                 "Signed":"False",
                 "Units":"Open/Closed"
             }
@@ -338,7 +338,7 @@
     },
     {
         "CANID":"404",
-        "CANID_NAME":"Helium Fill Hall Effect Current",
+        "CANID_NAME":"Helium Fill Valve Hall Effect Current",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -349,7 +349,7 @@
             },
             {
                 "Size":2,
-                "Name":"Helium Fill Hall Effect Current",
+                "Name":"Helium Fill Valve Hall Effect Current",
                 "Signed":"True",
                 "Units":"milliamps"
             }
@@ -357,7 +357,7 @@
     },
     {
         "CANID":"405",
-        "CANID_NAME":"LOX Fill Hall Effect Current",
+        "CANID_NAME":"LOX Fill Valve Hall Effect Current",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -368,7 +368,7 @@
             },
             {
                 "Size":2,
-                "Name":"LOX Fill Hall Effect Current",
+                "Name":"LOX Fill Valve Hall Effect Current",
                 "Signed":"True",
                 "Units":"milliamps"
             }
@@ -376,7 +376,7 @@
     },
     {
         "CANID":"406",
-        "CANID_NAME":"Methane Fill Hall Effect Current",
+        "CANID_NAME":"Methane Fill Valve Hall Effect Current",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -387,7 +387,7 @@
             },
             {
                 "Size":2,
-                "Name":"Methane Fill Hall Effect Current",
+                "Name":"Methane Fill Valve Hall Effect Current",
                 "Signed":"True",
                 "Units":"milliamps"
             }
@@ -395,7 +395,7 @@
     },
     {
         "CANID":"407",
-        "CANID_NAME":"Upper Air Frame Board Current",
+        "CANID_NAME":"Upper Air Frame VIN Current",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -414,7 +414,7 @@
     },
     {
         "CANID":"500",
-        "CANID_NAME":"Upper Air Frame Board VIN Voltage",
+        "CANID_NAME":"Upper Air Frame VIN Voltage",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {

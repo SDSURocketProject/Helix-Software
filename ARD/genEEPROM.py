@@ -2,67 +2,136 @@ import json, os, genGeneric, struct, time
 
 def genEEPROMBIN():
     with open("config/EEPROM.json", 'r') as EEPROMConfigs:
-        configs = json.load(EEPROMConfigs)
+        SEBconfigs = json.load(EEPROMConfigs)
     with open("config/EEPROMLAYOUT.json", 'r') as EEPROMConfigs:
         layouts = json.load(EEPROMConfigs)
     with open("config/CAN.json", 'r') as CANFile:
         CANIDs = json.load(CANFile)
 
-    for config in configs:
-        binOut = getBin(config, layouts, CANIDs)
+    for SEBconfig in SEBconfigs:
+        binOut = getBin(SEBconfig, layouts, CANIDs)
         if (binOut == ""):
             return ""
         # Create a new file based on the SEB Name and write the binary to it
-        with open("memory/" + config['SEB Name'].replace(' ', '_') + "_SEB.mem", 'wb') as binFile:
+        with open("memory/" + SEBconfig['SEB Name'].replace(' ', '_') + "_SEB.mem", 'wb') as binFile:
             binFile.write(binOut)
 
     return "Success"
 
-# Generates the proper binary for the given config
-def getBin(config, layouts, CANIDs):    
+# Generates the proper binary for the given SEBconfig
+def getBin(SEBconfig, layouts, CANIDs):    
     # Find the proper layout for the given EEPROM file
     configLayout = ""
     for layout in layouts:
-        if (layout['VersionName'] == config['Layout Version Name']):
+        if (layout['VersionName'] == SEBconfig['Layout Version Name']):
             configLayout = layout
             break
     if (configLayout == ""):
-        print(f"Unable to find layout verion: \"{config['Layout Version Name']}\"")
+        print(f"Unable to find layout verion: \"{SEBconfig['Layout Version Name']}\"")
         return ""
 
-    # Get Layout Rev Number which should always be the first 4 bytes of a config
+    # Get Layout Rev Number which should always be the first 4 bytes of a SEBconfig
     if (configLayout['Data'][0]['Name'] != "Layout Rev Number"):
-        print(f"Error in EEPROM config \"{configLayout['Layout Version Name']}\"")
+        print(f"Error in EEPROM SEBconfig \"{configLayout['Layout Version Name']}\"")
         print("\"Layout Rev Number\" must be the the first 4 bytes of all memory layouts")
         return ""
     binOut = struct.pack("<" + configLayout['Data'][0]['Data Type'], int(configLayout['VersionID']))
 
     # Generate the binary for each memory location the the layout
+    # These come from EEPROMLAYOUT.json
     for memoryLocation in configLayout['Data']:
         if (memoryLocation['Name'] == "Layout Rev Number"):
             continue
         elif (memoryLocation['Name'] == "EEPROM Layout Compile Time"):
-            binOut += struct.pack("<" + memoryLocation['Data Type'], int(time.time()))
+            # Initialize with current epoch time
+            binOut += struct.pack("<" + memoryLocation['Data Type'], valueToDataType(memoryLocation['Data Type'], time.time()))
+        elif (memoryLocation['Name'] == "Board Status"):
+            # Initialize with null
+            binOut += struct.pack("<" + memoryLocation['Data Type'], 0)
+        elif (memoryLocation['Name'] == "Board VIN Voltage CanID"):
+            memoryLocationFullName = "Board VIN Voltage CanID".replace("Board", SEBconfig['SEB Name'])
+            for ID in CANIDs:
+                if (memoryLocationFullName.find(ID['CANID_NAME']) != -1):
+                    binOut += struct.pack("<" + memoryLocation['Data Type'], int(ID['CANID']))
+        elif (memoryLocation['Name'] == "Board VIN Current CanID"):
+            memoryLocationFullName = "Board VIN Current CanID".replace("Board", SEBconfig['SEB Name'])
+            for ID in CANIDs:
+                if (memoryLocationFullName.find(ID['CANID_NAME']) != -1):
+                    binOut += struct.pack("<" + memoryLocation['Data Type'], int(ID['CANID']))
+
         # Check if the memory location is for a sensor
-        elif (memoryLocation['Name'].split(' ')[0] in config):
-            binOut += sensorMemLocationToBin(memoryLocation, config, CANIDs)
+        # The first word in a sensor location will be a generic sensor name like PT0 or TC1 etc
+        elif (memoryLocation['Name'].split(' ')[0] in SEBconfig):
+            binOut += sensorMemLocationToBin(memoryLocation, SEBconfig, CANIDs)
         # Default to null initialized
         else:
             binOut += struct.pack("<" + memoryLocation['Data Type'], 0)
     return binOut
 
-def sensorMemLocationToBin(memoryLocation, config, CANIDs):
-    for sensor in config:
+# Generate the proper value for the given sensor memory location
+def sensorMemLocationToBin(memoryLocation, SEBconfig, CANIDs):
+    for sensor in SEBconfig:
         # Find the sensor for this memory location
         if (memoryLocation['Name'].split(' ')[0] != sensor):
             continue
         # Skip unused sensors
-        if (config[sensor]['Usage'] == "Unused"):
+        if (SEBconfig[sensor]['Usage'] == "Unused"):
             return struct.pack("<" + memoryLocation['Data Type'], 0)
-        # Check if memory location is for a CanID
-        if (memoryLocation['Name'].find("CanID") != -1):
-            print(config[sensor]['Usage'] + memoryLocation['Name'].lstrip(sensor).rstrip("CanID").rstrip())
+        # Check if memory location is for a CanID or the Data Frequency associated with a CanID
+        if (memoryLocation['Name'].find("CanID") != -1 or memoryLocation['Name'].find("Data Frequency") != -1):
+            # Expand full name of memory location ie "HE1 State CanID" -> "LOX Fill Valve State CanID"
+            memoryLocationFullName = memoryLocation['Name'].replace(memoryLocation['Name'].split(' ')[0], SEBconfig[sensor]['Usage'])
             for canID in CANIDs:
-                if (canID['CANID_NAME'] == config[sensor]['Usage'] + memoryLocation['Name'].lstrip(sensor).rstrip("CanID").rstrip()):
-                    return struct.pack("<" + memoryLocation['Data Type'], int(canID['CANID']))
+                # If the canID name is a substring of the full memory location name then they refer to the same thing
+                if (memoryLocationFullName.find(canID['CANID_NAME']) != -1):
+                    if (memoryLocation['Name'].find("CanID") != -1):
+                        return struct.pack("<" + memoryLocation['Data Type'], int(canID['CANID']))
+                    elif (memoryLocation['Name'].find("Data Frequency") != -1):
+                        return struct.pack("<" + memoryLocation['Data Type'], int(canID['CANID_FREQUENCY']))
+        # Check if memory location is for a filter value
+        if (memoryLocation['Name'].find("Filter") != -1):
+            FilterValue = SEBconfig[sensor]['Filter']
+            filterCoefficient = memoryLocation['Name'].split(' ')[-1]
+            with open("config/FILTERS.json", 'r') as filtersJSON:
+                filters = json.load(filtersJSON)
+            # Only using biquad filters here
+            for filterTypes in filters:
+                if filterTypes['Type'] != "Biquad":
+                    continue
+                biquadFilters = filterTypes['Filters']
+                if (FilterValue not in biquadFilters):
+                    print("Could not find proper filter for memory location + \"" + memoryLocation['Name'] + "\".")
+                    return struct.pack("<" + memoryLocation['Data Type'], 0)
+                return struct.pack("<" + memoryLocation['Data Type'], valueToDataType(memoryLocation['Data Type'], biquadFilters[FilterValue][filterCoefficient]))
+
+        # Check if memory location is for a hardware attribute
+        # Find hardware by serial number
+        with open("config/HARDWARE.json", 'r') as hardwareJSON:
+            hardware = json.load(hardwareJSON)
+        for hardwareComponent in hardware:
+            if (SEBconfig[sensor]['Serial Number'] != hardwareComponent['Serial Number']):
+                continue
+            # Found corresponding hardware, look for the particular parameter
+            for parameter in hardwareComponent:
+                if (memoryLocation['Name'].find(parameter) != -1):
+                    # Found the parameter for the given memory location
+                    return struct.pack("<" + memoryLocation['Data Type'], valueToDataType(memoryLocation['Data Type'], hardwareComponent[parameter]))
+        
     return struct.pack("<" + memoryLocation['Data Type'], 0)
+
+
+
+# Given the python struct format specifier convert value to that type
+def valueToDataType(dataType, value):
+    try:
+        if (dataType == "I"):
+            return abs(int(value))
+        if (dataType == "i"):
+            return int(value)
+        elif (dataType == "f"):
+            return float(value)
+        elif (dataType == "d"):
+            return float(value)
+    except ValueError:
+        print("Cannot convert " + str(value) + " to type \"" + str(dataType) + "\".\n")
+        return ""

@@ -26,7 +26,7 @@
             {
                 "Size":4,
                 "Data Type":"I",
-                "Name":"Board current CanID"
+                "Name":"Board VIN Current CanID"
             },
             {
                 "Size":4,
@@ -51,12 +51,12 @@
             {
                 "Size":4,
                 "Data Type":"f",
-                "Name":"PT0 Max Voltage"
+                "Name":"PT0 Max Output Voltage"
             },
             {
                 "Size":4,
                 "Data Type":"f",
-                "Name":"PT0 Min Voltage"
+                "Name":"PT0 Min Output Voltage"
             },
             {
                 "Size":4,
@@ -251,12 +251,12 @@
             {
                 "Size":4,
                 "Data Type":"f",
-                "Name":"PT2 Max Voltage"
+                "Name":"PT2 Max Output Voltage"
             },
             {
                 "Size":4,
                 "Data Type":"f",
-                "Name":"PT2 Min Voltage"
+                "Name":"PT2 Min Output Voltage"
             },
             {
                 "Size":4,
@@ -341,7 +341,7 @@
             {
                 "Size":4,
                 "Data Type":"I",
-                "Name":"HE0 Data Frequency"
+                "Name":"HE0 State Data Frequency"
             },
             {
                 "Size":4,
@@ -361,7 +361,7 @@
             {
                 "Size":4,
                 "Data Type":"I",
-                "Name":"HE1 Data Frequency"
+                "Name":"HE1 State Data Frequency"
             },
             {
                 "Size":4,
@@ -381,7 +381,7 @@
             {
                 "Size":4,
                 "Data Type":"I",
-                "Name":"HE2 Data Frequency"
+                "Name":"HE2 State Data Frequency"
             },
             {
                 "Size":4,

@@ -4,35 +4,42 @@
         "Layout Version Name":"Sensor Board Layout Rev 1",
         "PT0":{
             "Serial Number":"F8CEA38AA5",
-            "Usage":"Helium Pressure"
+            "Usage":"Helium Pressure PT",
+            "Filter":"None"
         },
         "PT1":{
             "Serial Number":"E5C0ADEA35",
-            "Usage":"Lox Pressure"
+            "Usage":"LOX Pressure PT",
+            "Filter":"None"
         },
         "PT2":{
             "Serial Number":"Unused",
-            "Usage":"Unused"
+            "Usage":"Unused",
+            "Filter":"None"
         },
         "TC0":{
             "Serial Number":"BB510C3CE3",
-            "Usage":"Upper Air Frame Temperature"
+            "Usage":"Upper Air Frame Temperature",
+            "Filter":"None"
         },
         "TC1":{
             "Serial Number":"Unused",
-            "Usage":"Unused"
+            "Usage":"Unused",
+            "Filter":"None"
         },
         "RTD0":{
-            " Serial Number":"1PT100K2515",
-            "Usage":"LOX Tank Temperature"
+            "Serial Number":"8105874731",
+            "Usage":"LOX Tank Temperature",
+            "Filter":"None"
         },
         "RTD1":{
-            " Serial Number":"Unused",
-            "Usage":"Unused"
+            "Serial Number":"Unused",
+            "Usage":"Unused",
+            "Filter":"None"
         },
         "HE0":{
             "Serial Number":"6D65BA9367",
-            "Usage":"LOX Fill Valve"
+            "Usage":"LOX Fill Valve Hall Effect"
         },
         "HE1":{
             "Serial Number":"Unused",
