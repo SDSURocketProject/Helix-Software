@@ -40,4 +40,8 @@ if __name__ == "__main__":
     headerCAN = genCAN.getHeader()
     with open ("../include/CANIDs.h", "w") as CAN_HEADER:
         CAN_HEADER.write(headerCAN)
+
+    headerEEPROMLAYOUT = genEEPROMLAYOUT.genEEPROMHEADER()
+    with open ("../include/EEPROM_Layout.h", "w") as EEPROM_LAYOUT_HEADER:
+        EEPROM_LAYOUT_HEADER.write(headerEEPROMLAYOUT)
     

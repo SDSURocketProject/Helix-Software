@@ -99,5 +99,57 @@ def genEEPROMTex(layout):
         texOut += "\\newpage\n\n"
     return texOut
 
+def genEEPROMHEADER():
+    with open("config/EEPROMLAYOUT.json", 'r') as EEPROMConfigs:
+        layouts = json.load(EEPROMConfigs)
+
+    headerOut = ""
+    headerOut += genGeneric.autogenWarnStart("EEPROM Layout Config", os.path.abspath(__file__), commentChar="//")
+    headerOut += "\n#ifndef EEPROM_LAYOUT_HEADER_H_\n"
+    headerOut += "#define EEPROM_LAYOUT_HEADER_H_\n\n"
+    
+    headerOut += "#include <stdint.h>\n\n"
+
+    layoutVersionIDs = {}
+    # Create struct definitions
+    for layout in layouts:
+        if (int(layout['VersionID']) in layoutVersionIDs):
+            print("Multiple EEPROM layouts declared with the same VersionID \'" + int(layout['VersionID']) + "\'\n")
+            return ""
+        layoutVersionIDs[int(layout['VersionID'])] = layout['VersionName'].lower().replace(" ", "_")
+
+        headerOut += "// EEPROM Layout Version ID " + layout['VersionID'] + "\n"
+        headerOut += "struct " + layout['VersionName'].lower().replace(" ", "_") + " {\n"
+        for memLoc in layout['Data']:
+            # Create variable type
+            if (memLoc['Data Type'] == "H" or memLoc['Data Type'] == "I" or memLoc['Data Type'] == "L" or memLoc['Data Type'] == "Q"):
+                headerOut += "\tuint" + str(int(memLoc['Size'])*8) + "_t "
+            elif (memLoc['Data Type'] == "h" or memLoc['Data Type'] == "i" or memLoc['Data Type'] == "l" or memLoc['Data Type'] == "q"):
+                headerOut += "\tint" + str(int(memLoc['Size'])*8) + "_t "
+            elif (memLoc['Data Type'] == "f"):
+                headerOut += "\tfloat "
+            elif (memLoc['Data Type'] == "d"):
+                headerOut += "\tdouble "
+            elif (memLoc['Data Type'] == "c"):
+                headerOut += "\tchar "
+            elif (memLoc['Data Type'] == "s" or memLoc['Data Type'] == "p"):
+                headerOut += "\tchar[] "
+            elif (memLoc['Data Type'] == "P"):
+                headerOut += "\tvoid *"
+            # Add name after variable type
+            headerOut += memLoc['Name'].replace(" ", "_") + ";\n"
+        headerOut += "}; // " + layout['VersionName'].lower().replace(" ", "_") + "\n\n"
+
+    # Create enum of versionIDs
+    headerOut += "enum layoutVersionIDs {\n"
+    for ID in layoutVersionIDs:
+        headerOut += "\t" + layoutVersionIDs[ID] + ", \t // " + str(ID) + "\n"
+    headerOut += "\tMAX_LAYOUT_VERSION_IDS\n"
+    headerOut += "};\n\n"
+
+    headerOut += "\n#endif // EEPROM_LAYOUT_HEADER_H_\n\n"
+    headerOut += genGeneric.autogenWarnEnd("EEPROM Layout Config", os.path.abspath(__file__), commentChar="//")
+    return headerOut
+
 if __name__ == "__main__":
     pass

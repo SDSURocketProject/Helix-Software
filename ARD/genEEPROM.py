@@ -120,6 +120,7 @@ def sensorMemLocationToBin(memoryLocation, SEBconfig, CANIDs):
         
     return packMemoryLocation(memoryLocation['Data Type'], 0)
 
+# Pack the given value into a struct with the given datatype
 def packMemoryLocation(dataType, value):
     memValue = ""
     try:
