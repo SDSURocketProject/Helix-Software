@@ -61,6 +61,17 @@
         "Max Temperature":"+482"
     },
     {
+        "Hardware Type":"Thermocouple",
+        "Model Number":"240-080",
+        "Serial Number":"BB51033CE3",
+        "Datasheet Link":"https://media.digikey.com/pdf/Data%20Sheets/Digilent%20PDFs/240-080_Web.pdf",
+        "Type":"K",
+        "Sensing Units":"Celcius",
+        "Sample Rate":"10",
+        "Min Temperature":"-73",
+        "Max Temperature":"+482"
+    },
+    {
         "Hardware Type":"RTD",
         "Model Number":"1PT100K2515",
         "Serial Number":"8105874731",

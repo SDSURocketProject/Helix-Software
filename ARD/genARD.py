@@ -19,10 +19,6 @@ if __name__ == "__main__":
     latexCAN = genCAN.getLatex()
     with open ("tex/CANIDs.tex", "w") as CAN_TEX:
         CAN_TEX.write(latexCAN)
-    
-    headerCAN = genCAN.getHeader()
-    with open ("../include/CANIDs.h", "w") as CAN_HEADER:
-        CAN_HEADER.write(headerCAN)
 
     # EEPROM
     latexEEPROMLAYOUT = genEEPROMLAYOUT.getLatex()
@@ -37,4 +33,11 @@ if __name__ == "__main__":
     with open ("tex/EEPROMLAYOUT.tex", 'w') as EEPROMLAYOUT_TEX:
         EEPROMLAYOUT_TEX.write(genEEPROMLAYOUT.getLatex())
 
+    # Generate Binary Files
     genEEPROM.genEEPROMBIN()
+
+    # Generate C/C++ Files
+    headerCAN = genCAN.getHeader()
+    with open ("../include/CANIDs.h", "w") as CAN_HEADER:
+        CAN_HEADER.write(headerCAN)
+    

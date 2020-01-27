@@ -3,7 +3,9 @@ import json, os, genGeneric
 def getLatex():	
     with open("config/HARDWARE.json") as hardwareIDs:
         data = json.load(hardwareIDs)
-
+    with open("config/EEPROM.json", 'r') as EEPROMConfigs:
+        SEBconfigs = json.load(EEPROMConfigs)
+    
     # Sort hardware based on hardware type
     PTs = []
     TCs = []
@@ -27,7 +29,7 @@ def getLatex():
             print(ID)
             return ""
     # Parse hardware configs to latex
-    texHARDWARE = genHARDWARETex(PTs, TCs, RTDs, HEs)
+    texHARDWARE = genHARDWARETex(PTs, TCs, RTDs, HEs, SEBconfigs)
     # Check for error in latex generation
     if (texHARDWARE == ""):
         return ""
@@ -41,7 +43,7 @@ def getLatex():
     texOut += genGeneric.autogenWarnEnd("Hardware Config", os.path.abspath(__file__))
     return texOut
 
-def genHARDWARETex(PTs, TCs, RTDs, HEs):
+def genHARDWARETex(PTs, TCs, RTDs, HEs, SEBconfigs):
     texOut = ""
 
     # Parse pressure transducers
@@ -52,6 +54,19 @@ def genHARDWARETex(PTs, TCs, RTDs, HEs):
             texOut += "\\begin{tabular}{|p{0.3\linewidth}|p{0.5\linewidth}|}\n\hline\n"
             texOut += "Model Number & " + PT['Model Number'] + "\\\\\hline\n"
             texOut += "Serial Number & " + PT['Serial Number'] + "\\\\\hline\n"
+            
+            # Check if hardware is used in SEBconfigs
+            Usage = ""
+            for config in SEBconfigs:
+                for item in config:
+                    if (item.find("PT") != -1):
+                        if (config[item]['Serial Number'] == PT['Serial Number']):
+                            Usage += "Usage & " + config[item]['Usage'] + "\\\\\hline\n"
+            if (Usage == ""):
+                texOut += "Usage & Unused\\\\\hline\n"
+            else:
+                texOut += Usage
+                
             texOut += "Datasheet Link & \href{" + PT['Datasheet Link'] + "}{Link}\\\\\hline\n"
             texOut += "Sensing Units & " + PT['Sensing Units'] + "\\\\\hline\n"
             texOut += "Pressure Port Type & " + PT['Pressure Port Type'] + "\\\\\hline\n"
@@ -77,6 +92,19 @@ def genHARDWARETex(PTs, TCs, RTDs, HEs):
             texOut += "\\begin{tabular}{|p{0.3\linewidth}|p{0.5\linewidth}|}\n\hline\n"
             texOut += "Model Number & " + TC['Model Number'] + "\\\\\hline\n"
             texOut += "Serial Number & " + TC['Serial Number'] + "\\\\\hline\n"
+            
+            # Check if hardware is used in SEBconfigs
+            Usage = ""
+            for config in SEBconfigs:
+                for item in config:
+                    if (item.find("TC") != -1):
+                        if (config[item]['Serial Number'] == TC['Serial Number']):
+                            Usage += "Usage & " + config[item]['Usage'] + "\\\\\hline\n"
+            if (Usage == ""):
+                texOut += "Usage & Unused\\\\\hline\n"
+            else:
+                texOut += Usage
+            
             texOut += "Datasheet Link & \href{" + TC['Datasheet Link'] + "}{Link}\\\\\hline\n"
             texOut += "Type & " + TC['Type'] + "\\\\\hline\n"
             texOut += "Sensing Units & " + TC['Sensing Units'] + "\\\\\hline\n"
@@ -98,6 +126,19 @@ def genHARDWARETex(PTs, TCs, RTDs, HEs):
             texOut += "\\begin{tabular}{|p{0.3\linewidth}|p{0.5\linewidth}|}\n\hline\n"
             texOut += "Model Number & " + RTD['Model Number'] + "\\\\\hline\n"
             texOut += "Serial Number & " + RTD['Serial Number'] + "\\\\\hline\n"
+
+            # Check if hardware is used in SEBconfigs
+            Usage = ""
+            for config in SEBconfigs:
+                for item in config:
+                    if (item.find("RTD") != -1):
+                        if (config[item]['Serial Number'] == RTD['Serial Number']):
+                            Usage += "Usage & " + config[item]['Usage'] + "\\\\\hline\n"
+            if (Usage == ""):
+                texOut += "Usage & Unused\\\\\hline\n"
+            else:
+                texOut += Usage
+
             texOut += "Datasheet Link & \href{" + RTD['Datasheet Link'] + "}{Link}\\\\\hline\n"
             texOut += "Type & " + RTD['Type'] + "\\\\\hline\n"
             texOut += "Sensing Units & " + RTD['Sensing Units'] + "\\\\\hline\n"
@@ -119,6 +160,18 @@ def genHARDWARETex(PTs, TCs, RTDs, HEs):
             texOut += "\\begin{tabular}{|p{0.3\linewidth}|p{0.5\linewidth}|}\n\hline\n"
             texOut += "Model Number & " + HE['Model Number'] + "\\\\\hline\n"
             texOut += "Serial Number & " + HE['Serial Number'] + "\\\\\hline\n"
+
+            # Check if hardware is used in SEBconfigs
+            Usage = ""
+            for config in SEBconfigs:
+                for item in config:
+                    if (item.find("HE") != -1):
+                        if (config[item]['Serial Number'] == HE['Serial Number']):
+                            Usage += "Usage & " + config[item]['Usage'] + "\\\\\hline\n"
+            if (Usage == ""):
+                texOut += "Usage & Unused\\\\\hline\n"
+            else:
+                texOut += Usage
             texOut += "Datasheet Link & \href{" + HE['Datasheet Link'] + "}{Link}\\\\\hline\n"
             texOut += "Sensing Units & " + HE['Sensing Units'] + "\\\\\hline\n"
             texOut += "Output Type & " + HE['Output Type'] + "\\\\\hline\n"
