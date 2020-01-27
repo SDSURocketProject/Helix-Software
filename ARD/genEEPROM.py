@@ -120,23 +120,6 @@ def sensorMemLocationToBin(memoryLocation, SEBconfig, CANIDs):
         
     return packMemoryLocation(memoryLocation['Data Type'], 0)
 
-
-
-# Given the python struct format specifier convert value to that type
-def valueToDataType(dataType, value):
-    try:
-        if (dataType == "I"):
-            return abs(int(value))
-        if (dataType == "i"):
-            return int(value)
-        elif (dataType == "f"):
-            return float(value)
-        elif (dataType == "d"):
-            return float(value)
-    except ValueError:
-        print("Cannot convert " + str(value) + " to type \"" + str(dataType) + "\".\n")
-        return ""
-
 def packMemoryLocation(dataType, value):
     memValue = ""
     try:
