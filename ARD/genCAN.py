@@ -1,4 +1,4 @@
-import json, os, genGeneric
+import json, os, genGeneric, math
 
 def getLatex():
     texOut = ""
@@ -8,8 +8,30 @@ def getLatex():
         data = json.load(canIDs)
     
     texOut += "\section{CAN IDs}\n"
+
+    texOut += "\subsection{CAN Bus Load Calculations}\n"
+    canBusFrequencies = [100000, 250000, 500000, 1000000]
+    bestCase, worstCase = getCANBusLoad()
+    texOut += "The current CAN Bus config requires between " + str(bestCase) + " bits and " + str(worstCase) + " bits to be sent on the CAN bus every second.\n\n"
+    texOut += "\\begin{flushleft}"
+    texOut += "\\begin{tabular}{|c|c|c|}\hline\n"
+    texOut += "\tFrequency & Best Case & Worst Case \\\\\hline\n"
+    for frequency in canBusFrequencies:
+        texOut += "\t"
+        if (frequency >= 1000000):
+            texOut += str(int(frequency/1000000)) + "MHz"
+        elif (frequency >= 1000):
+            texOut += str(int(frequency/1000)) + "KHz"
+        else:
+            texOut += str(int(frequency)) + "Hz"
+        
+        texOut += " & " + str(round(bestCase / frequency, 2)*100) + "\% & " + str(round(worstCase / frequency, 2)*100) + "\%\\\\\hline\n"
+    texOut += "\end{tabular}\n"
+    texOut += "\end{flushleft}"
     for ID in data:
         texOut += genCANTex(ID)
+
+
     
     texOut += genGeneric.autogenWarnEnd("CAN Config", os.path.abspath(__file__))
     
@@ -77,6 +99,43 @@ def genCANTex(config):
 def genCANHeader(config):
     headerOut = ""
     return headerOut
+
+def getCANBusLoad():
+    with open("config/CAN.json") as canIDs:
+        data = json.load(canIDs)
+    
+    # Calculate the total number of bits that need to be transmitted per second
+    minimumBits = 0
+    maximumBits = 0
+    for ID in data:
+        minimumBits = minimumBits + 1 # Start bit
+        minimumBits = minimumBits + 11 # Identifier
+        minimumBits = minimumBits + 1 # RTR bit
+        minimumBits = minimumBits + 6 # Control Field
+
+        # Calculate the number of bits in the message to send
+        IDbitsPerSecond = 0
+        for dataField in ID['bytes']:
+            IDbitsPerSecond = IDbitsPerSecond + int(dataField['Size'])*8
+        # Multiple by the number of times this ID will be sent per second
+        IDbitsPerSecond = IDbitsPerSecond*int(ID['CANID_FREQUENCY'])
+
+        minimumBits = minimumBits + IDbitsPerSecond # Payload
+        minimumBits = minimumBits + 15 # CRC
+
+        maximumBits = minimumBits + math.floor(minimumBits*0.2) # Worst case bit stuffing
+
+        minimumBits = minimumBits + 1 # CRC delimiter
+        minimumBits = minimumBits + 1 # ACK Slot
+        minimumBits = minimumBits + 1 # ACK delimiter
+        minimumBits = minimumBits + 7 # End of Frame
+
+        maximumBits = maximumBits + 1 # CRC delimiter
+        maximumBits = maximumBits + 1 # ACK Slot
+        maximumBits = maximumBits + 1 # ACK delimiter
+        maximumBits = maximumBits + 7 # End of Frame
+    
+    return (minimumBits, maximumBits)
 
 if __name__ == "__main__":
     pass
