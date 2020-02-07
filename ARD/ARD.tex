@@ -42,9 +42,38 @@
 \newpage
 
 \section{Introduction}
+The Avionics Reference Document (ARD) is a high level document describing what the onboard avionics system will do. The onboard avionics system is refered to as The Helix System. It consists of multiple circuit boards called Extention Boards which can read data from sensors through the rocket or interact with actuators throughout the rocket. These Extention boards are all connected together in a ring topology which allows new Extention Boards to be added or removed from the system without impacting performace of the rest of the system. These Extention Boards all connect with a central board called the Onboard Computer (OBC) which collects data, makes decisions based on data, communicates with ground support systems, and records data.
+
 \subsection{Purpose}
+The purpose of this document is to outline for non avionics members a unified reference for how the onbaord computer will behave and why. Primary focus will be given to the different states that the rocket can be in (ie dry systems, leak check), what actions will be performed in each state, and what causes the transition between different states. This will be documented through extensive use of state machine diagrams.
+
+Old version:\\
+The purpose of this document is to act as a reference for how the OBC will behave. This includes:
+\begin{enumerate}
+    \item How the system will react to failures such as disconnected sensors and over-pressurization events. 
+    \item The states the rocket can be in including dry systems, leak check, launch, or even a failure state.
+    \item The ranges and accuracy of sensors in the system.
+    \item The rate at which sensors will be measured at.
+    \item System architecture and how data flows throughout the system.
+\end{enumerate}
+
 \subsection{Scope}
+This document includes:
+\begin{enumerate}
+    \item How the system will react to failures such as disconnected sensors and over-pressurization events. 
+    \item The states the rocket can be in including dry systems, leak check, launch, or even a failure state.
+    \item The ranges and accuracy of sensors in the system.
+    \item The rate at which sensors will be measured at.
+    \item System architecture and how data flows throughout the system.
+\end{enumerate}
+
+
+Old version:\\
+This document should be viewed from the perspective of a non-avionics member who wants to know what the onboard avionics system will do. This means outlining that steps between turning the system on to launch and recovery of the rocket. Failure modes and how to deal with errors are outlined in this document. The ARD also contains information regarding hardware that will be onboard the rocket, it's specifications, and links to the relevant datasheets. Where appropriate more detailed technical information is included as reference material to the engineers designing the system.
+
 \subsection{Definitions and Acronyms}
+
+
 \newpage
 
 \pagebreak
