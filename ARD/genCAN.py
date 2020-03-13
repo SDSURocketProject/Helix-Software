@@ -40,6 +40,12 @@ def getLatex():
 def getHeader():
     headerOut = ""
     headerOut += genGeneric.autogenWarnStart("CAN Config", os.path.abspath(__file__), commentChar="//")
+
+    with open("config/CAN.json") as canIDs:
+        data = json.load(canIDs)
+
+    headerOut += genCANHeader(data)
+
     headerOut += genGeneric.autogenWarnEnd("CAN Config", os.path.abspath(__file__), commentChar="//")
     return headerOut
 
@@ -98,6 +104,39 @@ def genCANTex(config):
 
 def genCANHeader(config):
     headerOut = ""
+    headerOut += "#ifndef CANIDS_H_\n"
+    headerOut += "#define CANIDS_H_\n\n"
+
+    headerOut += "#include <linux/can.h>\n"
+    headerOut += "#include <stdint.h>\n\n"
+
+    headerOut += "enum STATES {\n"
+    headerOut += "\tSTATE_IDLE,\n"
+    headerOut += "\tSTATE_DEBUG,\n"
+    headerOut += "\tSTATE_DRY_SYSTEMS,\n"
+    headerOut += "\tSTATE_LEAK_CHECK,\n"
+    headerOut += "\tSTATE_FUELING,\n"
+    headerOut += "\tSTATE_LAUNCH,\n"
+    headerOut += "\tSTATE_STAGE_TWO,\n"
+    headerOut += "\tSTATE_RECOVERY,\n"
+    headerOut += "\tSTATE_GROUND_SAFE,\n"
+    headerOut += "\tSTATE_FLIGHT_SAFE,\n"
+    headerOut += "\tSTATE_MAX_STATES\n"
+    headerOut += "};\n\n"
+
+    headerOut += "enum CANIDs : uint32_t {\n"
+    for CANID in config:
+        headerOut += "\tCANIDS_" + CANID["CANID_NAME"].upper().replace(' ', '_') + " = " + CANID["CANID"] + "UL,\n"
+    headerOut += "\tCANIDS_MAX_CANID\n"
+    headerOut += "};\n\n"
+
+    for CANID in config:
+        headerOut += "struct " + CANID["CANID_NAME"].lower().replace(' ', '_') + " {\n"
+        for byteDef in CANID["bytes"]:
+            headerOut += "\t" + canIDByteToStdInt(byteDef) + " " + byteDef["Name"].lower().replace(' ', '_') + ";\n"
+        headerOut += "};\n\n"
+
+    headerOut += "#endif // CANIDS_H_\n"
     return headerOut
 
 def getCANBusLoad():
@@ -136,6 +175,14 @@ def getCANBusLoad():
         maximumBits = maximumBits + 7 # End of Frame
     
     return (minimumBits, maximumBits)
+
+# Go from byte definition to standard stdint.h value (ie unsigned 4 byte in -> uint32_t)
+def canIDByteToStdInt(byteDef):
+    valOut = ""
+    if (byteDef["Signed"] == "False"):
+        valOut += "u"
+    valOut += "int" + str(byteDef["Size"]*8) + "_t"
+    return valOut
 
 if __name__ == "__main__":
     pass
