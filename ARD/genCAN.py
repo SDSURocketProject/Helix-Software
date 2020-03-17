@@ -127,6 +127,7 @@ def genCANHeader(config):
     headerOut += "enum CANIDs : uint32_t {\n"
     for CANID in config:
         headerOut += "\tCANIDS_" + CANID["CANID_NAME"].upper().replace(' ', '_') + " = " + CANID["CANID"] + "UL,\n"
+    headerOut += "\tCANIDS_QUIT,\n"
     headerOut += "\tCANIDS_MAX_CANID\n"
     headerOut += "};\n\n"
 
