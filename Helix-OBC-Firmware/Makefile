@@ -1,0 +1,189 @@
+
+######################################
+# target
+######################################
+TARGET = Helix-OBC-Firmware
+
+
+######################################
+# building variables
+######################################
+# debug build?
+DEBUG = 1
+# optimization
+OPT = -Og
+
+#######################################
+# paths
+#######################################
+# source path
+SOURCES_DIR =  \
+src
+
+# firmware library path
+PERIFLIB_PATH = 
+
+# Build path
+BUILD_DIR = build
+
+######################################
+# source
+######################################
+# C sources
+C_SOURCES =  \
+src/canParseDefault.cpp \
+src/event.cpp \
+src/eventTimer.cpp \
+src/leakCheck.cpp \
+src/main.cpp \
+src/testThread.cpp
+
+# ASM sources
+ASM_SOURCES =  \
+
+
+######################################
+# firmware library
+######################################
+PERIFLIB_SOURCES = 
+
+
+#######################################
+# binaries
+#######################################
+#BINPATH = /opt/gcc-arm-8.3-2019.03-x86_64-arm-linux-gnueabihf/bin/
+BINPATH = 
+#PREFIX = arm-none-eabi-
+PREFIX = 
+CC = $(BINPATH)$(PREFIX)g++
+AS = $(BINPATH)$(PREFIX)g++ -x assembler-with-cpp
+CP = $(BINPATH)$(PREFIX)objcopy
+DP = $(BINPATH)$(PREFIX)objdump
+AR = $(BINPATH)$(PREFIX)ar
+SZ = $(BINPATH)$(PREFIX)size
+HEX = $(CP) -O ihex
+BIN = $(CP) -O binary -S
+ASM = $(DP) $(DPFLAGS)
+
+######################################
+# CFLAGS
+#######################################
+# cpu
+#CPU = -mcpu=cortex-m4
+
+
+# fpu
+#FPU = -mfpu=fpv4-sp-d16
+
+
+# float-abi
+#FLOAT-ABI = -mfloat-abi=hard
+
+
+# mcu
+#MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI)
+
+
+# macros for gcc
+# AS defines
+
+FPU =
+FLOAT-ABI = 
+MCU = 
+CPU =
+AS_DEFS = 
+
+# C defines
+C_DEFS =  \
+#-DUSE_HAL_DRIVER \
+#-DSTM32L476xx \
+#-DUSE_FULL_LL_DRIVER
+
+
+# AS includes
+AS_INCLUDES = 
+
+
+# C includes
+C_INCLUDES =  \
+-Iinc \
+-I../include \
+-I/usr/include/boost
+
+# compile gcc flags
+ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
+
+CFLAGS = $(MCU) $(C_DEFS) $(C_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
+
+# compile objdump flags
+DPFLAGS = --disassemble -M intel
+
+ifeq ($(DEBUG), 1)
+CFLAGS += -g -gdwarf-2
+endif
+
+#######################################
+# LDFLAGS
+#######################################
+# link script
+#LDSCRIPT = STM32L476RGTx_FLASH.ld
+
+# libraries
+#LIBS = -lc -lm -lnosys -lboost_system -lboost_thread -lpthread
+LIBS = -lboost_system -lboost_thread -lpthread
+LIBDIR = 
+#LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
+LDFLAGS = $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
+
+
+.PHONY: documentation
+
+all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET).asm
+	
+
+#######################################
+# build the application
+#######################################
+# list of objects
+OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(C_SOURCES:.cpp=.o)))
+vpath %.cpp $(sort $(dir $(C_SOURCES)))
+# list of ASM program objects
+OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES:.s=.o)))
+vpath %.s $(sort $(dir $(ASM_SOURCES)))
+
+hello:
+	$(OBJECTS)
+
+$(BUILD_DIR)/%.o: %.cpp Makefile | $(BUILD_DIR)
+	$(CC) -c $(CFLAGS) -Wa,-a,-ad,-alms=$(BUILD_DIR)/$(notdir $(<:.cpp=.lst)) $< -o $@
+
+$(BUILD_DIR)/%.o: %.s Makefile | $(BUILD_DIR)
+	$(AS) -c $(CFLAGS) $< -o $@
+
+$(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) Makefile
+	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
+	$(SZ) $@
+
+$(BUILD_DIR)/%.hex: $(BUILD_DIR)/%.elf | $(BUILD_DIR)
+	$(HEX) $< $@
+	
+$(BUILD_DIR)/%.bin: $(BUILD_DIR)/%.elf | $(BUILD_DIR)
+	$(BIN) $< $@
+
+$(BUILD_DIR)/%.asm: $(BUILD_DIR)/%.elf | $(BUILD_DIR)
+	$(ASM) $< > $@
+
+#$(BUILD_DIR)/$(TARGET).asm: $(BUILD_DIR)/%.elf | $(BUILD_DIR)
+#	$(DP) $(DPFLAGS) $(BUILD_DIR)/$(TARGET).elf > $(BUILD_DIR)/$(TARGET).asm
+
+$(BUILD_DIR):
+	mkdir $@	
+
+#######################################
+# clean up
+#######################################
+clean:
+	-rm -fR .dep $(BUILD_DIR)
+
+documentation:
+	doxygen

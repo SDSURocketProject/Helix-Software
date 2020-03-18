@@ -5,7 +5,7 @@ import genCAN
 import genHARDWARE
 
 if __name__ == "__main__":
-    os.chdir("ARD/")
+    #os.chdir("ARD/")
     
     # HARDWARE
     latexHARDWARE = genHARDWARE.getLatex()
