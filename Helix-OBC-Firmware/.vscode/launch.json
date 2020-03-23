@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/main.out",
+            "program": "${workspaceFolder}/build/Helix-OBC-Firmware.elf",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

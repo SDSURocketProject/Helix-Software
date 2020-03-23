@@ -30,13 +30,15 @@ BUILD_DIR = build
 # source
 ######################################
 # C sources
-C_SOURCES =  \
-src/canParseDefault.cpp \
-src/event.cpp \
-src/eventTimer.cpp \
-src/leakCheck.cpp \
-src/main.cpp \
-src/testThread.cpp
+#C_SOURCES =  \
+#src/canParseDefault.cpp \
+#src/event.cpp \
+#src/eventTimer.cpp \
+#src/leakCheck.cpp \
+#src/main.cpp \
+#src/testThread.cpp
+
+C_SOURCES := $(wildcard src/*.cpp)
 
 # ASM sources
 ASM_SOURCES =  \
@@ -65,7 +67,7 @@ HEX = $(CP) -O ihex
 BIN = $(CP) -O binary -S
 ASM = $(DP) $(DPFLAGS)
 
-######################################
+#######################################
 # CFLAGS
 #######################################
 # cpu
@@ -136,14 +138,6 @@ LIBDIR =
 LDFLAGS = $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
 
 
-.PHONY: documentation
-
-all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET).asm
-	
-
-#######################################
-# build the application
-#######################################
 # list of objects
 OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(C_SOURCES:.cpp=.o)))
 vpath %.cpp $(sort $(dir $(C_SOURCES)))
@@ -151,11 +145,22 @@ vpath %.cpp $(sort $(dir $(C_SOURCES)))
 OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES:.s=.o)))
 vpath %.s $(sort $(dir $(ASM_SOURCES)))
 
-hello:
-	$(OBJECTS)
+#######################################
+# Dependencies
+#######################################
+DEPS := $(OBJECTS:.o=.d)
+
+-include $(DEPS)
+
+#######################################
+# build the application
+#######################################
+.PHONY: documentation
+
+all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET).asm
 
 $(BUILD_DIR)/%.o: %.cpp Makefile | $(BUILD_DIR)
-	$(CC) -c $(CFLAGS) -Wa,-a,-ad,-alms=$(BUILD_DIR)/$(notdir $(<:.cpp=.lst)) $< -o $@
+	$(CC) -c $(CFLAGS) -Wa,-a,-ad,-alms=$(BUILD_DIR)/$(notdir $(<:.cpp=.lst)) -MMD -MF $(patsubst %.o,%.d,$@) $< -o $@
 
 $(BUILD_DIR)/%.o: %.s Makefile | $(BUILD_DIR)
 	$(AS) -c $(CFLAGS) $< -o $@
@@ -184,6 +189,13 @@ $(BUILD_DIR):
 #######################################
 clean:
 	-rm -fR .dep $(BUILD_DIR)
+	-rm -fR documentation/
 
 documentation:
 	doxygen
+	doxygen Doxyfile_With_ARD
+
+# Function used to check variables. Use on the command line:
+# make print-VARNAME
+# Useful for debugging and adding features
+print-%: ; @echo $*=$($*)
