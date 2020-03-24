@@ -6,7 +6,7 @@
 #include <chrono>
 
 /**
- * @addtogroup leakCheckGroup
+ * @addtogroup stateLeakCheckGroup
  * @{
  * 
  * @cond COMPILING_LATEX
@@ -24,8 +24,7 @@
  * @return Returns the state to move into
  * 
  * @cond COMPILING_LATEX
- * @verbatim CANID_DEF @endverbatim
- * \subsubsection{Helium Pressure PT Data}
+ * @verbatim CANID_DEF (Helium Pressure PT Data) @endverbatim
  * 
  * @endcond
  * 
@@ -105,5 +104,5 @@ uint32_t leakCheckInit(uint32_t (*canParseFunctions[CANIDS_MAX_CANID]) (can_fram
 }
 
 /**
- * @} leakCheckGroup
+ * @} stateLeakCheckGroup
  */

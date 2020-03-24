@@ -3,6 +3,7 @@ import genEEPROMLAYOUT
 import genEEPROM
 import genCAN
 import genHARDWARE
+import parseOBCDocs
 
 if __name__ == "__main__":
     #os.chdir("ARD/")
@@ -14,6 +15,14 @@ if __name__ == "__main__":
         quit()
     with open ("tex/HARDWARE.tex", "w") as HARDWARE_TEX:
         HARDWARE_TEX.write(latexHARDWARE)
+
+    # STATES
+    latexSTATES = parseOBCDocs.getLatex()
+    if (latexSTATES == ""):
+        print("Failed to get documentation from Helix-OBC-Firmware documentation, exiting...")
+        quit()
+    with open ("tex/STATES.tex", "w") as STATES_TEX:
+        STATES_TEX.write(latexSTATES)
 
     # CAN
     latexCAN = genCAN.getLatex()

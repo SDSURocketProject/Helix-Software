@@ -110,17 +110,12 @@ def genCANHeader(config):
     headerOut += "#include <linux/can.h>\n"
     headerOut += "#include <stdint.h>\n\n"
 
+    with open("config/STATES.json") as statesJSON:
+        states = json.load(statesJSON)
+
     headerOut += "enum STATES {\n"
-    headerOut += "\tSTATE_IDLE,\n"
-    headerOut += "\tSTATE_DEBUG,\n"
-    headerOut += "\tSTATE_DRY_SYSTEMS,\n"
-    headerOut += "\tSTATE_LEAK_CHECK,\n"
-    headerOut += "\tSTATE_FUELING,\n"
-    headerOut += "\tSTATE_LAUNCH,\n"
-    headerOut += "\tSTATE_STAGE_TWO,\n"
-    headerOut += "\tSTATE_RECOVERY,\n"
-    headerOut += "\tSTATE_GROUND_SAFE,\n"
-    headerOut += "\tSTATE_FLIGHT_SAFE,\n"
+    for state in states:
+        headerOut += "\t" + state + ",\n"
     headerOut += "\tSTATE_MAX_STATES\n"
     headerOut += "};\n\n"
 

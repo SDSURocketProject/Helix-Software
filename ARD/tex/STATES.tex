@@ -1,0 +1,16 @@
+\section{States}
+\subsection{STATE LEAK CHECK}
+\subsubsection{Helium Pressure PT Data}
+
+
+
+\begin{DoxyRetVals}{Return values}
+{\em S\+T\+A\+T\+E\+\_\+\+L\+E\+A\+K\+\_\+\+C\+H\+E\+CK} & Continue in the leak check state. \\
+\hline
+{\em S\+T\+A\+T\+E\+\_\+\+I\+D\+LE} & Finished leak check so return to the idle state. \\
+\hline
+{\em S\+T\+A\+T\+E\+\_\+\+G\+R\+O\+U\+N\+D\+\_\+\+S\+A\+FE} & Return to the ground safe state because the helium tank pressure is overpressurized.\\
+\hline
+\end{DoxyRetVals}
+When Helium Pressure PT Data is received the C\+A\+N\+ID will be printed to stdout and the data will be printed as a string to stdout. The current time and data with milliseconds is then printed to stdout. The received can\+\_\+frame is added to the event\+Timer so that the received frame will be receved again in 1 second. The system then continues on in the leak check state.
+
