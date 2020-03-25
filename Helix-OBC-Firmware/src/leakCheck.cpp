@@ -68,7 +68,7 @@ uint32_t parseHeliumPressurePTData(can_frame *data) {
  * 
  * Prints a warning to stdout that the system is entering the leak check state.
  */
-uint32_t leakCheckEnter() {
+static uint32_t leakCheckEnter(can_frame *data) {
     BOOST_LOG_TRIVIAL(info) << "Starting Leak Check.\n";
     return 0;
 }
@@ -79,7 +79,7 @@ uint32_t leakCheckEnter() {
  * 
  * Prints a warning to stdout that the system is exiting the leak check state.
  */
-uint32_t leakCheckExit() {
+static uint32_t leakCheckExit(can_frame *data) {
     BOOST_LOG_TRIVIAL(info) << "Exiting Leak Check.\n";
     return 0;
 }
@@ -90,10 +90,13 @@ uint32_t leakCheckExit() {
  * 
  * The CAN Bus messages that need to be parsed uniquely to the leak check state are assigned to the canParse Functions array.
  */
-uint32_t leakCheckInit(uint32_t (*canParseFunctions[CANIDS_MAX_CANID]) (can_frame *)) {
+uint32_t leakCheckInit(uint32_t (*canParseFunctions[CANIDS_EXTENDED_MAX]) (can_frame *)) {
+    canParseFunctions[CANIDS_EXTENDED_STATE_ENTER] = leakCheckEnter;
+    canParseFunctions[CANIDS_EXTENDED_STATE_EXIT] = leakCheckExit;
+    
     canParseFunctions[CANIDS_HELIUM_PRESSURE_PT_DATA] = parseHeliumPressurePTData;
     canParseFunctions[CANIDS_LOX_PRESSURE_PT_DATA] = parseHeliumPressurePTData;
-
+    
     return 0;
 }
 

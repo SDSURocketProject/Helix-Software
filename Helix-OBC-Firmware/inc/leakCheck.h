@@ -2,6 +2,7 @@
 #define LEAK_CHECK_H_
 
 #include "CANIDs.h"
+#include "Helix-OBC-Firmware.h"
 
 /**
  * @defgroup stateLeakCheckGroup Leak Check
@@ -10,8 +11,7 @@
  * @{
  */
 
-uint32_t leakCheckExit();
-uint32_t leakCheckInit(uint32_t (*canParseFunctions[CANIDS_MAX_CANID]) (can_frame *));
+uint32_t leakCheckInit(uint32_t (*canParseFunctions[CANIDS_EXTENDED_MAX]) (can_frame *));
 
 /**
  * @} stateLeakCheckGroup
