@@ -2,10 +2,11 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
+#include <boost/log/trivial.hpp>
 
 
 uint32_t canParseNothing(can_frame *data) {
-    std::cout << "canParseNothing called\n";
+    BOOST_LOG_TRIVIAL(info) << "canParseNothing called";
     return 0;
 }
 
@@ -31,10 +32,10 @@ void eventParse(bounded_buffer<struct can_frame>& thing) {
     
 
     if (leakCheckInit(canParseFunctions[STATE_LEAK_CHECK]) > 0) {
-        std::cout << "Leak Check init Error\n";
+        BOOST_LOG_TRIVIAL(error) << "Leak Check init Error";
     }
     else {
-        std::cout << "Leak Check CAN parser init completed without error.\n";
+        BOOST_LOG_TRIVIAL(info) << "Leak Check CAN parser init completed without error.";
     }
 
     struct can_frame item;

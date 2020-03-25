@@ -59,6 +59,8 @@
         "typeinfo": "cpp",
         "bounded_buffer.hpp": "c",
         "testthread.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "strstream": "cpp",
+        "cfenv": "cpp"
     }
 }

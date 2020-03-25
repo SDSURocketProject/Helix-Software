@@ -1,6 +1,7 @@
 #include "leakCheck.h"
 #include "eventTimer.h"
 #include <iostream>
+#include <boost/log/trivial.hpp>
 
 #include <thread>
 #include <chrono>
@@ -49,17 +50,10 @@
 uint32_t parseHeliumPressurePTData(can_frame *data) {
     //struct helium_pressure_pt_data *pressurePTData = data;
     //! Print out CANID and Data from the can_frame
-    std::cout << "CANID: " << data->can_id << "\n";
-    std::cout << "Data: " << data->data << "\n";
-
-    //! Print out the current time with milliseconds
-    std::chrono::system_clock::time_point p = std::chrono::system_clock::now();
-
-    std::chrono::milliseconds ms = std::chrono::duration_cast<std::chrono::milliseconds>(p.time_since_epoch());
-    std::chrono::seconds s = std::chrono::duration_cast<std::chrono::seconds>(ms);
-    std::time_t t = s.count();
-    std::size_t fracSeconds = ms.count() % 1000;
-    std::cout << "Time: " << std::ctime(&t) << " " << fracSeconds << "\n";
+    //std::cout << "CANID: " << data->can_id << "\n";
+    //std::cout << "Data: " << data->data << "\n";
+    BOOST_LOG_TRIVIAL(trace) << "CANID: " << data->can_id;
+    BOOST_LOG_TRIVIAL(info) << "Data: " << data->data;
 
     //! Send this can_frame again in seconds
     eventTimerPushEvent(data, 1000);
@@ -75,7 +69,7 @@ uint32_t parseHeliumPressurePTData(can_frame *data) {
  * Prints a warning to stdout that the system is entering the leak check state.
  */
 uint32_t leakCheckEnter() {
-    std::cout << "Starting Leak Check.\n";
+    BOOST_LOG_TRIVIAL(info) << "Starting Leak Check.\n";
     return 0;
 }
 
@@ -86,7 +80,7 @@ uint32_t leakCheckEnter() {
  * Prints a warning to stdout that the system is exiting the leak check state.
  */
 uint32_t leakCheckExit() {
-    std::cout << "Exiting Leak Check.\n";
+    BOOST_LOG_TRIVIAL(info) << "Exiting Leak Check.\n";
     return 0;
 }
 

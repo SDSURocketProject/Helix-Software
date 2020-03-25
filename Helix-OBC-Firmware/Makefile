@@ -115,7 +115,7 @@ C_INCLUDES =  \
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
 
-CFLAGS = $(MCU) $(C_DEFS) $(C_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
+CFLAGS = $(MCU) $(C_DEFS) $(C_INCLUDES) $(OPT) -DBOOST_LOG_DYN_LINK -Wall -fdata-sections -ffunction-sections
 
 # compile objdump flags
 DPFLAGS = --disassemble -M intel
@@ -132,7 +132,7 @@ endif
 
 # libraries
 #LIBS = -lc -lm -lnosys -lboost_system -lboost_thread -lpthread
-LIBS = -lboost_system -lboost_thread -lpthread
+LIBS = -lboost_system -lboost_thread -lpthread -lboost_log_setup -lboost_log
 LIBDIR = 
 #LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
 LDFLAGS = $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
