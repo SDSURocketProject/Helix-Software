@@ -26,13 +26,11 @@ int initLogger() {
         keywords::file_name = "sample_%N.log",
         keywords::rotation_size = 10 * 1024 * 1024,
         keywords::time_based_rotation = sinks::file::rotation_at_time_interval(boost::posix_time::hours(1)),
-        //keywords::format = "[%Severity%] [%TimeStamp%]: %Message%"
         keywords::format =
         (
             expr::stream
-                << expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d %H:%M:%S")
-                //<< " ThreadID " << expr::attr< boost::thread::id >("ThreadID")
-                << " ThreadID " << expr::attr< boost::log::attributes::current_thread_id::value_type >("ThreadID")
+                << expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d %H:%M:%S.%f")
+                << " {" << expr::attr< boost::log::attributes::current_thread_id::value_type >("ThreadID") << "}"
                 << ": <" << logging::trivial::severity
                 << "> " << expr::smessage
         )
