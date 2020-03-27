@@ -11,7 +11,7 @@ uint32_t canParseNothing(can_frame *data) {
 }
 
 // A 2d array containing function pointers for each canID for each possible state
-static uint32_t (*canParseFunctions[STATE_MAX_STATES][CANIDS_EXTENDED_MAX]) (can_frame *);
+static enum STATES (*canParseFunctions[STATE_MAX_STATES][CANIDS_EXTENDED_MAX]) (can_frame *);
 // An array of function pointers for default processing of canIDs
 static uint32_t (*canParseFunctionsDefault[CANIDS_EXTENDED_MAX]) (can_frame *);
 
@@ -45,7 +45,7 @@ void eventParse(bounded_buffer<struct can_frame>& thing) {
     }
 
     // Use default parsing for can messages
-    for (uint32_t state = 0; state < STATE_MAX_STATES; state++) {
+    for (uint32_t state = STATE_IDLE; state < STATE_MAX_STATES; state++) {
         for (uint32_t canID = 0; canID < CANIDS_EXTENDED_MAX; canID++) {
             canParseFunctions[state][canID] = NULL;
         }
@@ -58,8 +58,8 @@ void eventParse(bounded_buffer<struct can_frame>& thing) {
     }
     
     struct can_frame item;
-    uint32_t currentState = STATE_LEAK_CHECK;
-    uint32_t nextState;
+    enum STATES currentState = STATE_LEAK_CHECK;
+    enum STATES nextState = STATE_LEAK_CHECK;
 
     while (item.can_id != CANIDS_QUIT) {
         thing.pop_back(&item);

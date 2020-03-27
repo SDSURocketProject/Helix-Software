@@ -11,7 +11,7 @@
  * @{
  */
 
-uint32_t leakCheckInit(uint32_t (*canParseFunctions[CANIDS_EXTENDED_MAX]) (can_frame *));
+uint32_t leakCheckInit(enum STATES (*canParseFunctions[CANIDS_EXTENDED_MAX]) (can_frame *));
 
 /**
  * @} stateLeakCheckGroup
