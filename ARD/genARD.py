@@ -23,6 +23,12 @@ if __name__ == "__main__":
     if ("--headers-only" in sys.argv):
         exit(0)
     
+    # Create tex directory if it doesn't already exist
+    try:
+        os.mkdir("tex")
+    except FileExistsError:
+        pass
+
     # HARDWARE
     print("Generating \"tex/HARDWARE.tex\"")
     latexHARDWARE = genHARDWARE.getLatex()
@@ -59,6 +65,12 @@ if __name__ == "__main__":
         print("Failed to create ARD.pdf.")
     else:
         print("ARD.pdf successfully written.")
+
+    # Create memory directory if it doesn't already exist
+    try:
+        os.mkdir("memory")
+    except FileExistsError:
+        pass
 
     # Generate Binary Files
     print("Generating EEPROM memory files")
