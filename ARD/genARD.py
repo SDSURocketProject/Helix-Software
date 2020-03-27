@@ -1,4 +1,5 @@
 import os
+import sys
 import genEEPROMLAYOUT
 import genEEPROM
 import genCAN
@@ -7,6 +8,18 @@ import parseOBCDocs
 
 if __name__ == "__main__":
     #os.chdir("ARD/")
+
+    # Generate C/C++ Files
+    headerCAN = genCAN.getHeader()
+    with open ("../Helix-OBC-Firmware/inc/CANIDs.h", "w") as CAN_HEADER:
+        CAN_HEADER.write(headerCAN)
+
+    headerEEPROMLAYOUT = genEEPROMLAYOUT.genEEPROMHEADER()
+    with open ("../Helix-OBC-Firmware/inc/EEPROM_Layout.h", "w") as EEPROM_LAYOUT_HEADER:
+        EEPROM_LAYOUT_HEADER.write(headerEEPROMLAYOUT)
+
+    if ("--headers-only" in sys.argv):
+        exit(0)
     
     # HARDWARE
     latexHARDWARE = genHARDWARE.getLatex()
@@ -44,13 +57,4 @@ if __name__ == "__main__":
 
     # Generate Binary Files
     genEEPROM.genEEPROMBIN()
-
-    # Generate C/C++ Files
-    headerCAN = genCAN.getHeader()
-    with open ("../Helix-OBC-Firmware/inc/CANIDs.h", "w") as CAN_HEADER:
-        CAN_HEADER.write(headerCAN)
-
-    headerEEPROMLAYOUT = genEEPROMLAYOUT.genEEPROMHEADER()
-    with open ("../Helix-OBC-Firmware/inc/EEPROM_Layout.h", "w") as EEPROM_LAYOUT_HEADER:
-        EEPROM_LAYOUT_HEADER.write(headerEEPROMLAYOUT)
     

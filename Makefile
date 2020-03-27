@@ -2,13 +2,16 @@
 all: OBC-firmware documentation
 
 
-documentation: OBC-firmware-documentation
-	cd ARD && make	
+documentation: ARD-headers OBC-firmware-documentation
+	cd ARD && python3 genARD.py
 
-OBC-firmware:
+ARD-headers:
+	make -C ARD/ headers
+
+OBC-firmware: ARD-headers
 	cd Helix-OBC-Firmware && make
 
-OBC-firmware-documentation:
+OBC-firmware-documentation: ARD-headers
 	cd Helix-OBC-Firmware && make documentation
 
 clean:
