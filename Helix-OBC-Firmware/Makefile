@@ -109,7 +109,6 @@ AS_INCLUDES =
 # C includes
 C_INCLUDES =  \
 -Iinc \
--I../include \
 -I/usr/include/boost
 
 # compile gcc flags

@@ -47,10 +47,10 @@ if __name__ == "__main__":
 
     # Generate C/C++ Files
     headerCAN = genCAN.getHeader()
-    with open ("../include/CANIDs.h", "w") as CAN_HEADER:
+    with open ("../Helix-OBC-Firmware/inc/CANIDs.h", "w") as CAN_HEADER:
         CAN_HEADER.write(headerCAN)
 
     headerEEPROMLAYOUT = genEEPROMLAYOUT.genEEPROMHEADER()
-    with open ("../include/EEPROM_Layout.h", "w") as EEPROM_LAYOUT_HEADER:
+    with open ("../Helix-OBC-Firmware/inc/EEPROM_Layout.h", "w") as EEPROM_LAYOUT_HEADER:
         EEPROM_LAYOUT_HEADER.write(headerEEPROMLAYOUT)
     
