@@ -8,6 +8,7 @@
 
 void eventTimer(bounded_buffer<struct can_frame>&);
 uint32_t eventTimerPushEvent(can_frame *, int);
+uint32_t eventTimerClear();
 uint32_t eventTimerExit();
 
 #endif // EVENTTIMER_H_

@@ -4,6 +4,7 @@
 #include <chrono>
 #include <condition_variable>
 #include <mutex>
+#include <boost/circular_buffer.hpp>
 
 //!< Contains a can frame to be sent to the CANBUS queue after the wakeTime has passed.
 struct timer_can_frame {
@@ -18,10 +19,12 @@ struct timer_can_frame {
     }
 };
 
-static std::priority_queue<struct timer_can_frame, std::vector<struct timer_can_frame>, timer_can_frame> timerQueue;
+//static std::priority_queue<struct timer_can_frame, std::vector<struct timer_can_frame>, timer_can_frame> timerQueue;
+static boost::circular_buffer<struct timer_can_frame> timerQueue(50);
 static std::mutex timerQueueMutex;
 static std::condition_variable timerQueueCV;
 std::atomic<bool> runEventTimer;
+std::atomic<bool> pauseEventTimer;
 
 /**
  * @brief Event timer thread that pushes can_frames onto the the CANBus queue at designated times.
@@ -29,11 +32,13 @@ std::atomic<bool> runEventTimer;
  * @return
  */
 void eventTimer(bounded_buffer<struct can_frame>& CANBus) {
-    struct timer_can_frame timerFrame;
+    auto timerFrame = timerQueue.begin();
+
     runEventTimer = true;
+    
     while (runEventTimer == true) {
         std::unique_lock<std::mutex> lk(timerQueueMutex);
-
+        
         // Wait until the timerQueue is not empty
         timerQueueCV.wait(lk, []{return !timerQueue.empty();});
 
@@ -41,17 +46,22 @@ void eventTimer(bounded_buffer<struct can_frame>& CANBus) {
         if (!runEventTimer) {
             break;
         }
-
-        // Get the highest priority frame off the queue
-        timerFrame = timerQueue.top();
-
+        
+        // Get the frame that needs to be sent the soonest
+        timerFrame = timerQueue.begin();
+        for (auto timerQueueIt = timerQueue.begin(); timerQueueIt < timerQueue.end(); timerQueueIt++) {
+            if (timerQueueIt->wakeTime < timerFrame->wakeTime) {
+                timerFrame = timerQueueIt;
+            }
+        }
+        
         // Wait until it's either time to send the message or a new message has been put onto the priority queue
-        timerQueueCV.wait_until(lk, timerFrame.wakeTime);
-
+        timerQueueCV.wait_until(lk, timerFrame->wakeTime);
+        
         // Time has ellapsed and the timerQueue has not been cleared, send message
-        if (std::chrono::system_clock::now() > timerFrame.wakeTime && !timerQueue.empty()) {
-            CANBus.push_front(timerFrame.canFrame);
-            timerQueue.pop();
+        if (std::chrono::system_clock::now() > timerFrame->wakeTime && !timerQueue.empty()) {
+            CANBus.push_front(timerFrame->canFrame);
+            timerQueue.erase(timerFrame);
         }
     }
 }
@@ -62,16 +72,14 @@ uint32_t eventTimerPushEvent(can_frame *frame, int milliseconds) {
     timerFrame.wakeTime = std::chrono::system_clock::now() + std::chrono::milliseconds(milliseconds);
 
     std::lock_guard<std::mutex> lk(timerQueueMutex);
-    timerQueue.push(timerFrame);
+    timerQueue.push_back(timerFrame);
     timerQueueCV.notify_one();
     return 0;
 }
 
 uint32_t eventTimerClear() {
     std::lock_guard<std::mutex> lk(timerQueueMutex);
-    while (!timerQueue.empty()) {
-        timerQueue.pop();
-    }
+    timerQueue.clear();
     timerQueueCV.notify_one();
     return 0;
 }
