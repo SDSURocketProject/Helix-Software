@@ -5,6 +5,7 @@
 #include <condition_variable>
 #include <mutex>
 #include <boost/circular_buffer.hpp>
+#include <boost/log/trivial.hpp>
 
 //!< Contains a can frame to be sent to the CANBUS queue after the wakeTime has passed.
 struct timer_can_frame {
@@ -33,6 +34,8 @@ std::atomic<bool> pauseEventTimer;
  */
 void eventTimer(bounded_buffer<struct can_frame>& CANBus) {
     auto timerFrame = timerQueue.begin();
+
+    BOOST_LOG_TRIVIAL(trace) << "Start eventTimer thread";
 
     runEventTimer = true;
     

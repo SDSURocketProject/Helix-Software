@@ -5,6 +5,9 @@
 
 void testing(bounded_buffer<struct can_frame>& thing) {
     struct can_frame data;
+
+    BOOST_LOG_TRIVIAL(trace) << "Start test thread";
+
     data.can_id = CANIDS_HELIUM_PRESSURE_PT_DATA;
     data.data[0] = 'h';
     data.data[1] = 'e';

@@ -37,6 +37,8 @@ static uint32_t checkInitFunction(enum STATES state, std::string stateName, uint
 void eventParse(bounded_buffer<struct can_frame>& thing) {
     uint32_t result = 0;
 
+    BOOST_LOG_TRIVIAL(trace) << "Start event thread";
+
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     // Set default parsing functions
