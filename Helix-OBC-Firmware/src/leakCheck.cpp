@@ -57,6 +57,15 @@ enum STATES parseHeliumPressurePTData(can_frame *data) {
 
     //! Send this can_frame again in seconds
     eventTimerPushEvent(data, 1000);
+    data->can_id -= 1;
+    eventTimerPushEvent(data, 800);
+    data->can_id -= 1;
+    eventTimerPushEvent(data, 900);
+
+    static int i = 0;
+    if (i++ > 3) {
+        eventTimerErase([](uint32_t cmpID)->bool {return (cmpID < CANIDS_HELIUM_PRESSURE_PT_DATA);});
+    }
 
     //! Continue in the leak check state.
     return STATE_LEAK_CHECK;

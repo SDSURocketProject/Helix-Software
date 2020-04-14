@@ -25,7 +25,7 @@ static boost::circular_buffer<struct timer_can_frame> timerQueue(50);
 static std::mutex timerQueueMutex;
 static std::condition_variable timerQueueCV;
 std::atomic<bool> runEventTimer;
-std::atomic<bool> pauseEventTimer;
+std::atomic<bool> skipPushEventTimer;
 
 /**
  * @brief Event timer thread that pushes can_frames onto the the CANBus queue at designated times.
@@ -38,6 +38,7 @@ void eventTimer(bounded_buffer<struct can_frame>& CANBus) {
     BOOST_LOG_TRIVIAL(trace) << "Start eventTimer thread";
 
     runEventTimer = true;
+    skipPushEventTimer = false;
     
     while (runEventTimer == true) {
         std::unique_lock<std::mutex> lk(timerQueueMutex);
@@ -61,6 +62,11 @@ void eventTimer(bounded_buffer<struct can_frame>& CANBus) {
         // Wait until it's either time to send the message or a new message has been put onto the priority queue
         timerQueueCV.wait_until(lk, timerFrame->wakeTime);
         
+        if (skipPushEventTimer) {
+            skipPushEventTimer = false;
+            continue;
+        }
+
         // Time has ellapsed and the timerQueue has not been cleared, send message
         if (std::chrono::system_clock::now() > timerFrame->wakeTime && !timerQueue.empty()) {
             CANBus.push_front(timerFrame->canFrame);
@@ -83,6 +89,19 @@ uint32_t eventTimerPushEvent(can_frame *frame, int milliseconds) {
 uint32_t eventTimerClear() {
     std::lock_guard<std::mutex> lk(timerQueueMutex);
     timerQueue.clear();
+    timerQueueCV.notify_one();
+    return 0;
+}
+
+uint32_t eventTimerErase(bool (*cmpFunc)(uint32_t)) {
+    std::lock_guard<std::mutex> lk(timerQueueMutex);
+
+    for (auto it = timerQueue.begin(); it < timerQueue.end(); it++) {
+        if (cmpFunc((uint32_t)it->canFrame.can_id)) {
+            timerQueue.erase(it--);
+        }
+    }
+    
     timerQueueCV.notify_one();
     return 0;
 }

@@ -2,6 +2,7 @@
 #include <thread>
 #include <chrono>
 #include <boost/log/trivial.hpp>
+#include "eventTimer.h"
 
 void testing(bounded_buffer<struct can_frame>& thing) {
     struct can_frame data;
@@ -16,6 +17,10 @@ void testing(bounded_buffer<struct can_frame>& thing) {
     data.data[4] = 'o';
     data.data[5] = '\0';
     thing.push_front(data);
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+
+    
 
     std::this_thread::sleep_for(std::chrono::milliseconds(10000));
     data.can_id = CANIDS_QUIT;
