@@ -6,6 +6,23 @@
 #include <thread>
 #include <chrono>
 
+static uint16_t heliumPressureStartLeakCheck;
+
+static enum STATES checkHeliumPressure(can_frame *data) {
+    struct helium_pressure_pt_data *canData = reinterpret_cast<struct helium_pressure_pt_data *>(data->data);
+
+    // If helium pressure dropped more than 10 psi
+    if (heliumPressureStartLeakCheck - canData->helium_pressure > 10) {
+        BOOST_LOG_TRIVIAL(warning) << "Failed leak check, helium dropped " << heliumPressureStartLeakCheck - canData->helium_pressure << "PSI.";
+        return STATE_IDLE;
+    }
+    else {
+        BOOST_LOG_TRIVIAL(info) << "Passed helium leak check.";
+    }
+
+    return STATE_LEAK_CHECK;
+}
+
 /**
  * @addtogroup stateLeakCheckGroup
  * @{
@@ -47,24 +64,29 @@
  * The following will be done when Helium Pressure PTData is received while in the leak check state:
  * \n
  */
-enum STATES parseHeliumPressurePTData(can_frame *data) {
+static enum STATES parseHeliumPressurePTData(can_frame *data) {
     //struct helium_pressure_pt_data *pressurePTData = data;
     //! Print out CANID and Data from the can_frame
     //std::cout << "CANID: " << data->can_id << "\n";
     //std::cout << "Data: " << data->data << "\n";
+
+    struct helium_pressure_pt_data *canData = reinterpret_cast<struct helium_pressure_pt_data *>(data->data);
+
     BOOST_LOG_TRIVIAL(trace) << "CANID: " << data->can_id;
-    BOOST_LOG_TRIVIAL(info) << "Data: " << data->data;
+    BOOST_LOG_TRIVIAL(trace) << "Data: " << canData->helium_pressure;
 
-    //! Send this can_frame again in seconds
-    eventTimerPushEvent(data, 1000);
-    data->can_id -= 1;
-    eventTimerPushEvent(data, 800);
-    data->can_id -= 1;
-    eventTimerPushEvent(data, 900);
+    if (canData->helium_pressure > 300) {
+        return STATE_GROUND_SAFE;
+    }
 
-    static int i = 0;
-    if (i++ > 3) {
-        eventTimerErase([](uint32_t cmpID)->bool {return (cmpID < CANIDS_HELIUM_PRESSURE_PT_DATA);});
+    if (heliumPressureStartLeakCheck == 0) {
+        BOOST_LOG_TRIVIAL(info) << "Started check on helium pressure, initial pressure: " << canData->helium_pressure;
+
+        heliumPressureStartLeakCheck = canData->helium_pressure;
+        struct can_frame checkHeliumPressureEvent;
+        checkHeliumPressureEvent.can_id = CANIDS_LEAK_CHECK_HELIUM_PRESSURE_CHECK;
+        // Check pressure again in 5 seconds
+        eventTimerPushEvent(&checkHeliumPressureEvent, 5000);
     }
 
     //! Continue in the leak check state.
@@ -78,7 +100,9 @@ enum STATES parseHeliumPressurePTData(can_frame *data) {
  * Prints a warning to stdout that the system is entering the leak check state.
  */
 enum STATES leakCheckEnter(can_frame *data) {
-    BOOST_LOG_TRIVIAL(info) << "Starting Leak Check.\n";
+    BOOST_LOG_TRIVIAL(info) << "Starting Leak Check.";
+    // Start helium leak check on next helium PT measurement
+    heliumPressureStartLeakCheck = 0;
     return STATE_LEAK_CHECK;
 }
 
@@ -89,7 +113,9 @@ enum STATES leakCheckEnter(can_frame *data) {
  * Prints a warning to stdout that the system is exiting the leak check state.
  */
 enum STATES leakCheckExit(can_frame *data) {
-    BOOST_LOG_TRIVIAL(info) << "Exiting Leak Check.\n";
+    BOOST_LOG_TRIVIAL(info) << "Exiting Leak Check.";
+    // Remove all events that were intended for leak check
+    eventTimerErase([](uint32_t cmpID)->bool {return (cmpID >= CANIDS_LEAK_CHECK_HELIUM_PRESSURE_CHECK);});
     return STATE_LEAK_CHECK;
 }
 
@@ -105,6 +131,7 @@ uint32_t leakCheckInit(enum STATES (*canParseFunctions[CANIDS_EXTENDED_MAX]) (ca
     
     canParseFunctions[CANIDS_HELIUM_PRESSURE_PT_DATA] = parseHeliumPressurePTData;
     canParseFunctions[CANIDS_LOX_PRESSURE_PT_DATA] = parseHeliumPressurePTData;
+    canParseFunctions[CANIDS_LEAK_CHECK_HELIUM_PRESSURE_CHECK] = checkHeliumPressure;
     
     return 0;
 }

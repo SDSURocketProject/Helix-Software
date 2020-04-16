@@ -4,6 +4,8 @@
 #include <chrono>
 #include <boost/log/trivial.hpp>
 #include "Helix-OBC-Firmware.h"
+#include "leakCheck.h"
+#include "groundSafeState.h"
 
 uint32_t canParseNothing(can_frame *data) {
     BOOST_LOG_TRIVIAL(info) << "canParseNothing called with id " << data->can_id;
@@ -56,6 +58,12 @@ void eventParse(bounded_buffer<struct can_frame>& canEventQueue) {
 
     result = leakCheckInit(canParseFunctions[STATE_LEAK_CHECK]);
     result = checkInitFunction(STATE_LEAK_CHECK, "Leak check", result);
+    if (result != 0) {
+        // exit?
+    }
+
+    result = groundSafeStateInit(canParseFunctions[STATE_GROUND_SAFE]);
+    result = checkInitFunction(STATE_GROUND_SAFE, "Ground Safe State", result);
     if (result != 0) {
         // exit?
     }
