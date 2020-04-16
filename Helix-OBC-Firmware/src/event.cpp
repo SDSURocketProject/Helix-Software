@@ -34,7 +34,7 @@ static uint32_t checkInitFunction(enum STATES state, std::string stateName, uint
     }
 }
 
-void eventParse(bounded_buffer<struct can_frame>& thing) {
+void eventParse(bounded_buffer<struct can_frame>& canEventQueue) {
     uint32_t result = 0;
 
     BOOST_LOG_TRIVIAL(trace) << "Start event thread";
@@ -49,6 +49,7 @@ void eventParse(bounded_buffer<struct can_frame>& thing) {
     // Use default parsing for can messages
     for (uint32_t state = STATE_IDLE; state < STATE_MAX_STATES; state++) {
         for (uint32_t canID = 0; canID < CANIDS_EXTENDED_MAX; canID++) {
+            // If callback points to null it is assumed the functionality in not implemented
             canParseFunctions[state][canID] = NULL;
         }
     }
@@ -59,29 +60,35 @@ void eventParse(bounded_buffer<struct can_frame>& thing) {
         // exit?
     }
     
-    struct can_frame item;
+    struct can_frame canEvent;
     enum STATES currentState = STATE_LEAK_CHECK;
     enum STATES nextState = STATE_LEAK_CHECK;
 
-    while (item.can_id != CANIDS_QUIT) {
-        thing.pop_back(&item);
-        if (item.can_id & CAN_EFF_FLAG) {
+    while (canEvent.can_id != CANIDS_QUIT) {
+        // Get next item off can event queue
+        canEventQueue.pop_back(&canEvent);
+
+        // Check flags from CAN Bus transaction
+        if (canEvent.can_id & CAN_EFF_FLAG) {
             // EFF/SFF is set in the MSB
         }
-        else if (item.can_id & CAN_RTR_FLAG) {
+        else if (canEvent.can_id & CAN_RTR_FLAG) {
             // remote transmission request
         }
-        else if (item.can_id & CAN_ERR_FLAG) {
+        else if (canEvent.can_id & CAN_ERR_FLAG) {
             // error message frame
             continue;
         }
 
-        if (canParseFunctions[currentState][item.can_id] == NULL) {
-            canParseFunctionsDefault[item.can_id](&item);
+        // Check if current state implements functionality for the received CAN event
+        if (canParseFunctions[currentState][canEvent.can_id] != NULL) {
+            nextState = canParseFunctions[currentState][canEvent.can_id](&canEvent);
         }
         else {
-            nextState = canParseFunctions[currentState][item.can_id](&item);
+            canParseFunctionsDefault[canEvent.can_id](&canEvent);
         }
+
+        // If transitioning between states call the corresponding exit state callback and enter state callback
         if (nextState != currentState) {
             canParseFunctions[currentState][CANIDS_EXTENDED_STATE_EXIT](nullptr);
             canParseFunctions[nextState][CANIDS_EXTENDED_STATE_ENTER](nullptr);
