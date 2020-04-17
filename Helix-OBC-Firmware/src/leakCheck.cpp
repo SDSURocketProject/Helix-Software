@@ -7,14 +7,15 @@
 #include <chrono>
 
 static uint16_t heliumPressureStartLeakCheck;
+static uint16_t heliumLastPressure;
 
 static enum STATES checkHeliumPressure(can_frame *data) {
-    struct helium_pressure_pt_data *canData = reinterpret_cast<struct helium_pressure_pt_data *>(data->data);
+    int32_t pressureDifference = (int32_t)heliumPressureStartLeakCheck - (int32_t)heliumLastPressure;
 
     // If helium pressure dropped more than 10 psi
-    if (heliumPressureStartLeakCheck - canData->helium_pressure > 10) {
-        BOOST_LOG_TRIVIAL(warning) << "Failed leak check, helium dropped " << heliumPressureStartLeakCheck - canData->helium_pressure << "PSI.";
-        return STATE_IDLE;
+    if (pressureDifference > 10) {
+        BOOST_LOG_TRIVIAL(warning) << "Failed leak check, helium dropped " << pressureDifference << "PSI.";
+        return STATE_LEAK_CHECK;
     }
     else {
         BOOST_LOG_TRIVIAL(info) << "Passed helium leak check.";
@@ -89,6 +90,8 @@ static enum STATES parseHeliumPressurePTData(can_frame *data) {
         eventTimerPushEvent(&checkHeliumPressureEvent, 5000);
     }
 
+    heliumLastPressure = canData->helium_pressure;
+    
     //! Continue in the leak check state.
     return STATE_LEAK_CHECK;
 }

@@ -18,9 +18,13 @@ void testing(bounded_buffer<struct can_frame>& thing) {
 
     for (unsigned int i = 0; i < 50*10; i++) {
         canData.utc_time = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();
-#if 0        
+#if 0
         if (canData.helium_pressure < 320) {
             canData.helium_pressure += 2;
+        }
+#elif 0
+        if (canData.helium_pressure > 80) {
+            canData.helium_pressure -= 1;
         }
 #endif
         memcpy(data.data, &canData, sizeof(struct helium_pressure_pt_data));
