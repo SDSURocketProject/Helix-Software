@@ -7,7 +7,10 @@ import genHARDWARE
 import parseOBCDocs
 
 if __name__ == "__main__":
-    #os.chdir("ARD/")
+    
+    # If script is being run from top level directory we need to cd to the ARD directory    
+    if (os.getcwd().split('/')[-1] != "ARD"):
+        os.chdir("ARD/")
 
     # Generate C/C++ Files
     print("Generating \"CANIDs.h\" for Helix-OBC-Firmware")
