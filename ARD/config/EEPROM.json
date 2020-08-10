@@ -1,6 +1,6 @@
 [
     {
-        "SEB Name":"Upper Air Frame",
+        "EB Name":"Upper Air Frame",
         "Layout Version Name":"Sensor Board Layout Rev 1",
         "PT0":{
             "Serial Number":"F8CEA38AA5",
@@ -26,6 +26,7 @@
         "TC0":{
             "Serial Number":"Unused",
             "Usage":"Unused",
+            "CANID_DATA":"0",
             "Filter":"None"
         },
         "TC1":{
@@ -71,7 +72,7 @@
         }
     },
     {
-        "SEB Name":"ITC",
+        "EB Name":"ITC",
         "Layout Version Name":"Sensor Board Layout Rev 1",
         "PT0":{
             "Serial Number":"F8CEA38AA5",
@@ -109,7 +110,7 @@
         "RTD0":{
             "Serial Number":"8105874731",
             "Usage":"LOX Tank Temperature",
-            "CANID_DATA":"3000",
+            "CANID_DATA":"300",
             "Filter":"None"
         },
         "RTD1":{
@@ -143,7 +144,7 @@
         }
     },
     {
-        "SEB Name":"Lower Air Frame",
+        "EB Name":"Lower Air Frame",
         "Layout Version Name":"Sensor Board Layout Rev 1",
         "PT0":{
             "Serial Number":"F8CEA38AA5",

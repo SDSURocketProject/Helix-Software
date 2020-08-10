@@ -331,7 +331,7 @@
             {
                 "Size":4,
                 "Data Type":"I",
-                "Name":"HE0 State CanID"
+                "Name":"HE0 Data CanID"
             },
             {
                 "Size":4,
@@ -341,7 +341,7 @@
             {
                 "Size":4,
                 "Data Type":"I",
-                "Name":"HE0 State Data Frequency"
+                "Name":"HE0 Data Frequency"
             },
             {
                 "Size":4,
@@ -351,7 +351,7 @@
             {
                 "Size":4,
                 "Data Type":"I",
-                "Name":"HE1 State CanID"
+                "Name":"HE1 Data CanID"
             },
             {
                 "Size":4,
@@ -361,7 +361,7 @@
             {
                 "Size":4,
                 "Data Type":"I",
-                "Name":"HE1 State Data Frequency"
+                "Name":"HE1 Data Frequency"
             },
             {
                 "Size":4,
@@ -371,7 +371,7 @@
             {
                 "Size":4,
                 "Data Type":"I",
-                "Name":"HE2 State CanID"
+                "Name":"HE2 Data CanID"
             },
             {
                 "Size":4,
@@ -381,7 +381,7 @@
             {
                 "Size":4,
                 "Data Type":"I",
-                "Name":"HE2 State Data Frequency"
+                "Name":"HE2 Data Frequency"
             },
             {
                 "Size":4,
