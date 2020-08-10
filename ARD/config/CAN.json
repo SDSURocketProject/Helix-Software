@@ -33,6 +33,61 @@
         ]
     },
     {
+        "CANID":"50",
+        "CANID_NAME":"Transition Cone Status",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":1,
+                "Name":"Status",
+                "Signed":"False",
+                "Units":"",
+                "bits":[
+                    {
+                        "0":"Armed",
+                        "1":""
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "CANID":"60",
+        "CANID_NAME":"Arm Recovery",
+        "CANID_FREQUENCY":"0",
+        "bytes":[
+            {
+                "Size":1,
+                "Name":"Status",
+                "Signed":"False",
+                "Units":"",
+                "bits":[
+                    {
+                        "0":"Arm Recovery"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "CANID":"61",
+        "CANID_NAME":"Detatch Second Stage",
+        "CANID_FREQUENCY":"0",
+        "bytes":[
+            {
+                "Size":1,
+                "Name":"Status",
+                "Signed":"False",
+                "Units":"",
+                "bits":[
+                    {
+                        "0":"Detatch Second Stage"
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "CANID":"100",
         "CANID_NAME":"Helium Pressure PT Data",
         "CANID_FREQUENCY":"50",
@@ -72,7 +127,7 @@
     },
     {
         "CANID":"102",
-        "CANID_NAME":"Methane Pressure PT Data",
+        "CANID_NAME":"Ethanol Pressure PT Data",
         "CANID_FREQUENCY":"50",
         "bytes":[
             {
@@ -83,7 +138,7 @@
             },
             {
                 "Size":2,
-                "Name":"Methane Pressure",
+                "Name":"Ethanol Pressure",
                 "Signed":"False",
                 "Units":"PSIG"
             }
@@ -148,7 +203,7 @@
     },
     {
         "CANID":"202",
-        "CANID_NAME":"Methane Fill Valve Hall Effect State",
+        "CANID_NAME":"Ethanol Fill Valve Hall Effect State",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -159,15 +214,15 @@
             },
             {
                 "Size":1,
-                "Name":"Methane Fill Valve Hall Effect State",
+                "Name":"Ethanol Fill Valve Hall Effect State",
                 "Signed":"False",
                 "Units":"Open/Closed"
             }
         ]
     },
     {
-        "CANID":"300",
-        "CANID_NAME":"Helium Tank Temperature Data",
+        "CANID":"250",
+        "CANID_NAME":"LOX Tank Liquid Level Data",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -177,15 +232,34 @@
                 "Units":"Milliseconds"
             },
             {
-                "Size":2,
-                "Name":"Helium Tank Temperature",
-                "Signed":"True",
-                "Units":"Celcius"
+                "Size":1,
+                "Name":"LOX Tank Liquid Level",
+                "Signed":"False",
+                "Units":"Percent"
             }
         ]
     },
     {
-        "CANID":"301",
+        "CANID":"251",
+        "CANID_NAME":"Ethanol Tank Liquid Level Data",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":1,
+                "Name":"Ethanol Tank Liquid Level",
+                "Signed":"False",
+                "Units":"Percent"
+            }
+        ]
+    },
+    {
+        "CANID":"300",
         "CANID_NAME":"LOX Tank Temperature Data",
         "CANID_FREQUENCY":"10",
         "bytes":[
@@ -204,8 +278,8 @@
         ]
     },
     {
-        "CANID":"302",
-        "CANID_NAME":"Methane Tank Temperature Data",
+        "CANID":"301",
+        "CANID_NAME":"Ethanol Tank Temperature Data",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -216,14 +290,14 @@
             },
             {
                 "Size":2,
-                "Name":"Methane Tank Temperature",
+                "Name":"Ethanol Tank Temperature",
                 "Signed":"True",
                 "Units":"Celcius"
             }
         ]
     },
     {
-        "CANID":"303",
+        "CANID":"302",
         "CANID_NAME":"Nozzle Temperature Data",
         "CANID_FREQUENCY":"10",
         "bytes":[
@@ -242,7 +316,7 @@
         ]
     },
     {
-        "CANID":"304",
+        "CANID":"303",
         "CANID_NAME":"Upper Air Frame Temperature Data",
         "CANID_FREQUENCY":"10",
         "bytes":[
@@ -255,6 +329,44 @@
             {
                 "Size":2,
                 "Name":"Upper Air Frame Temperature",
+                "Signed":"True",
+                "Units":"Celcius"
+            }
+        ]
+    },
+    {
+        "CANID":"304",
+        "CANID_NAME":"ITC Temperature Data",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"ITC Temperature",
+                "Signed":"True",
+                "Units":"Celcius"
+            }
+        ]
+    },
+    {
+        "CANID":"305",
+        "CANID_NAME":"Lower Air Frame Temperature Data",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"Lower Air Frame Temperature",
                 "Signed":"True",
                 "Units":"Celcius"
             }
@@ -300,7 +412,7 @@
     },
     {
         "CANID":"402",
-        "CANID_NAME":"Methane Pressure PT Current",
+        "CANID_NAME":"Ethanol Pressure PT Current",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -311,7 +423,7 @@
             },
             {
                 "Size":2,
-                "Name":"Methane Pressure PT Current",
+                "Name":"Ethanol Pressure PT Current",
                 "Signed":"True",
                 "Units":"milliamps"
             }
@@ -376,7 +488,7 @@
     },
     {
         "CANID":"406",
-        "CANID_NAME":"Methane Fill Valve Hall Effect Current",
+        "CANID_NAME":"Ethanol Fill Valve Hall Effect Current",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -387,7 +499,7 @@
             },
             {
                 "Size":2,
-                "Name":"Methane Fill Valve Hall Effect Current",
+                "Name":"Ethanol Fill Valve Hall Effect Current",
                 "Signed":"True",
                 "Units":"milliamps"
             }

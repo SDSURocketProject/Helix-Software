@@ -49,5 +49,107 @@
             "Serial Number":"Unused",
             "Usage":"Unused"
         }
+    },
+    {
+        "SEB Name":"ITC",
+        "Layout Version Name":"Sensor Board Layout Rev 1",
+        "PT0":{
+            "Serial Number":"F8CEA38AA5",
+            "Usage":"Helium Pressure PT",
+            "Filter":"None"
+        },
+        "PT1":{
+            "Serial Number":"E5C0ADEA35",
+            "Usage":"LOX Pressure PT",
+            "Filter":"None"
+        },
+        "PT2":{
+            "Serial Number":"Unused",
+            "Usage":"Unused",
+            "Filter":"None"
+        },
+        "TC0":{
+            "Serial Number":"BB510C3CE3",
+            "Usage":"Upper Air Frame Temperature",
+            "Filter":"None"
+        },
+        "TC1":{
+            "Serial Number":"Unused",
+            "Usage":"Unused",
+            "Filter":"None"
+        },
+        "RTD0":{
+            "Serial Number":"8105874731",
+            "Usage":"LOX Tank Temperature",
+            "Filter":"None"
+        },
+        "RTD1":{
+            "Serial Number":"Unused",
+            "Usage":"Unused",
+            "Filter":"None"
+        },
+        "HE0":{
+            "Serial Number":"6D65BA9367",
+            "Usage":"LOX Fill Valve Hall Effect"
+        },
+        "HE1":{
+            "Serial Number":"Unused",
+            "Usage":"Unused"
+        },
+        "HE2":{
+            "Serial Number":"Unused",
+            "Usage":"Unused"
+        }
+    },
+    {
+        "SEB Name":"Lower Air Frame",
+        "Layout Version Name":"Sensor Board Layout Rev 1",
+        "PT0":{
+            "Serial Number":"F8CEA38AA5",
+            "Usage":"Helium Pressure PT",
+            "Filter":"None"
+        },
+        "PT1":{
+            "Serial Number":"E5C0ADEA35",
+            "Usage":"LOX Pressure PT",
+            "Filter":"None"
+        },
+        "PT2":{
+            "Serial Number":"Unused",
+            "Usage":"Unused",
+            "Filter":"None"
+        },
+        "TC0":{
+            "Serial Number":"BB510C3CE3",
+            "Usage":"Upper Air Frame Temperature",
+            "Filter":"None"
+        },
+        "TC1":{
+            "Serial Number":"Unused",
+            "Usage":"Unused",
+            "Filter":"None"
+        },
+        "RTD0":{
+            "Serial Number":"8105874731",
+            "Usage":"LOX Tank Temperature",
+            "Filter":"None"
+        },
+        "RTD1":{
+            "Serial Number":"Unused",
+            "Usage":"Unused",
+            "Filter":"None"
+        },
+        "HE0":{
+            "Serial Number":"6D65BA9367",
+            "Usage":"LOX Fill Valve Hall Effect"
+        },
+        "HE1":{
+            "Serial Number":"Unused",
+            "Usage":"Unused"
+        },
+        "HE2":{
+            "Serial Number":"Unused",
+            "Usage":"Unused"
+        }
     }
 ]

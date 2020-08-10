@@ -4,14 +4,14 @@
 % File path of script: ARD/genCAN.py
 \section{CAN IDs}
 \subsection{CAN Bus Load Calculations}
-The current CAN Bus config requires between 20532 bits and 24636 bits to be sent on the CAN bus every second.
+The current CAN Bus config requires between 22156 bits and 26585 bits to be sent on the CAN bus every second.
 
 \begin{flushleft}\begin{tabular}{|c|c|c|}\hline
 	Frequency & Best Case & Worst Case \\\hline
-	100KHz & 21.0\% & 25.0\%\\\hline
-	250KHz & 8.0\% & 10.0\%\\\hline
+	100KHz & 22.0\% & 27.0\%\\\hline
+	250KHz & 9.0\% & 11.0\%\\\hline
 	500KHz & 4.0\% & 5.0\%\\\hline
-	1MHz & 2.0\% & 2.0\%\\\hline
+	1MHz & 2.0\% & 3.0\%\\\hline
 \end{tabular}
 \end{flushleft}\subsection{ID 0 - Clock Sync}
 Frequency: 50Hz\\
@@ -25,6 +25,28 @@ Frequency: 50Hz\\
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0 &  & False &  &  & Status\\\hline
  & 0-1 & & & & System Status\\\hline
+\end{tabular}
+\subsection{ID 50 - Transition Cone Status}
+Frequency: 10Hz\\
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
+Byte & Bit & Signed & Range & Units & Description\\\hline
+0 &  & False &  &  & Status\\\hline
+ & 0 & & & & Armed\\\hline
+ & 1 & & & & \\\hline
+\end{tabular}
+\subsection{ID 60 - Arm Recovery}
+Frequency: 0Hz\\
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
+Byte & Bit & Signed & Range & Units & Description\\\hline
+0 &  & False &  &  & Status\\\hline
+ & 0 & & & & Arm Recovery\\\hline
+\end{tabular}
+\subsection{ID 61 - Detatch Second Stage}
+Frequency: 0Hz\\
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
+Byte & Bit & Signed & Range & Units & Description\\\hline
+0 &  & False &  &  & Status\\\hline
+ & 0 & & & & Detatch Second Stage\\\hline
 \end{tabular}
 \subsection{ID 100 - Helium Pressure PT Data}
 Frequency: 50Hz\\
@@ -40,12 +62,12 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & False &  & PSIG & LOX Pressure\\\hline
 \end{tabular}
-\subsection{ID 102 - Methane Pressure PT Data}
+\subsection{ID 102 - Ethanol Pressure PT Data}
 Frequency: 50Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
-4-5 &  & False &  & PSIG & Methane Pressure\\\hline
+4-5 &  & False &  & PSIG & Ethanol Pressure\\\hline
 \end{tabular}
 \subsection{ID 103 - Chamber Pressure PT Data}
 Frequency: 50Hz\\
@@ -68,47 +90,68 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4 &  & False &  & Open/Closed & LOX Fill Valve Hall Effect State\\\hline
 \end{tabular}
-\subsection{ID 202 - Methane Fill Valve Hall Effect State}
+\subsection{ID 202 - Ethanol Fill Valve Hall Effect State}
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
-4 &  & False &  & Open/Closed & Methane Fill Valve Hall Effect State\\\hline
+4 &  & False &  & Open/Closed & Ethanol Fill Valve Hall Effect State\\\hline
 \end{tabular}
-\subsection{ID 300 - Helium Tank Temperature Data}
+\subsection{ID 250 - LOX Tank Liquid Level Data}
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
-4-5 &  & True &  & Celcius & Helium Tank Temperature\\\hline
+4 &  & False &  & Percent & LOX Tank Liquid Level\\\hline
 \end{tabular}
-\subsection{ID 301 - LOX Tank Temperature Data}
+\subsection{ID 251 - Ethanol Tank Liquid Level Data}
+Frequency: 10Hz\\
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
+Byte & Bit & Signed & Range & Units & Description\\\hline
+0-3 &  & False &  & Milliseconds & UTC time\\\hline
+4 &  & False &  & Percent & Ethanol Tank Liquid Level\\\hline
+\end{tabular}
+\subsection{ID 300 - LOX Tank Temperature Data}
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & True &  & Celcius & LOX Tank Temperature\\\hline
 \end{tabular}
-\subsection{ID 302 - Methane Tank Temperature Data}
+\subsection{ID 301 - Ethanol Tank Temperature Data}
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
-4-5 &  & True &  & Celcius & Methane Tank Temperature\\\hline
+4-5 &  & True &  & Celcius & Ethanol Tank Temperature\\\hline
 \end{tabular}
-\subsection{ID 303 - Nozzle Temperature Data}
+\subsection{ID 302 - Nozzle Temperature Data}
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & True &  & Celcius & Nozzle Temperature\\\hline
 \end{tabular}
-\subsection{ID 304 - Upper Air Frame Temperature Data}
+\subsection{ID 303 - Upper Air Frame Temperature Data}
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & True &  & Celcius & Upper Air Frame Temperature\\\hline
+\end{tabular}
+\subsection{ID 304 - ITC Temperature Data}
+Frequency: 10Hz\\
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
+Byte & Bit & Signed & Range & Units & Description\\\hline
+0-3 &  & False &  & Milliseconds & UTC time\\\hline
+4-5 &  & True &  & Celcius & ITC Temperature\\\hline
+\end{tabular}
+\subsection{ID 305 - Lower Air Frame Temperature Data}
+Frequency: 10Hz\\
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
+Byte & Bit & Signed & Range & Units & Description\\\hline
+0-3 &  & False &  & Milliseconds & UTC time\\\hline
+4-5 &  & True &  & Celcius & Lower Air Frame Temperature\\\hline
 \end{tabular}
 \subsection{ID 400 - Helium Pressure PT Current}
 Frequency: 10Hz\\
@@ -124,12 +167,12 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & True &  & milliamps & LOX Pressure PT Current\\\hline
 \end{tabular}
-\subsection{ID 402 - Methane Pressure PT Current}
+\subsection{ID 402 - Ethanol Pressure PT Current}
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
-4-5 &  & True &  & milliamps & Methane Pressure PT Current\\\hline
+4-5 &  & True &  & milliamps & Ethanol Pressure PT Current\\\hline
 \end{tabular}
 \subsection{ID 403 - Chamber Pressure PT Current}
 Frequency: 10Hz\\
@@ -152,12 +195,12 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
 4-5 &  & True &  & milliamps & LOX Fill Valve Hall Effect Current\\\hline
 \end{tabular}
-\subsection{ID 406 - Methane Fill Valve Hall Effect Current}
+\subsection{ID 406 - Ethanol Fill Valve Hall Effect Current}
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0-3 &  & False &  & Milliseconds & UTC time\\\hline
-4-5 &  & True &  & milliamps & Methane Fill Valve Hall Effect Current\\\hline
+4-5 &  & True &  & milliamps & Ethanol Fill Valve Hall Effect Current\\\hline
 \end{tabular}
 \subsection{ID 407 - Upper Air Frame VIN Current}
 Frequency: 10Hz\\
