@@ -64,7 +64,12 @@ if __name__ == "__main__":
 
     # Generate Tex
     print("Generating \"ARD.pdf\"")
-    if (os.system("xelatex --halt-on-error ARD.tex") != 0):
+
+    xelatexArgs = ""
+    if ("--verbose" not in sys.argv):
+        xelatexArgs += "> /dev/null"
+
+    if (os.system("xelatex --halt-on-error ARD.tex" + xelatexArgs) != 0):
         print("Failed to create ARD.pdf.")
     else:
         print("ARD.pdf successfully written.")
