@@ -18,3 +18,6 @@ def usage(fileName):
 
 def error(errorMessage):
 	pass
+
+def warning(message):
+	print("Warning:" + message)
