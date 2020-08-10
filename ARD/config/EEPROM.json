@@ -5,49 +5,69 @@
         "PT0":{
             "Serial Number":"F8CEA38AA5",
             "Usage":"Helium Pressure PT",
+            "CANID_DATA":"100",
+            "CANID_CURRENT":"400",
             "Filter":"None"
         },
         "PT1":{
             "Serial Number":"E5C0ADEA35",
             "Usage":"LOX Pressure PT",
+            "CANID_DATA":"101",
+            "CANID_CURRENT":"401",
             "Filter":"None"
         },
         "PT2":{
             "Serial Number":"Unused",
             "Usage":"Unused",
+            "CANID_DATA":"0",
+            "CANID_CURRENT":"0",
             "Filter":"None"
         },
         "TC0":{
-            "Serial Number":"BB510C3CE3",
-            "Usage":"Upper Air Frame Temperature",
+            "Serial Number":"Unused",
+            "Usage":"Unused",
             "Filter":"None"
         },
         "TC1":{
             "Serial Number":"Unused",
             "Usage":"Unused",
+            "CANID_DATA":"0",
             "Filter":"None"
         },
         "RTD0":{
-            "Serial Number":"8105874731",
-            "Usage":"LOX Tank Temperature",
+            "Serial Number":"Unused",
+            "Usage":"Unused",
+            "CANID_DATA":"0",
             "Filter":"None"
         },
         "RTD1":{
             "Serial Number":"Unused",
             "Usage":"Unused",
+            "CANID_DATA":"0",
             "Filter":"None"
         },
         "HE0":{
             "Serial Number":"6D65BA9367",
-            "Usage":"LOX Fill Valve Hall Effect"
+            "Usage":"LOX Fill Valve Hall Effect",
+            "CANID_DATA":"201",
+            "CANID_CURRENT":"405"
         },
         "HE1":{
             "Serial Number":"Unused",
-            "Usage":"Unused"
+            "Usage":"Unused",
+            "CANID_DATA":"0",
+            "CANID_CURRENT":"0"
         },
         "HE2":{
             "Serial Number":"Unused",
-            "Usage":"Unused"
+            "Usage":"Unused",
+            "CANID_DATA":"0",
+            "CANID_CURRENT":"0"
+        },
+        "CS0":{
+            "Serial Number":"Unused",
+            "Usage":"LOX Tank Liquid Level",
+            "CANID_DATA":"250"
         }
     },
     {
@@ -55,50 +75,71 @@
         "Layout Version Name":"Sensor Board Layout Rev 1",
         "PT0":{
             "Serial Number":"F8CEA38AA5",
-            "Usage":"Helium Pressure PT",
+            "Usage":"Ethanol Pressure PT",
+            "CANID_DATA":"102",
+            "CANID_CURRENT":"402",
             "Filter":"None"
         },
         "PT1":{
-            "Serial Number":"E5C0ADEA35",
-            "Usage":"LOX Pressure PT",
+            "Serial Number":"Unused",
+            "Usage":"Unused",
+            "CANID_DATA":"0",
+            "CANID_CURRENT":"0",
             "Filter":"None"
         },
         "PT2":{
             "Serial Number":"Unused",
             "Usage":"Unused",
+            "CANID_DATA":"0",
+            "CANID_CURRENT":"0",
             "Filter":"None"
         },
         "TC0":{
-            "Serial Number":"BB510C3CE3",
-            "Usage":"Upper Air Frame Temperature",
+            "Serial Number":"Unused",
+            "Usage":"Unused",
+            "CANID_DATA":"0",
             "Filter":"None"
         },
         "TC1":{
             "Serial Number":"Unused",
             "Usage":"Unused",
+            "CANID_DATA":"0",
             "Filter":"None"
         },
         "RTD0":{
             "Serial Number":"8105874731",
             "Usage":"LOX Tank Temperature",
+            "CANID_DATA":"3000",
             "Filter":"None"
         },
         "RTD1":{
             "Serial Number":"Unused",
             "Usage":"Unused",
+            "CANID_DATA":"0",
             "Filter":"None"
         },
         "HE0":{
             "Serial Number":"6D65BA9367",
-            "Usage":"LOX Fill Valve Hall Effect"
+            "Usage":"Ethanol Fill Valve Hall Effect",
+            "CANID_DATA":"202",
+            "CANID_CURRENT":"406"
         },
         "HE1":{
             "Serial Number":"Unused",
-            "Usage":"Unused"
+            "Usage":"Unused",
+            "CANID_DATA":"0",
+            "CANID_CURRENT":"0"
         },
         "HE2":{
             "Serial Number":"Unused",
-            "Usage":"Unused"
+            "Usage":"Unused",
+            "CANID_DATA":"0",
+            "CANID_CURRENT":"0"
+        },
+        "CS0":{
+            "Serial Number":"Unused",
+            "Usage":"Ethanol Tank Liquid Level",
+            "CANID_DATA":"251"
         }
     },
     {
@@ -106,50 +147,71 @@
         "Layout Version Name":"Sensor Board Layout Rev 1",
         "PT0":{
             "Serial Number":"F8CEA38AA5",
-            "Usage":"Helium Pressure PT",
+            "Usage":"Chamber Pressure PT",
+            "CANID_DATA":"103",
+            "CANID_CURRENT":"403",
             "Filter":"None"
         },
         "PT1":{
-            "Serial Number":"E5C0ADEA35",
-            "Usage":"LOX Pressure PT",
+            "Serial Number":"Unused",
+            "Usage":"Unused",
+            "CANID_DATA":"0",
+            "CANID_CURRENT":"0",
             "Filter":"None"
         },
         "PT2":{
             "Serial Number":"Unused",
             "Usage":"Unused",
+            "CANID_DATA":"0",
+            "CANID_CURRENT":"0",
             "Filter":"None"
         },
         "TC0":{
             "Serial Number":"BB510C3CE3",
-            "Usage":"Upper Air Frame Temperature",
+            "Usage":"Ethanol Tank Temperature Data",
+            "CANID_DATA":"301",
             "Filter":"None"
         },
         "TC1":{
-            "Serial Number":"Unused",
-            "Usage":"Unused",
+            "Serial Number":"BB510C3CE3",
+            "Usage":"Nozzle Temperature Data",
+            "CANID_DATA":"302",
             "Filter":"None"
         },
         "RTD0":{
-            "Serial Number":"8105874731",
-            "Usage":"LOX Tank Temperature",
+            "Serial Number":"Unused",
+            "Usage":"Unused",
+            "CANID_DATA":"0",
             "Filter":"None"
         },
         "RTD1":{
             "Serial Number":"Unused",
             "Usage":"Unused",
+            "CANID_DATA":"0",
             "Filter":"None"
         },
         "HE0":{
-            "Serial Number":"6D65BA9367",
-            "Usage":"LOX Fill Valve Hall Effect"
+            "Serial Number":"Unused",
+            "Usage":"Unused",
+            "CANID_DATA":"0",
+            "CANID_CURRENT":"0"
         },
         "HE1":{
             "Serial Number":"Unused",
-            "Usage":"Unused"
+            "Usage":"Unused",
+            "CANID_DATA":"0",
+            "CANID_CURRENT":"0"
         },
         "HE2":{
             "Serial Number":"Unused",
-            "Usage":"Unused"
+            "Usage":"Unused",
+            "CANID_DATA":"0",
+            "CANID_CURRENT":"0"
+        },
+        "CS0":{
+            "Serial Number":"Unused",
+            "Usage":"Unused",
+            "CANID_DATA":"0"
         }
     }
 ]
