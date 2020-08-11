@@ -51,15 +51,9 @@ def getBin(EBconfig, layouts, CANIDs):
             # Initialize with null
             binOut += packMemoryLocation(memoryLocation['Data Type'], 0)
         elif (memoryLocation['Name'] == "Board VIN Voltage CanID"):
-            memoryLocationFullName = "Board VIN Voltage CanID".replace("Board", EBconfig['EB Name'])
-            for ID in CANIDs:
-                if (memoryLocationFullName.find(ID['CANID_NAME']) != -1):
-                    binOut += packMemoryLocation(memoryLocation['Data Type'], int(ID['CANID']))
+            binOut += packMemoryLocation(memoryLocation['Data Type'], int(EBconfig['VIN_CANID']))
         elif (memoryLocation['Name'] == "Board VIN Current CanID"):
-            memoryLocationFullName = "Board VIN Current CanID".replace("Board", EBconfig['EB Name'])
-            for ID in CANIDs:
-                if (memoryLocationFullName.find(ID['CANID_NAME']) != -1):
-                    binOut += packMemoryLocation(memoryLocation['Data Type'], int(ID['CANID']))
+            binOut += packMemoryLocation(memoryLocation['Data Type'], int(EBconfig['VIN_CURRENT_CANID']))
 
         # Check if the memory location is for a sensor
         # The first word in a sensor location will be a generic sensor name like PT0 or TC1 etc

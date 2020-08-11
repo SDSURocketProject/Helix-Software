@@ -103,6 +103,12 @@
                 "Name":"Helium Pressure",
                 "Signed":"False",
                 "Units":"PSIG"
+            },
+            {
+                "Size":2,
+                "Name":"Raw Helium Pressure Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
             }
         ]
     },
@@ -122,6 +128,12 @@
                 "Name":"LOX Pressure",
                 "Signed":"False",
                 "Units":"PSIG"
+            },
+            {
+                "Size":2,
+                "Name":"Raw LOX Pressure Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
             }
         ]
     },
@@ -141,6 +153,12 @@
                 "Name":"Ethanol Pressure",
                 "Signed":"False",
                 "Units":"PSIG"
+            },
+            {
+                "Size":2,
+                "Name":"Raw Ethanol Pressure Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
             }
         ]
     },
@@ -160,6 +178,12 @@
                 "Name":"Chamber Pressure",
                 "Signed":"False",
                 "Units":"PSIG"
+            },
+            {
+                "Size":2,
+                "Name":"Raw Chamber Pressure Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
             }
         ]
     },
@@ -236,6 +260,12 @@
                 "Name":"LOX Tank Liquid Level",
                 "Signed":"False",
                 "Units":"Percent"
+            },
+            {
+                "Size":2,
+                "Name":"Raw LOX Tank Liquid Level Measurement",
+                "Signed":"False",
+                "Units":"Femtofarads"
             }
         ]
     },
@@ -255,6 +285,12 @@
                 "Name":"Ethanol Tank Liquid Level",
                 "Signed":"False",
                 "Units":"Percent"
+            },
+            {
+                "Size":2,
+                "Name":"Raw Ethanol Tank Liquid Level Measurement",
+                "Signed":"False",
+                "Units":"Femtofarads"
             }
         ]
     },
@@ -274,6 +310,12 @@
                 "Name":"LOX Tank Temperature",
                 "Signed":"True",
                 "Units":"Celcius"
+            },
+            {
+                "Size":2,
+                "Name":"Raw LOX Tank Temperature Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
             }
         ]
     },
@@ -293,6 +335,12 @@
                 "Name":"Ethanol Tank Temperature",
                 "Signed":"True",
                 "Units":"Celcius"
+            },
+            {
+                "Size":2,
+                "Name":"Raw Ethanol Tank Temperature Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
             }
         ]
     },
@@ -312,6 +360,12 @@
                 "Name":"Nozzle Temperature",
                 "Signed":"True",
                 "Units":"Celcius"
+            },
+            {
+                "Size":2,
+                "Name":"Raw Nozzle Temperature Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
             }
         ]
     },
@@ -331,6 +385,12 @@
                 "Name":"Upper Air Frame Temperature",
                 "Signed":"True",
                 "Units":"Celcius"
+            },
+            {
+                "Size":2,
+                "Name":"Raw Upper Air Frame Temperature Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
             }
         ]
     },
@@ -350,6 +410,12 @@
                 "Name":"ITC Temperature",
                 "Signed":"True",
                 "Units":"Celcius"
+            },
+            {
+                "Size":2,
+                "Name":"Raw ITC Temperature Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
             }
         ]
     },
@@ -369,6 +435,12 @@
                 "Name":"Lower Air Frame Temperature",
                 "Signed":"True",
                 "Units":"Celcius"
+            },
+            {
+                "Size":2,
+                "Name":"Raw Lower Air Frame Temperature Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
             }
         ]
     },
@@ -388,6 +460,12 @@
                 "Name":"Helium Pressure PT Current",
                 "Signed":"True",
                 "Units":"milliamps"
+            },
+            {
+                "Size":2,
+                "Name":"Raw Helium Pressure PT Current Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
             }
         ]
     },
@@ -407,6 +485,12 @@
                 "Name":"LOX Pressure PT Current",
                 "Signed":"True",
                 "Units":"milliamps"
+            },
+            {
+                "Size":2,
+                "Name":"Raw LOX Pressure PT Current Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
             }
         ]
     },
@@ -426,6 +510,12 @@
                 "Name":"Ethanol Pressure PT Current",
                 "Signed":"True",
                 "Units":"milliamps"
+            },
+            {
+                "Size":2,
+                "Name":"Raw Ethanol Pressure PT Current Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
             }
         ]
     },
@@ -445,6 +535,12 @@
                 "Name":"Chamber Pressure PT Current",
                 "Signed":"True",
                 "Units":"milliamps"
+            },
+            {
+                "Size":2,
+                "Name":"Raw Chamber Pressure PT Current Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
             }
         ]
     },
@@ -464,6 +560,12 @@
                 "Name":"Helium Fill Valve Hall Effect Current",
                 "Signed":"True",
                 "Units":"milliamps"
+            },
+            {
+                "Size":2,
+                "Name":"Raw Helium Fill Valve Hall Effect Current Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
             }
         ]
     },
@@ -483,6 +585,12 @@
                 "Name":"LOX Fill Valve Hall Effect Current",
                 "Signed":"True",
                 "Units":"milliamps"
+            },
+            {
+                "Size":2,
+                "Name":"Raw LOX Fill Valve Hall Effect Current Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
             }
         ]
     },
@@ -502,6 +610,12 @@
                 "Name":"Ethanol Fill Valve Hall Effect Current",
                 "Signed":"True",
                 "Units":"milliamps"
+            },
+            {
+                "Size":2,
+                "Name":"Raw Ethanol Fill Valve Hall Effect Current Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
             }
         ]
     },
@@ -521,6 +635,62 @@
                 "Name":"Upper Air Frame Board Current",
                 "Signed":"True",
                 "Units":"Milliamps"
+            },
+            {
+                "Size":2,
+                "Name":"Raw Upper Air Frame Board Current Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
+            }
+        ]
+    },
+    {
+        "CANID":"408",
+        "CANID_NAME":"ITC VIN Current",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"ITC Board Current",
+                "Signed":"True",
+                "Units":"Milliamps"
+            },
+            {
+                "Size":2,
+                "Name":"Raw ITC Board Current Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
+            }
+        ]
+    },
+    {
+        "CANID":"409",
+        "CANID_NAME":"Lower Air Frame VIN Current",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"Lower Air Frame Board Current",
+                "Signed":"True",
+                "Units":"Milliamps"
+            },
+            {
+                "Size":2,
+                "Name":"Raw Lower Air Frame Board Current Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
             }
         ]
     },
@@ -540,6 +710,62 @@
                 "Name":"Upper Air Frame Board VIN Voltage",
                 "Signed":"True",
                 "Units":"Millivolts"
+            },
+            {
+                "Size":2,
+                "Name":"Raw Upper Air Frame Board VIN Voltage Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
+            }
+        ]
+    },
+    {
+        "CANID":"501",
+        "CANID_NAME":"ITC VIN Voltage",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"ITC Board VIN Voltage",
+                "Signed":"True",
+                "Units":"Millivolts"
+            },
+            {
+                "Size":2,
+                "Name":"Raw ITC Board VIN Voltage Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
+            }
+        ]
+    },
+    {
+        "CANID":"502",
+        "CANID_NAME":"Lower Air Frame VIN Voltage",
+        "CANID_FREQUENCY":"10",
+        "bytes":[
+            {
+                "Size":4,
+                "Name":"UTC time",
+                "Signed":"False",
+                "Units":"Milliseconds"
+            },
+            {
+                "Size":2,
+                "Name":"Lower Air Frame Board VIN Voltage",
+                "Signed":"True",
+                "Units":"Millivolts"
+            },
+            {
+                "Size":2,
+                "Name":"Raw Lower Air Frame Board VIN Voltage Measurement",
+                "Signed":"False",
+                "Units":"ADC counts"
             }
         ]
     }

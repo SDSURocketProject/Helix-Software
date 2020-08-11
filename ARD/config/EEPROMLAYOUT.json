@@ -547,6 +547,36 @@
                 "Size":4,
                 "Data Type":"f",
                 "Name":"RTD1 Biquad Filter a2"
+            },
+            {
+                "Size":4,
+                "Data Type":"I",
+                "Name":"CS0 Data CanID"
+            },
+            {
+                "Size":4,
+                "Data Type":"f",
+                "Name":"CS0 Biquad Filter b0"
+            },
+            {
+                "Size":4,
+                "Data Type":"f",
+                "Name":"CS0 Biquad Filter b1"
+            },
+            {
+                "Size":4,
+                "Data Type":"f",
+                "Name":"CS0 Biquad Filter b2"
+            },
+            {
+                "Size":4,
+                "Data Type":"f",
+                "Name":"CS0 Biquad Filter a1"
+            },
+            {
+                "Size":4,
+                "Data Type":"f",
+                "Name":"CS0 Biquad Filter a2"
             }
         ]
     },

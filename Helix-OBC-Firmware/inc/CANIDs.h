@@ -51,7 +51,11 @@ enum CANIDs : uint32_t {
 	CANIDS_LOX_FILL_VALVE_HALL_EFFECT_CURRENT = 405UL,
 	CANIDS_ETHANOL_FILL_VALVE_HALL_EFFECT_CURRENT = 406UL,
 	CANIDS_UPPER_AIR_FRAME_VIN_CURRENT = 407UL,
+	CANIDS_ITC_VIN_CURRENT = 408UL,
+	CANIDS_LOWER_AIR_FRAME_VIN_CURRENT = 409UL,
 	CANIDS_UPPER_AIR_FRAME_VIN_VOLTAGE = 500UL,
+	CANIDS_ITC_VIN_VOLTAGE = 501UL,
+	CANIDS_LOWER_AIR_FRAME_VIN_VOLTAGE = 502UL,
 	CANIDS_QUIT,
 	CANIDS_MAX_CANID
 };
@@ -79,21 +83,25 @@ struct detatch_second_stage {
 struct helium_pressure_pt_data {
 	uint32_t utc_time;
 	uint16_t helium_pressure;
+	uint16_t raw_helium_pressure_measurement;
 };
 
 struct lox_pressure_pt_data {
 	uint32_t utc_time;
 	uint16_t lox_pressure;
+	uint16_t raw_lox_pressure_measurement;
 };
 
 struct ethanol_pressure_pt_data {
 	uint32_t utc_time;
 	uint16_t ethanol_pressure;
+	uint16_t raw_ethanol_pressure_measurement;
 };
 
 struct chamber_pressure_pt_data {
 	uint32_t utc_time;
 	uint16_t chamber_pressure;
+	uint16_t raw_chamber_pressure_measurement;
 };
 
 struct helium_fill_valve_hall_effect_state {
@@ -114,86 +122,127 @@ struct ethanol_fill_valve_hall_effect_state {
 struct lox_tank_liquid_level_data {
 	uint32_t utc_time;
 	uint8_t lox_tank_liquid_level;
+	uint16_t raw_lox_tank_liquid_level_measurement;
 };
 
 struct ethanol_tank_liquid_level_data {
 	uint32_t utc_time;
 	uint8_t ethanol_tank_liquid_level;
+	uint16_t raw_ethanol_tank_liquid_level_measurement;
 };
 
 struct lox_tank_temperature_data {
 	uint32_t utc_time;
 	int16_t lox_tank_temperature;
+	uint16_t raw_lox_tank_temperature_measurement;
 };
 
 struct ethanol_tank_temperature_data {
 	uint32_t utc_time;
 	int16_t ethanol_tank_temperature;
+	uint16_t raw_ethanol_tank_temperature_measurement;
 };
 
 struct nozzle_temperature_data {
 	uint32_t utc_time;
 	int16_t nozzle_temperature;
+	uint16_t raw_nozzle_temperature_measurement;
 };
 
 struct upper_air_frame_temperature_data {
 	uint32_t utc_time;
 	int16_t upper_air_frame_temperature;
+	uint16_t raw_upper_air_frame_temperature_measurement;
 };
 
 struct itc_temperature_data {
 	uint32_t utc_time;
 	int16_t itc_temperature;
+	uint16_t raw_itc_temperature_measurement;
 };
 
 struct lower_air_frame_temperature_data {
 	uint32_t utc_time;
 	int16_t lower_air_frame_temperature;
+	uint16_t raw_lower_air_frame_temperature_measurement;
 };
 
 struct helium_pressure_pt_current {
 	uint32_t utc_time;
 	int16_t helium_pressure_pt_current;
+	uint16_t raw_helium_pressure_pt_current_measurement;
 };
 
 struct lox_pressure_pt_current {
 	uint32_t utc_time;
 	int16_t lox_pressure_pt_current;
+	uint16_t raw_lox_pressure_pt_current_measurement;
 };
 
 struct ethanol_pressure_pt_current {
 	uint32_t utc_time;
 	int16_t ethanol_pressure_pt_current;
+	uint16_t raw_ethanol_pressure_pt_current_measurement;
 };
 
 struct chamber_pressure_pt_current {
 	uint32_t utc_time;
 	int16_t chamber_pressure_pt_current;
+	uint16_t raw_chamber_pressure_pt_current_measurement;
 };
 
 struct helium_fill_valve_hall_effect_current {
 	uint32_t utc_time;
 	int16_t helium_fill_valve_hall_effect_current;
+	uint16_t raw_helium_fill_valve_hall_effect_current_measurement;
 };
 
 struct lox_fill_valve_hall_effect_current {
 	uint32_t utc_time;
 	int16_t lox_fill_valve_hall_effect_current;
+	uint16_t raw_lox_fill_valve_hall_effect_current_measurement;
 };
 
 struct ethanol_fill_valve_hall_effect_current {
 	uint32_t utc_time;
 	int16_t ethanol_fill_valve_hall_effect_current;
+	uint16_t raw_ethanol_fill_valve_hall_effect_current_measurement;
 };
 
 struct upper_air_frame_vin_current {
 	uint32_t utc_time;
 	int16_t upper_air_frame_board_current;
+	uint16_t raw_upper_air_frame_board_current_measurement;
+};
+
+struct itc_vin_current {
+	uint32_t utc_time;
+	int16_t itc_board_current;
+	uint16_t raw_itc_board_current_measurement;
+};
+
+struct lower_air_frame_vin_current {
+	uint32_t utc_time;
+	int16_t lower_air_frame_board_current;
+	uint16_t raw_lower_air_frame_board_current_measurement;
 };
 
 struct upper_air_frame_vin_voltage {
 	uint32_t utc_time;
 	int16_t upper_air_frame_board_vin_voltage;
+	uint16_t raw_upper_air_frame_board_vin_voltage_measurement;
+};
+
+struct itc_vin_voltage {
+	uint32_t utc_time;
+	int16_t itc_board_vin_voltage;
+	uint16_t raw_itc_board_vin_voltage_measurement;
+};
+
+struct lower_air_frame_vin_voltage {
+	uint32_t utc_time;
+	int16_t lower_air_frame_board_vin_voltage;
+	uint16_t raw_lower_air_frame_board_vin_voltage_measurement;
 };
 
 #endif // CANIDS_H_

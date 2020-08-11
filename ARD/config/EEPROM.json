@@ -2,6 +2,8 @@
     {
         "EB Name":"Upper Air Frame",
         "Layout Version Name":"Sensor Board Layout Rev 1",
+        "VIN_CANID":"500",
+        "VIN_CURRENT_CANID":"407",
         "PT0":{
             "Serial Number":"F8CEA38AA5",
             "Usage":"Helium Pressure PT",
@@ -68,12 +70,15 @@
         "CS0":{
             "Serial Number":"Unused",
             "Usage":"LOX Tank Liquid Level",
-            "CANID_DATA":"250"
+            "CANID_DATA":"250",
+            "Filter":"None"
         }
     },
     {
         "EB Name":"ITC",
         "Layout Version Name":"Sensor Board Layout Rev 1",
+        "VIN_CANID":"501",
+        "VIN_CURRENT_CANID":"408",
         "PT0":{
             "Serial Number":"F8CEA38AA5",
             "Usage":"Ethanol Pressure PT",
@@ -140,12 +145,15 @@
         "CS0":{
             "Serial Number":"Unused",
             "Usage":"Ethanol Tank Liquid Level",
-            "CANID_DATA":"251"
+            "CANID_DATA":"251",
+            "Filter":"None"
         }
     },
     {
         "EB Name":"Lower Air Frame",
         "Layout Version Name":"Sensor Board Layout Rev 1",
+        "VIN_CANID":"502",
+        "VIN_CURRENT_CANID":"409",
         "PT0":{
             "Serial Number":"F8CEA38AA5",
             "Usage":"Chamber Pressure PT",
@@ -212,7 +220,8 @@
         "CS0":{
             "Serial Number":"Unused",
             "Usage":"Unused",
-            "CANID_DATA":"0"
+            "CANID_DATA":"0",
+            "Filter":"None"
         }
     }
 ]

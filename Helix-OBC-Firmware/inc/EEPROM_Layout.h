@@ -119,6 +119,12 @@ struct sensor_board_layout_rev_1 {
 	float RTD1_Biquad_Filter_b2;
 	float RTD1_Biquad_Filter_a1;
 	float RTD1_Biquad_Filter_a2;
+	uint32_t CS0_Data_CanID;
+	float CS0_Biquad_Filter_b0;
+	float CS0_Biquad_Filter_b1;
+	float CS0_Biquad_Filter_b2;
+	float CS0_Biquad_Filter_a1;
+	float CS0_Biquad_Filter_a2;
 }; // sensor_board_layout_rev_1
 
 // EEPROM Layout Version ID 2
