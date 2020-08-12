@@ -4,22 +4,28 @@
 % File path of script: ARD/genCAN.py
 \section{CAN IDs}
 \subsection{CAN Bus Load Calculations}
-The current CAN Bus config requires between 30812 bits and 36972 bits to be sent on the CAN bus every second.
+The current CAN Bus config requires between 32456 bits and 38945 bits to be sent on the CAN bus every second.
 
 \begin{flushleft}\begin{tabular}{|c|c|c|}\hline
 	Frequency & Best Case & Worst Case \\\hline
-	100KHz & 31.0\% & 37.0\%\\\hline
-	250KHz & 12.0\% & 15.0\%\\\hline
-	500KHz & 6.0\% & 7.000000000000001\%\\\hline
+	100KHz & 32.0\% & 39.0\%\\\hline
+	250KHz & 13.0\% & 16.0\%\\\hline
+	500KHz & 6.0\% & 8.0\%\\\hline
 	1MHz & 3.0\% & 4.0\%\\\hline
 \end{tabular}
-\end{flushleft}\subsection{ID 0 - Clock Sync}
+\end{flushleft}\subsection{ID 0 - Primary Clock Sync}
 Frequency: 50Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False & 0 to 4294967295 & Milliseconds & UTC time\\\hline
+0-3 &  & False & 0 to 4294967295 & Milliseconds & Time since system start\\\hline
 \end{tabular}
-\subsection{ID 1 - Emergency Signal}
+\subsection{ID 1 - OBC Clock Sync}
+Frequency: 50Hz\\
+\begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
+Byte & Bit & Signed & Range & Units & Description\\\hline
+0-3 &  & False & 0 to 4294967295 & Milliseconds & Time since system start\\\hline
+\end{tabular}
+\subsection{ID 10 - Emergency Signal}
 Frequency: 50Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
@@ -32,7 +38,6 @@ Frequency: 10Hz\\
 Byte & Bit & Signed & Range & Units & Description\\\hline
 0 &  & False &  &  & Status\\\hline
  & 0 & & & & Armed\\\hline
- & 1 & & & & \\\hline
 \end{tabular}
 \subsection{ID 60 - Arm Recovery}
 Frequency: 0Hz\\
@@ -52,7 +57,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 50Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & False &  & PSIG & Helium Pressure\\\hline
 6-7 &  & False &  & ADC counts & Raw Helium Pressure Measurement\\\hline
 \end{tabular}
@@ -60,7 +65,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 50Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & False &  & PSIG & LOX Pressure\\\hline
 6-7 &  & False &  & ADC counts & Raw LOX Pressure Measurement\\\hline
 \end{tabular}
@@ -68,7 +73,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 50Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & False &  & PSIG & Ethanol Pressure\\\hline
 6-7 &  & False &  & ADC counts & Raw Ethanol Pressure Measurement\\\hline
 \end{tabular}
@@ -76,7 +81,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 50Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & False &  & PSIG & Chamber Pressure\\\hline
 6-7 &  & False &  & ADC counts & Raw Chamber Pressure Measurement\\\hline
 \end{tabular}
@@ -84,28 +89,28 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4 &  & False &  & Open/Closed & Helium Fill Valve Hall Effect State\\\hline
 \end{tabular}
 \subsection{ID 201 - LOX Fill Valve Hall Effect State}
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4 &  & False &  & Open/Closed & LOX Fill Valve Hall Effect State\\\hline
 \end{tabular}
 \subsection{ID 202 - Ethanol Fill Valve Hall Effect State}
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4 &  & False &  & Open/Closed & Ethanol Fill Valve Hall Effect State\\\hline
 \end{tabular}
 \subsection{ID 250 - LOX Tank Liquid Level Data}
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4 &  & False &  & Percent & LOX Tank Liquid Level\\\hline
 5-6 &  & False &  & Femtofarads & Raw LOX Tank Liquid Level Measurement\\\hline
 \end{tabular}
@@ -113,7 +118,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4 &  & False &  & Percent & Ethanol Tank Liquid Level\\\hline
 5-6 &  & False &  & Femtofarads & Raw Ethanol Tank Liquid Level Measurement\\\hline
 \end{tabular}
@@ -121,7 +126,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & True &  & Celcius & LOX Tank Temperature\\\hline
 6-7 &  & False &  & ADC counts & Raw LOX Tank Temperature Measurement\\\hline
 \end{tabular}
@@ -129,7 +134,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & True &  & Celcius & Ethanol Tank Temperature\\\hline
 6-7 &  & False &  & ADC counts & Raw Ethanol Tank Temperature Measurement\\\hline
 \end{tabular}
@@ -137,7 +142,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & True &  & Celcius & Nozzle Temperature\\\hline
 6-7 &  & False &  & ADC counts & Raw Nozzle Temperature Measurement\\\hline
 \end{tabular}
@@ -145,7 +150,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & True &  & Celcius & Upper Air Frame Temperature\\\hline
 6-7 &  & False &  & ADC counts & Raw Upper Air Frame Temperature Measurement\\\hline
 \end{tabular}
@@ -153,7 +158,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & True &  & Celcius & ITC Temperature\\\hline
 6-7 &  & False &  & ADC counts & Raw ITC Temperature Measurement\\\hline
 \end{tabular}
@@ -161,7 +166,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & True &  & Celcius & Lower Air Frame Temperature\\\hline
 6-7 &  & False &  & ADC counts & Raw Lower Air Frame Temperature Measurement\\\hline
 \end{tabular}
@@ -169,7 +174,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & True &  & milliamps & Helium Pressure PT Current\\\hline
 6-7 &  & False &  & ADC counts & Raw Helium Pressure PT Current Measurement\\\hline
 \end{tabular}
@@ -177,7 +182,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & True &  & milliamps & LOX Pressure PT Current\\\hline
 6-7 &  & False &  & ADC counts & Raw LOX Pressure PT Current Measurement\\\hline
 \end{tabular}
@@ -185,7 +190,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & True &  & milliamps & Ethanol Pressure PT Current\\\hline
 6-7 &  & False &  & ADC counts & Raw Ethanol Pressure PT Current Measurement\\\hline
 \end{tabular}
@@ -193,7 +198,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & True &  & milliamps & Chamber Pressure PT Current\\\hline
 6-7 &  & False &  & ADC counts & Raw Chamber Pressure PT Current Measurement\\\hline
 \end{tabular}
@@ -201,7 +206,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & True &  & milliamps & Helium Fill Valve Hall Effect Current\\\hline
 6-7 &  & False &  & ADC counts & Raw Helium Fill Valve Hall Effect Current Measurement\\\hline
 \end{tabular}
@@ -209,7 +214,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & True &  & milliamps & LOX Fill Valve Hall Effect Current\\\hline
 6-7 &  & False &  & ADC counts & Raw LOX Fill Valve Hall Effect Current Measurement\\\hline
 \end{tabular}
@@ -217,7 +222,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & True &  & milliamps & Ethanol Fill Valve Hall Effect Current\\\hline
 6-7 &  & False &  & ADC counts & Raw Ethanol Fill Valve Hall Effect Current Measurement\\\hline
 \end{tabular}
@@ -225,7 +230,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & True &  & Milliamps & Upper Air Frame Board Current\\\hline
 6-7 &  & False &  & ADC counts & Raw Upper Air Frame Board Current Measurement\\\hline
 \end{tabular}
@@ -233,7 +238,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & True &  & Milliamps & ITC Board Current\\\hline
 6-7 &  & False &  & ADC counts & Raw ITC Board Current Measurement\\\hline
 \end{tabular}
@@ -241,7 +246,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & True &  & Milliamps & Lower Air Frame Board Current\\\hline
 6-7 &  & False &  & ADC counts & Raw Lower Air Frame Board Current Measurement\\\hline
 \end{tabular}
@@ -249,7 +254,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & True &  & Millivolts & Upper Air Frame Board VIN Voltage\\\hline
 6-7 &  & False &  & ADC counts & Raw Upper Air Frame Board VIN Voltage Measurement\\\hline
 \end{tabular}
@@ -257,7 +262,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & True &  & Millivolts & ITC Board VIN Voltage\\\hline
 6-7 &  & False &  & ADC counts & Raw ITC Board VIN Voltage Measurement\\\hline
 \end{tabular}
@@ -265,7 +270,7 @@ Byte & Bit & Signed & Range & Units & Description\\\hline
 Frequency: 10Hz\\
 \begin{tabular}{ |p{0.05\linewidth}|p{0.05\linewidth}|p{0.1\linewidth}|p{0.15\linewidth}|p{0.2\linewidth}|p{0.3\linewidth}| }\hline
 Byte & Bit & Signed & Range & Units & Description\\\hline
-0-3 &  & False &  & Milliseconds & UTC time\\\hline
+0-3 &  & False &  & Milliseconds & Time since system start\\\hline
 4-5 &  & True &  & Millivolts & Lower Air Frame Board VIN Voltage\\\hline
 6-7 &  & False &  & ADC counts & Raw Lower Air Frame Board VIN Voltage Measurement\\\hline
 \end{tabular}

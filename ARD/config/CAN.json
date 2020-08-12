@@ -1,12 +1,12 @@
 [
     {
         "CANID":"0",
-        "CANID_NAME":"Clock Sync",
+        "CANID_NAME":"Primary Clock Sync",
         "CANID_FREQUENCY":"50",
         "bytes":[
             {  
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "MinValue":0,
                 "MaxValue":4294967295,
@@ -16,6 +16,21 @@
     },
     {
         "CANID":"1",
+        "CANID_NAME":"OBC Clock Sync",
+        "CANID_FREQUENCY":"50",
+        "bytes":[
+            {  
+                "Size":4,
+                "Name":"Time since system start",
+                "Signed":"False",
+                "MinValue":0,
+                "MaxValue":4294967295,
+                "Units":"Milliseconds"
+            }
+        ]
+    },
+    {
+        "CANID":"10",
         "CANID_NAME":"Emergency Signal",
         "CANID_FREQUENCY":"50",
         "bytes":[
@@ -34,7 +49,7 @@
     },
     {
         "CANID":"50",
-        "CANID_NAME":"Transition Cone Status",
+        "CANID_NAME":"3Transition Cone Status",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
@@ -44,8 +59,7 @@
                 "Units":"",
                 "bits":[
                     {
-                        "0":"Armed",
-                        "1":""
+                        "0":"Armed"
                     }
                 ]
             }
@@ -94,7 +108,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -119,7 +133,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -144,7 +158,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -169,7 +183,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -194,7 +208,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -213,7 +227,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -232,7 +246,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -251,7 +265,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -276,7 +290,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -301,7 +315,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -326,7 +340,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -351,7 +365,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -376,7 +390,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -401,7 +415,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -426,7 +440,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -451,7 +465,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -476,7 +490,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -501,7 +515,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -526,7 +540,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -551,7 +565,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -576,7 +590,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -601,7 +615,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -626,7 +640,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -651,7 +665,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -676,7 +690,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -701,7 +715,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -726,7 +740,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
@@ -751,7 +765,7 @@
         "bytes":[
             {
                 "Size":4,
-                "Name":"UTC time",
+                "Name":"Time since system start",
                 "Signed":"False",
                 "Units":"Milliseconds"
             },
