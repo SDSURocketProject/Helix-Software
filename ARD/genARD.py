@@ -5,12 +5,27 @@ import genEEPROM
 import genCAN
 import genHARDWARE
 import parseOBCDocs
+import verifyJSON
+
+jsonFileLocations = {
+    "CAN_FILE":"config/CAN.json",
+    "EEPROM_FILE":"config/EEPROM.json",
+    "EEPROMLAYOUT_FILE":"config/EEPROMLAYOUT.json",
+    "FILTERS_FILE":"config/FILTERS.json",
+    "HARDWARE_FILE":"config/HARDWARE.json",
+    "STATES_FILE":"config/STATES.json"
+}
 
 if __name__ == "__main__":
     
     # If script is being run from top level directory we need to cd to the ARD directory    
     if (os.getcwd().split('/')[-1] != "ARD"):
         os.chdir("ARD/")
+
+    if ("--skip-verify" not in sys.argv):
+        print("Verifying JSON files are valid")
+        verifyJSON.verifyJSON(jsonFileLocations)
+        # verifyJSON will call exit() if it fails
 
     # Generate C/C++ Files
     print("Generating \"CANIDs.h\" for Helix-OBC-Firmware")

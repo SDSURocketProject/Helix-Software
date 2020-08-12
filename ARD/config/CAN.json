@@ -49,7 +49,7 @@
     },
     {
         "CANID":"50",
-        "CANID_NAME":"3Transition Cone Status",
+        "CANID_NAME":"Transition Cone Status",
         "CANID_FREQUENCY":"10",
         "bytes":[
             {
