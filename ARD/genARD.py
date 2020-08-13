@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 import genEEPROMLAYOUT
 import genEEPROM
 import genCAN
@@ -7,13 +8,22 @@ import genHARDWARE
 import parseOBCDocs
 import verifyJSON
 
-jsonFileLocations = {
-    "CAN_FILE":"config/CAN.json",
-    "EEPROM_FILE":"config/EEPROM.json",
-    "EEPROMLAYOUT_FILE":"config/EEPROMLAYOUT.json",
-    "FILTERS_FILE":"config/FILTERS.json",
-    "HARDWARE_FILE":"config/HARDWARE.json",
-    "STATES_FILE":"config/STATES.json"
+jsonDefaultFileLocations = {
+    "--can-file":"config/CAN.json",
+    "--eeprom-file":"config/EEPROM.json",
+    "--eepromlayout-file":"config/EEPROMLAYOUT.json",
+    "--filters-file":"config/FILTERS.json",
+    "--hardware-file":"config/HARDWARE.json",
+    "--states-file":"config/STATES.json"
+}
+
+jsonData = {
+    "CAN":[],
+    "EEPROM":[],
+    "EEPROMLAYOUT":[],
+    "FILTERS":[],
+    "HARDWARE":[],
+    "STATES":[]
 }
 
 if __name__ == "__main__":
@@ -22,9 +32,48 @@ if __name__ == "__main__":
     if (os.getcwd().split('/')[-1] != "ARD"):
         os.chdir("ARD/")
 
+    # Override default file locations if specified in command line args
+    for location in jsonDefaultFileLocations:
+        if location in sys.argv:
+            jsonDefaultFileLocations[location] = sys.argv[sys.argv.find(location)+1]
+
+    # Load config files
+    openingFile = jsonDefaultFileLocations['--can-file']
+    try:
+        CAN =          open(jsonDefaultFileLocations['--can-file'], 'r')
+        openingFile = jsonDefaultFileLocations['--eeprom-file']
+        EEPROM =       open(jsonDefaultFileLocations['--eeprom-file'], 'r')
+        openingFile = jsonDefaultFileLocations['--eepromlayout-file']
+        EEPROMLAYOUT = open(jsonDefaultFileLocations['--eepromlayout-file'], 'r')
+        openingFile = jsonDefaultFileLocations['--filters-file']
+        FILTERS =      open(jsonDefaultFileLocations['--filters-file'], 'r')
+        openingFile = jsonDefaultFileLocations['--hardware-file']
+        HARDWARE =     open(jsonDefaultFileLocations['--hardware-file'], 'r')
+        openingFile = jsonDefaultFileLocations['--states-file']
+        STATES =       open(jsonDefaultFileLocations['--states-file'], 'r')
+    except:
+        genGeneric.error(f"File {openingFile} does not exist.")
+    
+    # Load json data from config files
+    openingFile = jsonDefaultFileLocations['--can-file']
+    try:
+        jsonData['CAN'] =          json.load(CAN)
+        openingFile = jsonDefaultFileLocations['--eeprom-file']
+        jsonData['EEPROM'] =       json.load(EEPROM)
+        openingFile = jsonDefaultFileLocations['--eepromlayout-file']
+        jsonData['EEPROMLAYOUT'] = json.load(EEPROMLAYOUT)
+        openingFile = jsonDefaultFileLocations['--filters-file']
+        jsonData['FILTERS'] =      json.load(FILTERS)
+        openingFile = jsonDefaultFileLocations['--hardware-file']
+        jsonData['HARDWARE'] =     json.load(HARDWARE)
+        openingFile = jsonDefaultFileLocations['--states-file']
+        jsonData['STATES'] =       json.load(STATES)
+    except json.decoder.JSONDecodeError:
+        genGeneric.error(f"{openingFile} is not a valid JSON file, check for syntax errors.")
+
     if ("--skip-verify" not in sys.argv):
         print("Verifying JSON files are valid")
-        verifyJSON.verifyJSON(jsonFileLocations)
+        verifyJSON.verifyJSON(jsonData, jsonDefaultFileLocations)
         # verifyJSON will call exit() if it fails
 
     # Generate C/C++ Files
