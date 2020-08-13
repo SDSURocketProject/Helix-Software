@@ -28,7 +28,7 @@ def verifyJSON(jsonData, jsonFileLocations):
     isValid = isValid and verifyEEPROMLAYOUT(jsonData['EEPROMLAYOUT'])
     isValid = isValid and verifyFILTERS()
     isValid = isValid and verifyHARDWARE()
-    isValid = isValid and verifySTATES()
+    isValid = isValid and verifySTATES(jsonData['STATES'])
 
     if not isValid:
         genGeneric.error("JSON files are not valid, see above warnings for more information.")
@@ -253,8 +253,12 @@ def verifyFILTERS():
 def verifyHARDWARE():
     return True
 
-def verifySTATES():
-    return True
+def verifySTATES(states):
+    isValid = True
+    for state in states:
+        if not isValidC(state.replace(' ', '_'), "variable"):
+            isValid = verifyWarning(f"State \"{state}\" cannot be converted to a valid C/C++ variable name. Defined in \"{STATESfile}\"")
+    return isValid
 
 cppKeywords = [
     "alignas"
