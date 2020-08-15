@@ -3,15 +3,12 @@ import json
 NOT_IN_CANID_DEF = 0
 IN_CANID_DEF = 1
 
-def getLatex():
+def getLatex(jsonData):
     texOut = ""
     texOut += "\section{States}\n"
     parseState = NOT_IN_CANID_DEF
 
-    with open("config/STATES.json") as statesJSON:
-        states = json.load(statesJSON)
-
-    for state in states:
+    for state in jsonData['STATES']:
         try:
             with open ("../Helix-OBC-Firmware/documentation/latex/group__" + state.lower() + "_group.tex", 'r') as readFile:
                 texOut += "\subsection{" + state.replace('_', ' ') + "}\n"

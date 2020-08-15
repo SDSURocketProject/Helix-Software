@@ -97,7 +97,7 @@ if __name__ == "__main__":
 
     # HARDWARE
     print("Generating \"tex/HARDWARE.tex\"")
-    latexHARDWARE = genHARDWARE.getLatex()
+    latexHARDWARE = genHARDWARE.getLatex(jsonData)
     if (latexHARDWARE == ""):
         print("Failed to generate HARDWARE.tex, exiting...")
         quit()
@@ -106,7 +106,7 @@ if __name__ == "__main__":
 
     # STATES
     print("Generating \"tex/STATES.tex\"")
-    latexSTATES = parseOBCDocs.getLatex()
+    latexSTATES = parseOBCDocs.getLatex(jsonData)
     if (latexSTATES == ""):
         print("Failed to get documentation from Helix-OBC-Firmware documentation, exiting...")
         quit()

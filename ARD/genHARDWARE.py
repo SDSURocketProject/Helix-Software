@@ -1,17 +1,12 @@
 import json, os, genGeneric
 
-def getLatex():	
-    with open("config/HARDWARE.json") as hardwareIDs:
-        data = json.load(hardwareIDs)
-    with open("config/EEPROM.json", 'r') as EEPROMConfigs:
-        SEBconfigs = json.load(EEPROMConfigs)
-    
+def getLatex(jsonData):
     # Sort hardware based on hardware type
     PTs = []
     TCs = []
     RTDs = []
     HEs = []
-    for ID in data:
+    for ID in jsonData['HARDWARE']:
         try:
             if (ID['Hardware Type'] == "Pressure Transducer"):
                 PTs.append(ID)
@@ -29,7 +24,7 @@ def getLatex():
             print(ID)
             return ""
     # Parse hardware configs to latex
-    texHARDWARE = genHARDWARETex(PTs, TCs, RTDs, HEs, SEBconfigs)
+    texHARDWARE = genHARDWARETex(PTs, TCs, RTDs, HEs, jsonData['EEPROM'])
     # Check for error in latex generation
     if (texHARDWARE == ""):
         return ""

@@ -8,7 +8,7 @@ def getLatex(jsonData):
 
     texOut += "\subsection{CAN Bus Load Calculations}\n"
     canBusFrequencies = [100000, 250000, 500000, 1000000]
-    bestCase, worstCase = getCANBusLoad()
+    bestCase, worstCase = getCANBusLoad(jsonData['CAN'])
     texOut += "The current CAN Bus config requires between " + str(bestCase) + " bits and " + str(worstCase) + " bits to be sent on the CAN bus every second.\n\n"
     texOut += "\\begin{flushleft}"
     texOut += "\\begin{tabular}{|c|c|c|}\hline\n"
@@ -38,7 +38,7 @@ def getHeader(jsonData):
     headerOut = ""
     headerOut += genGeneric.autogenWarnStart("CAN Config", os.path.abspath(__file__), commentChar="//")
 
-    headerOut += genCANHeader(jsonData['CAN'])
+    headerOut += genCANHeader(jsonData['CAN'], jsonData['STATES'])
 
     headerOut += genGeneric.autogenWarnEnd("CAN Config", os.path.abspath(__file__), commentChar="//")
     return headerOut
@@ -91,16 +91,13 @@ def genCANTex(config):
     texOut += "\end{tabular}\n"
     return texOut
 
-def genCANHeader(config):
+def genCANHeader(config, states):
     headerOut = ""
     headerOut += "#ifndef CANIDS_H_\n"
     headerOut += "#define CANIDS_H_\n\n"
 
     headerOut += "#include <linux/can.h>\n"
     headerOut += "#include <stdint.h>\n\n"
-
-    with open("config/STATES.json") as statesJSON:
-        states = json.load(statesJSON)
 
     headerOut += "enum STATES {\n"
     for state in states:
@@ -124,14 +121,11 @@ def genCANHeader(config):
     headerOut += "#endif // CANIDS_H_\n"
     return headerOut
 
-def getCANBusLoad():
-    with open("config/CAN.json") as canIDs:
-        data = json.load(canIDs)
-    
+def getCANBusLoad(canIDs):
     # Calculate the total number of bits that need to be transmitted per second
     minimumBits = 0
     maximumBits = 0
-    for ID in data:
+    for ID in canIDs:
         minimumBits = minimumBits + 1 # Start bit
         minimumBits = minimumBits + 11 # Identifier
         minimumBits = minimumBits + 1 # RTR bit
