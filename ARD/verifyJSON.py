@@ -39,6 +39,10 @@ def verifyJSON(jsonData, jsonFileLocations):
     
     return True
 
+#############################################################################################################
+# verifyCAN
+#############################################################################################################
+
 validCANParameters = [
     "CANID",
     "CANID_NAME",
@@ -138,6 +142,10 @@ def verifyCANBytes(ID):
 
     return warningCount
 
+#############################################################################################################
+# verifyEEPROM
+#############################################################################################################
+
 def verifyEEPROM(eepromConfigs, hardware):
     warningCount = 0
 
@@ -157,6 +165,10 @@ def verifyEEPROM(eepromConfigs, hardware):
             warningCount += verifyWarning(f"\"VIN_CURRENT_CANID\" field is required for EEPROM config. Board config \"{boardConfig}\" in \"{EEPROMfile}\".")
 
     return warningCount
+
+#############################################################################################################
+# verifyEEPROMLAYOUT
+#############################################################################################################
 
 validEEPROMLAYOUTParameters = [
     "VersionID",
@@ -250,24 +262,105 @@ def verifyEEPROMLAYOUTData(layout):
                 warningCount += verifyWarning(f"Unrecognized field \"{item}\" found in Data definition. Definition name \"{dataDef['Name']}\" in config VersionID \"{layout['VersionID']}\" in \"{EEPROMLAYOUTfile}\".")
 
     return warningCount
-    
+
+#############################################################################################################
+# verifyFILTERS
+#############################################################################################################
+
 def verifyFILTERS():
     return 0
 
+#############################################################################################################
+# verifyHARDWARE
+#############################################################################################################
+validHardwarePTParameters = {
+    "Model Number":"string",
+    "Serial Number":"string",
+    "Datasheet Link":"string",
+    "Sensing Units":"string",
+    "Pressure Port Type":"string",
+    "Accuracy":"string",
+    "Min Pressure":"float",
+    "Max Pressure":"float",
+    "Sample Rate":"int",
+    "Min Output Voltage":"float",
+    "Max Output Voltage":"float",
+    "Min Input Voltage":"string",
+    "Max Input Voltage":"string",
+    "Min Temperature":"string",
+    "Max Temperature":"string",
+    "Calibration Polyfit p1":"float",
+    "Calibration Polyfit p2":"float",
+    "Calibration Polyfit p3":"float",
+    "Calibration Polyfit p4":"float",
+    "Calibration Polyfit p5":"float",
+    "Calibration Polyfit p6":"float",
+    "Calibration Polyfit p7":"float"
+}
+
+validHardwareTCParameters = {
+    "Hardware Type":"string",
+    "Model Number":"string",
+    "Serial Number":"string",
+    "Datasheet Link":"string",
+    "Type":"string",
+    "Sensing Units":"string",
+    "Sample Rate":"int",
+    "Min Temperature":"string",
+    "Max Temperature":"string"
+}
+
+validHardwareRTDParameters = {
+    "Hardware Type":"string",
+    "Model Number":"string",
+    "Serial Number":"string",
+    "Datasheet Link":"string",
+    "Type":"string",
+    "Sensing Units":"string",
+    "Sample Rate":"int",
+    "Min Temperature":"string",
+    "Max Temperature":"string"
+}
+
+validHardwareHALLParameters = {
+    "Hardware Type":"string",
+    "Model Number":"string",
+    "Serial Number":"string",
+    "Datasheet Link":"string",
+    "Sensing Units":"string",
+    "Trip":"string",
+    "Release":"string",
+    "Output Type":"string",
+    "Min Input Voltage":"string",
+    "Max Input Voltage":"string",
+    "Sample Rate":"int",
+    "Min Temperature":"string",
+    "Max Temperature":"string"
+}
+
 def verifyHARDWARE(hardwareDefinitions):
     warningCount = 0 
+    modelNumbers = []
     for hardware in hardwareDefinitions:
-        if "Hardware Type" not in hardware:
-            warningCount += verifyWarning(f"\"Hardware Type\" field is required. Hardware \"{hardware}\" in \"{EEPROMLAYOUTfile}\".")
+        if "Serial Number" not in hardware:
+            warningCount += verifyWarning(f"\"Serial Number\" field is required. Hardware \"{hardware}\" in \"{EEPROMLAYOUTfile}\".")
             continue
-        if hardware['Hardware Type'] == "Pressure Transducer":
-            warningCount += verifyHARDWAREPT(hardware)
+        
+        if hardware['Serial Number'] not in modelNumbers:
+            modelNumbers.append(hardware['Serial Number'])
+        else:
+            warningCount += verifyWarning(f"Duplicate Serial Number found. Serial Number \"{hardware['Serial Number']}\" in \"{EEPROMLAYOUTfile}\".")
+
+        if "Hardware Type" not in hardware:
+            warningCount += verifyWarning(f"\"Hardware Type\" field is required. Serial Number \"{hardware['Serial Number']}\" in \"{EEPROMLAYOUTfile}\".")
+        elif hardware['Hardware Type'] == "Pressure Transducer":
+            warningCount += verifyHARDWAREParameters(hardware, validHardwarePTParameters)
         elif hardware['Hardware Type'] == "Thermocouple":
-            pass
+            warningCount += verifyHARDWAREParameters(hardware, validHardwareTCParameters)
         elif hardware['Hardware Type'] == "RTD":
-            pass
+            warningCount += verifyHARDWAREParameters(hardware, validHardwareRTDParameters)
         elif hardware['Hardware Type'] == "Hall Effect Sensor":
-            pass
+            warningCount += verifyHARDWAREParameters(hardware, validHardwareHALLParameters)
         elif hardware['Hardware Type'] == "Capacitance Sensor":
             pass
         else:
@@ -275,38 +368,29 @@ def verifyHARDWARE(hardwareDefinitions):
         
     return warningCount
 
-validHARDWAREPTParameters = [
-    "Model Number"
-    "Serial Number"
-    "Datasheet Link"
-    "Sensing Units"
-    "Pressure Port Type"
-    "Accuracy"
-    "Min Pressure"
-    "Max Pressure"
-    "Sample Rate"
-    "Min Output Voltage"
-    "Max Output Voltage"
-    "Min Input Voltage"
-    "Max Input Voltage"
-    "Min Temperature"
-    "Max Temperature"
-    "Calibration Polyfit p1"
-    "Calibration Polyfit p2"
-    "Calibration Polyfit p3"
-    "Calibration Polyfit p4"
-    "Calibration Polyfit p5"
-    "Calibration Polyfit p6"
-    "Calibration Polyfit p7"
-]
-
-def verifyHARDWAREPT(hardware):
-    if "Model Number" not in hardware:
-        pass
-    
+def verifyHARDWAREParameters(hardware, validParameters):
+    warningCount = 0
+    parameterList = []
     for parameter in hardware:
-        pass
-    return 0
+        if parameter == "Hardware Type":
+            continue
+
+        if parameter not in validParameters:
+            warningCount += verifyWarning(f"Unrecognized parameter {parameter}. Serial Number \"{hardware['Serial Number']}\" in \"{EEPROMLAYOUTfile}\".")
+            continue
+        if parameter not in parameterList:
+            parameterList.append(parameter)
+        else:
+            warningCount += verifyWarning(f"Duplicate parameter {parameter}. Serial Number \"{hardware['Serial Number']}\" in \"{EEPROMLAYOUTfile}\".")
+
+        if not canConvert(hardware[parameter], validParameters[parameter]):
+            warningCount += verifyWarning(f"Unable convert \"{hardware[parameter]}\" to \"{validParameters[parameter]}\". Serial Number \"{hardware['Serial Number']}\" in \"{EEPROMLAYOUTfile}\".")
+        
+    return warningCount
+
+#############################################################################################################
+# verifySTATES
+#############################################################################################################
 
 def verifySTATES(states):
     warningCount = 0
@@ -314,6 +398,10 @@ def verifySTATES(states):
         if not isValidC(state.replace(' ', '_'), "variable"):
             warningCount += verifyWarning(f"State \"{state}\" cannot be converted to a valid C/C++ variable name. Defined in \"{STATESfile}\"")
     return warningCount
+
+#############################################################################################################
+# Helper Functions
+#############################################################################################################
 
 cppKeywords = [
     "alignas"
@@ -448,6 +536,28 @@ def isValidC(value, cType):
     else:
         return False
 
+    return True
+
+# Check if the given value can be converted to the specified python type
+def canConvert(value, toType):
+    if toType == "string":
+        try:
+            str(value)
+        except ValueError:
+            return False
+    elif toType == "int":
+        try:
+            int(value)
+        except ValueError:
+            return False
+    elif toType == "float":
+        try:
+            float(value)
+        except ValueError:
+            return False
+    else:
+        raise ValueError(f"Unrecognized python type \"{toType}\".")
+    
     return True
 
 # calls genGeneric warning and returns false for setting warningCount
