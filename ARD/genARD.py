@@ -8,13 +8,15 @@ import genHARDWARE
 import parseOBCDocs
 import verifyJSON
 
-jsonDefaultFileLocations = {
+defaultFileLocations = {
     "--can-file":"config/CAN.json",
     "--eeprom-file":"config/EEPROM.json",
     "--eepromlayout-file":"config/EEPROMLAYOUT.json",
     "--filters-file":"config/FILTERS.json",
     "--hardware-file":"config/HARDWARE.json",
-    "--states-file":"config/STATES.json"
+    "--states-file":"config/STATES.json",
+    "--CANIDs-header":"../Helix-OBC-Firmware/inc/CANIDs.h",
+    "--eepromlayout-header":"../Helix-OBC-Firmware/inc/EEPROM_Layout.h"
 }
 
 jsonData = {
@@ -33,58 +35,77 @@ if __name__ == "__main__":
         os.chdir("ARD/")
 
     # Override default file locations if specified in command line args
-    for location in jsonDefaultFileLocations:
+    for location in defaultFileLocations:
         if location in sys.argv:
-            jsonDefaultFileLocations[location] = sys.argv[sys.argv.find(location)+1]
+            defaultFileLocations[location] = sys.argv[sys.argv.find(location)+1]
 
     # Load config files
-    openingFile = jsonDefaultFileLocations['--can-file']
+    openingFile = defaultFileLocations['--can-file']
     try:
-        CAN =          open(jsonDefaultFileLocations['--can-file'], 'r')
-        openingFile = jsonDefaultFileLocations['--eeprom-file']
-        EEPROM =       open(jsonDefaultFileLocations['--eeprom-file'], 'r')
-        openingFile = jsonDefaultFileLocations['--eepromlayout-file']
-        EEPROMLAYOUT = open(jsonDefaultFileLocations['--eepromlayout-file'], 'r')
-        openingFile = jsonDefaultFileLocations['--filters-file']
-        FILTERS =      open(jsonDefaultFileLocations['--filters-file'], 'r')
-        openingFile = jsonDefaultFileLocations['--hardware-file']
-        HARDWARE =     open(jsonDefaultFileLocations['--hardware-file'], 'r')
-        openingFile = jsonDefaultFileLocations['--states-file']
-        STATES =       open(jsonDefaultFileLocations['--states-file'], 'r')
+        CAN =          open(defaultFileLocations['--can-file'], 'r')
+        openingFile = defaultFileLocations['--eeprom-file']
+        EEPROM =       open(defaultFileLocations['--eeprom-file'], 'r')
+        openingFile = defaultFileLocations['--eepromlayout-file']
+        EEPROMLAYOUT = open(defaultFileLocations['--eepromlayout-file'], 'r')
+        openingFile = defaultFileLocations['--filters-file']
+        FILTERS =      open(defaultFileLocations['--filters-file'], 'r')
+        openingFile = defaultFileLocations['--hardware-file']
+        HARDWARE =     open(defaultFileLocations['--hardware-file'], 'r')
+        openingFile = defaultFileLocations['--states-file']
+        STATES =       open(defaultFileLocations['--states-file'], 'r')
     except:
         genGeneric.error(f"File {openingFile} does not exist.")
     
     # Load json data from config files
-    openingFile = jsonDefaultFileLocations['--can-file']
+    openingFile = defaultFileLocations['--can-file']
     try:
         jsonData['CAN'] =          json.load(CAN)
-        openingFile = jsonDefaultFileLocations['--eeprom-file']
+        openingFile = defaultFileLocations['--eeprom-file']
         jsonData['EEPROM'] =       json.load(EEPROM)
-        openingFile = jsonDefaultFileLocations['--eepromlayout-file']
+        openingFile = defaultFileLocations['--eepromlayout-file']
         jsonData['EEPROMLAYOUT'] = json.load(EEPROMLAYOUT)
-        openingFile = jsonDefaultFileLocations['--filters-file']
+        openingFile = defaultFileLocations['--filters-file']
         jsonData['FILTERS'] =      json.load(FILTERS)
-        openingFile = jsonDefaultFileLocations['--hardware-file']
+        openingFile = defaultFileLocations['--hardware-file']
         jsonData['HARDWARE'] =     json.load(HARDWARE)
-        openingFile = jsonDefaultFileLocations['--states-file']
+        openingFile = defaultFileLocations['--states-file']
         jsonData['STATES'] =       json.load(STATES)
     except json.decoder.JSONDecodeError:
         genGeneric.error(f"{openingFile} is not a valid JSON file, check for syntax errors.")
 
     if ("--skip-verify" not in sys.argv):
         print("Verifying JSON files are valid")
-        verifyJSON.verifyJSON(jsonData, jsonDefaultFileLocations)
+        verifyJSON.verifyJSON(jsonData, defaultFileLocations)
         # verifyJSON will call exit() if it fails
 
     # Generate C/C++ Files
     print("Generating \"CANIDs.h\" for Helix-OBC-Firmware")
-    with open ("../Helix-OBC-Firmware/inc/CANIDs.h", "w") as CAN_HEADER:
-        CAN_HEADER.write(genCAN.getHeader(jsonData))
+    newCANIDsHeader = genCAN.getHeader(jsonData)
+    with open(defaultFileLocations['--CANIDs-header'], 'r') as CAN_HEADER:
+        existingCANIDsHeader = CAN_HEADER.read()
+        if (existingCANIDsHeader == newCANIDsHeader):
+            newCANIDsHeader = ""
+
+    # if newCANIDsHeader gets set to "" that means that we should not write out the file
+    if newCANIDsHeader != "":
+        with open (defaultFileLocations['--CANIDs-header'], "w") as CAN_HEADER:
+            CAN_HEADER.write(newCANIDsHeader)
 
     print("Generating \"EEPROM_Layout.h\" for Helix-OBC-Firmware")
-    headerEEPROMLAYOUT = genEEPROMLAYOUT.genEEPROMHEADER(jsonData)
-    with open ("../Helix-OBC-Firmware/inc/EEPROM_Layout.h", "w") as EEPROM_LAYOUT_HEADER:
-        EEPROM_LAYOUT_HEADER.write(headerEEPROMLAYOUT)
+    newEEPROMLAYOUTHeader = genEEPROMLAYOUT.genEEPROMHEADER(jsonData)
+    with open(defaultFileLocations['--eepromlayout-header'], 'r') as EEPROM_LAYOUT_HEADER:
+        existingEEPROMLAYOUTHeader = EEPROM_LAYOUT_HEADER.read()
+        if (existingEEPROMLAYOUTHeader == newEEPROMLAYOUTHeader):
+            newEEPROMLAYOUTHeader = ""
+
+    # if newEEPROMLAYOUTHeader gets set to "" that means that we should not write out the file
+    if newEEPROMLAYOUTHeader != "":
+        with open (defaultFileLocations['--eepromlayout-header'], "w") as EEPROM_LAYOUT_HEADER:
+            EEPROM_LAYOUT_HEADER.write(newEEPROMLAYOUTHeader)
+
+    #headerEEPROMLAYOUT = genEEPROMLAYOUT.genEEPROMHEADER(jsonData)
+    #with open ("../Helix-OBC-Firmware/inc/EEPROM_Layout.h", "w") as EEPROM_LAYOUT_HEADER:
+    #    EEPROM_LAYOUT_HEADER.write(headerEEPROMLAYOUT)
 
     if ("--headers-only" in sys.argv):
         exit(0)
