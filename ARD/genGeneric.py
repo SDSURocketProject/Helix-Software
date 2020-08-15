@@ -24,6 +24,25 @@ def autogenWarnEnd(sectionName, filePath, commentChar="%"):
 def usage(fileName):
 	pass
 
+def makeCName(value, cType, snakeOrCamel="camel"):
+	outName = ""
+	if (cType == "variable"):
+		if snakeOrCamel == "snake":
+			value = value.lower()
+			outName = value.replace(' ', '_')
+		elif snakeOrCamel == "camel":
+			value = value.lower()
+			outName = value.split(' ')[0]
+			for word in value.split(' ')[1:]:
+				outName += word[0].upper() + word[1:]
+		elif snakeOrCamel == "hungarian":
+			raise ValueError("Hungarian notation? WTF do you think you are doing?")
+		else:
+			raise ValueError(f"snakeOrCamel parameter cannot be \"{snakeOrCamel}\".")
+	elif (cType == "#define"):
+		outName = value.replace(' ', '_').upper()
+	return outName
+
 def error(message):
 	print(FAIL + "Error: " + ENDC + message)
 	print("Halting execution")

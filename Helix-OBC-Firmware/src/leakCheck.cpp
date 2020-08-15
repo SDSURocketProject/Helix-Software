@@ -66,31 +66,31 @@ static enum STATES checkHeliumPressure(can_frame *data) {
  * \n
  */
 static enum STATES parseHeliumPressurePTData(can_frame *data) {
-    //struct helium_pressure_pt_data *pressurePTData = data;
+    //struct heliumPressurePtData *pressurePTData = data;
     //! Print out CANID and Data from the can_frame
     //std::cout << "CANID: " << data->can_id << "\n";
     //std::cout << "Data: " << data->data << "\n";
 
-    struct helium_pressure_pt_data *canData = reinterpret_cast<struct helium_pressure_pt_data *>(data->data);
+    struct heliumPressurePtData *canData = reinterpret_cast<struct heliumPressurePtData *>(data->data);
 
     BOOST_LOG_TRIVIAL(trace) << "CANID: " << data->can_id;
-    BOOST_LOG_TRIVIAL(trace) << "Data: " << canData->helium_pressure;
+    BOOST_LOG_TRIVIAL(trace) << "Data: " << canData->heliumPressure;
 
-    if (canData->helium_pressure > 300) {
+    if (canData->heliumPressure > 300) {
         return STATE_GROUND_SAFE;
     }
 
     if (heliumPressureStartLeakCheck == 0) {
-        BOOST_LOG_TRIVIAL(info) << "Started check on helium pressure, initial pressure: " << canData->helium_pressure;
+        BOOST_LOG_TRIVIAL(info) << "Started check on helium pressure, initial pressure: " << canData->heliumPressure;
 
-        heliumPressureStartLeakCheck = canData->helium_pressure;
+        heliumPressureStartLeakCheck = canData->heliumPressure;
         struct can_frame checkHeliumPressureEvent;
         checkHeliumPressureEvent.can_id = CANIDS_LEAK_CHECK_HELIUM_PRESSURE_CHECK;
         // Check pressure again in 5 seconds
         eventTimerPushEvent(&checkHeliumPressureEvent, 5000);
     }
 
-    heliumLastPressure = canData->helium_pressure;
+    heliumLastPressure = canData->heliumPressure;
     
     //! Continue in the leak check state.
     return STATE_LEAK_CHECK;

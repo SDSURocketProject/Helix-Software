@@ -101,21 +101,21 @@ def genCANHeader(config, states):
 
     headerOut += "enum STATES {\n"
     for state in states:
-        headerOut += "\t" + state + ",\n"
+        headerOut += "\t" + genGeneric.makeCName(state, "#define") + ",\n"
     headerOut += "\tSTATE_MAX_STATES\n"
     headerOut += "};\n\n"
 
     headerOut += "enum CANIDs : uint32_t {\n"
     for CANID in config:
-        headerOut += "\tCANIDS_" + CANID["CANID_NAME"].upper().replace(' ', '_') + " = " + CANID["CANID"] + "UL,\n"
+        headerOut += "\tCANIDS_" + genGeneric.makeCName(CANID["CANID_NAME"], "#define") + " = " + CANID["CANID"] + "UL,\n"
     headerOut += "\tCANIDS_QUIT,\n"
     headerOut += "\tCANIDS_MAX_CANID\n"
     headerOut += "};\n\n"
 
     for CANID in config:
-        headerOut += "struct " + CANID["CANID_NAME"].lower().replace(' ', '_') + " {\n"
+        headerOut += "struct " + genGeneric.makeCName(CANID["CANID_NAME"], "variable") + " {\n"
         for byteDef in CANID["bytes"]:
-            headerOut += "\t" + canIDByteToStdInt(byteDef) + " " + byteDef["Name"].lower().replace(' ', '_') + ";\n"
+            headerOut += "\t" + canIDByteToStdInt(byteDef) + " " + genGeneric.makeCName(byteDef["Name"], "variable") + ";\n"
         headerOut += "};\n\n"
 
     headerOut += "#endif // CANIDS_H_\n"

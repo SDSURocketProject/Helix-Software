@@ -61,193 +61,193 @@ enum CANIDs : uint32_t {
 	CANIDS_MAX_CANID
 };
 
-struct primary_clock_sync {
-	uint32_t time_since_system_start;
+struct primaryClockSync {
+	uint32_t timeSinceSystemStart;
 };
 
-struct obc_clock_sync {
-	uint32_t time_since_system_start;
+struct obcClockSync {
+	uint32_t timeSinceSystemStart;
 };
 
-struct emergency_signal {
+struct emergencySignal {
 	uint8_t status;
 };
 
-struct transition_cone_status {
+struct transitionConeStatus {
 	uint8_t status;
 };
 
-struct arm_recovery {
+struct armRecovery {
 	uint8_t status;
 };
 
-struct detatch_second_stage {
+struct detatchSecondStage {
 	uint8_t status;
 };
 
-struct helium_pressure_pt_data {
-	uint32_t time_since_system_start;
-	uint16_t helium_pressure;
-	uint16_t raw_helium_pressure_measurement;
+struct heliumPressurePtData {
+	uint32_t timeSinceSystemStart;
+	uint16_t heliumPressure;
+	uint16_t rawHeliumPressureMeasurement;
 };
 
-struct lox_pressure_pt_data {
-	uint32_t time_since_system_start;
-	uint16_t lox_pressure;
-	uint16_t raw_lox_pressure_measurement;
+struct loxPressurePtData {
+	uint32_t timeSinceSystemStart;
+	uint16_t loxPressure;
+	uint16_t rawLoxPressureMeasurement;
 };
 
-struct ethanol_pressure_pt_data {
-	uint32_t time_since_system_start;
-	uint16_t ethanol_pressure;
-	uint16_t raw_ethanol_pressure_measurement;
+struct ethanolPressurePtData {
+	uint32_t timeSinceSystemStart;
+	uint16_t ethanolPressure;
+	uint16_t rawEthanolPressureMeasurement;
 };
 
-struct chamber_pressure_pt_data {
-	uint32_t time_since_system_start;
-	uint16_t chamber_pressure;
-	uint16_t raw_chamber_pressure_measurement;
+struct chamberPressurePtData {
+	uint32_t timeSinceSystemStart;
+	uint16_t chamberPressure;
+	uint16_t rawChamberPressureMeasurement;
 };
 
-struct helium_fill_valve_hall_effect_state {
-	uint32_t time_since_system_start;
-	uint8_t helium_fill_valve_hall_effect_state;
+struct heliumFillValveHallEffectState {
+	uint32_t timeSinceSystemStart;
+	uint8_t heliumFillValveHallEffectState;
 };
 
-struct lox_fill_valve_hall_effect_state {
-	uint32_t time_since_system_start;
-	uint8_t lox_fill_valve_hall_effect_state;
+struct loxFillValveHallEffectState {
+	uint32_t timeSinceSystemStart;
+	uint8_t loxFillValveHallEffectState;
 };
 
-struct ethanol_fill_valve_hall_effect_state {
-	uint32_t time_since_system_start;
-	uint8_t ethanol_fill_valve_hall_effect_state;
+struct ethanolFillValveHallEffectState {
+	uint32_t timeSinceSystemStart;
+	uint8_t ethanolFillValveHallEffectState;
 };
 
-struct lox_tank_liquid_level_data {
-	uint32_t time_since_system_start;
-	uint8_t lox_tank_liquid_level;
-	uint16_t raw_lox_tank_liquid_level_measurement;
+struct loxTankLiquidLevelData {
+	uint32_t timeSinceSystemStart;
+	uint8_t loxTankLiquidLevel;
+	uint16_t rawLoxTankLiquidLevelMeasurement;
 };
 
-struct ethanol_tank_liquid_level_data {
-	uint32_t time_since_system_start;
-	uint8_t ethanol_tank_liquid_level;
-	uint16_t raw_ethanol_tank_liquid_level_measurement;
+struct ethanolTankLiquidLevelData {
+	uint32_t timeSinceSystemStart;
+	uint8_t ethanolTankLiquidLevel;
+	uint16_t rawEthanolTankLiquidLevelMeasurement;
 };
 
-struct lox_tank_temperature_data {
-	uint32_t time_since_system_start;
-	int16_t lox_tank_temperature;
-	uint16_t raw_lox_tank_temperature_measurement;
+struct loxTankTemperatureData {
+	uint32_t timeSinceSystemStart;
+	int16_t loxTankTemperature;
+	uint16_t rawLoxTankTemperatureMeasurement;
 };
 
-struct ethanol_tank_temperature_data {
-	uint32_t time_since_system_start;
-	int16_t ethanol_tank_temperature;
-	uint16_t raw_ethanol_tank_temperature_measurement;
+struct ethanolTankTemperatureData {
+	uint32_t timeSinceSystemStart;
+	int16_t ethanolTankTemperature;
+	uint16_t rawEthanolTankTemperatureMeasurement;
 };
 
-struct nozzle_temperature_data {
-	uint32_t time_since_system_start;
-	int16_t nozzle_temperature;
-	uint16_t raw_nozzle_temperature_measurement;
+struct nozzleTemperatureData {
+	uint32_t timeSinceSystemStart;
+	int16_t nozzleTemperature;
+	uint16_t rawNozzleTemperatureMeasurement;
 };
 
-struct upper_air_frame_temperature_data {
-	uint32_t time_since_system_start;
-	int16_t upper_air_frame_temperature;
-	uint16_t raw_upper_air_frame_temperature_measurement;
+struct upperAirFrameTemperatureData {
+	uint32_t timeSinceSystemStart;
+	int16_t upperAirFrameTemperature;
+	uint16_t rawUpperAirFrameTemperatureMeasurement;
 };
 
-struct itc_temperature_data {
-	uint32_t time_since_system_start;
-	int16_t itc_temperature;
-	uint16_t raw_itc_temperature_measurement;
+struct itcTemperatureData {
+	uint32_t timeSinceSystemStart;
+	int16_t itcTemperature;
+	uint16_t rawItcTemperatureMeasurement;
 };
 
-struct lower_air_frame_temperature_data {
-	uint32_t time_since_system_start;
-	int16_t lower_air_frame_temperature;
-	uint16_t raw_lower_air_frame_temperature_measurement;
+struct lowerAirFrameTemperatureData {
+	uint32_t timeSinceSystemStart;
+	int16_t lowerAirFrameTemperature;
+	uint16_t rawLowerAirFrameTemperatureMeasurement;
 };
 
-struct helium_pressure_pt_current {
-	uint32_t time_since_system_start;
-	int16_t helium_pressure_pt_current;
-	uint16_t raw_helium_pressure_pt_current_measurement;
+struct heliumPressurePtCurrent {
+	uint32_t timeSinceSystemStart;
+	int16_t heliumPressurePtCurrent;
+	uint16_t rawHeliumPressurePtCurrentMeasurement;
 };
 
-struct lox_pressure_pt_current {
-	uint32_t time_since_system_start;
-	int16_t lox_pressure_pt_current;
-	uint16_t raw_lox_pressure_pt_current_measurement;
+struct loxPressurePtCurrent {
+	uint32_t timeSinceSystemStart;
+	int16_t loxPressurePtCurrent;
+	uint16_t rawLoxPressurePtCurrentMeasurement;
 };
 
-struct ethanol_pressure_pt_current {
-	uint32_t time_since_system_start;
-	int16_t ethanol_pressure_pt_current;
-	uint16_t raw_ethanol_pressure_pt_current_measurement;
+struct ethanolPressurePtCurrent {
+	uint32_t timeSinceSystemStart;
+	int16_t ethanolPressurePtCurrent;
+	uint16_t rawEthanolPressurePtCurrentMeasurement;
 };
 
-struct chamber_pressure_pt_current {
-	uint32_t time_since_system_start;
-	int16_t chamber_pressure_pt_current;
-	uint16_t raw_chamber_pressure_pt_current_measurement;
+struct chamberPressurePtCurrent {
+	uint32_t timeSinceSystemStart;
+	int16_t chamberPressurePtCurrent;
+	uint16_t rawChamberPressurePtCurrentMeasurement;
 };
 
-struct helium_fill_valve_hall_effect_current {
-	uint32_t time_since_system_start;
-	int16_t helium_fill_valve_hall_effect_current;
-	uint16_t raw_helium_fill_valve_hall_effect_current_measurement;
+struct heliumFillValveHallEffectCurrent {
+	uint32_t timeSinceSystemStart;
+	int16_t heliumFillValveHallEffectCurrent;
+	uint16_t rawHeliumFillValveHallEffectCurrentMeasurement;
 };
 
-struct lox_fill_valve_hall_effect_current {
-	uint32_t time_since_system_start;
-	int16_t lox_fill_valve_hall_effect_current;
-	uint16_t raw_lox_fill_valve_hall_effect_current_measurement;
+struct loxFillValveHallEffectCurrent {
+	uint32_t timeSinceSystemStart;
+	int16_t loxFillValveHallEffectCurrent;
+	uint16_t rawLoxFillValveHallEffectCurrentMeasurement;
 };
 
-struct ethanol_fill_valve_hall_effect_current {
-	uint32_t time_since_system_start;
-	int16_t ethanol_fill_valve_hall_effect_current;
-	uint16_t raw_ethanol_fill_valve_hall_effect_current_measurement;
+struct ethanolFillValveHallEffectCurrent {
+	uint32_t timeSinceSystemStart;
+	int16_t ethanolFillValveHallEffectCurrent;
+	uint16_t rawEthanolFillValveHallEffectCurrentMeasurement;
 };
 
-struct upper_air_frame_vin_current {
-	uint32_t time_since_system_start;
-	int16_t upper_air_frame_board_current;
-	uint16_t raw_upper_air_frame_board_current_measurement;
+struct upperAirFrameVinCurrent {
+	uint32_t timeSinceSystemStart;
+	int16_t upperAirFrameBoardCurrent;
+	uint16_t rawUpperAirFrameBoardCurrentMeasurement;
 };
 
-struct itc_vin_current {
-	uint32_t time_since_system_start;
-	int16_t itc_board_current;
-	uint16_t raw_itc_board_current_measurement;
+struct itcVinCurrent {
+	uint32_t timeSinceSystemStart;
+	int16_t itcBoardCurrent;
+	uint16_t rawItcBoardCurrentMeasurement;
 };
 
-struct lower_air_frame_vin_current {
-	uint32_t time_since_system_start;
-	int16_t lower_air_frame_board_current;
-	uint16_t raw_lower_air_frame_board_current_measurement;
+struct lowerAirFrameVinCurrent {
+	uint32_t timeSinceSystemStart;
+	int16_t lowerAirFrameBoardCurrent;
+	uint16_t rawLowerAirFrameBoardCurrentMeasurement;
 };
 
-struct upper_air_frame_vin_voltage {
-	uint32_t time_since_system_start;
-	int16_t upper_air_frame_board_vin_voltage;
-	uint16_t raw_upper_air_frame_board_vin_voltage_measurement;
+struct upperAirFrameVinVoltage {
+	uint32_t timeSinceSystemStart;
+	int16_t upperAirFrameBoardVinVoltage;
+	uint16_t rawUpperAirFrameBoardVinVoltageMeasurement;
 };
 
-struct itc_vin_voltage {
-	uint32_t time_since_system_start;
-	int16_t itc_board_vin_voltage;
-	uint16_t raw_itc_board_vin_voltage_measurement;
+struct itcVinVoltage {
+	uint32_t timeSinceSystemStart;
+	int16_t itcBoardVinVoltage;
+	uint16_t rawItcBoardVinVoltageMeasurement;
 };
 
-struct lower_air_frame_vin_voltage {
-	uint32_t time_since_system_start;
-	int16_t lower_air_frame_board_vin_voltage;
-	uint16_t raw_lower_air_frame_board_vin_voltage_measurement;
+struct lowerAirFrameVinVoltage {
+	uint32_t timeSinceSystemStart;
+	int16_t lowerAirFrameBoardVinVoltage;
+	uint16_t rawLowerAirFrameBoardVinVoltageMeasurement;
 };
 
 #endif // CANIDS_H_
