@@ -1,11 +1,8 @@
 import json, os, genGeneric, math
 
-def getLatex():
+def getLatex(jsonData):
     texOut = ""
     texOut += genGeneric.autogenWarnStart("CAN Config", os.path.abspath(__file__))
-    
-    with open("config/CAN.json") as canIDs:
-        data = json.load(canIDs)
     
     texOut += "\section{CAN IDs}\n"
 
@@ -28,7 +25,7 @@ def getLatex():
         texOut += " & " + str(round(bestCase / frequency, 2)*100) + "\% & " + str(round(worstCase / frequency, 2)*100) + "\%\\\\\hline\n"
     texOut += "\end{tabular}\n"
     texOut += "\end{flushleft}"
-    for ID in data:
+    for ID in jsonData['CAN']:
         texOut += genCANTex(ID)
 
 
@@ -37,14 +34,11 @@ def getLatex():
     
     return texOut
 
-def getHeader():
+def getHeader(jsonData):
     headerOut = ""
     headerOut += genGeneric.autogenWarnStart("CAN Config", os.path.abspath(__file__), commentChar="//")
 
-    with open("config/CAN.json") as canIDs:
-        data = json.load(canIDs)
-
-    headerOut += genCANHeader(data)
+    headerOut += genCANHeader(jsonData['CAN'])
 
     headerOut += genGeneric.autogenWarnEnd("CAN Config", os.path.abspath(__file__), commentChar="//")
     return headerOut
@@ -65,15 +59,13 @@ def genCANTex(config):
     UnitsStr = ""
     DescriptionStr = ""
     for byteDef in config["bytes"]:
-        if ("Size" in byteDef):
-            byteIdxHigh = byteIdxLow+byteDef["Size"]-1
-            if (byteIdxHigh == byteIdxLow):
-                texOut += str(byteIdxHigh) + " & "
-            else:
-                texOut += str(byteIdxLow) + "-" + str(byteIdxHigh) + " & "
-            byteIdxLow = byteIdxLow+byteDef["Size"]
+        byteIdxHigh = byteIdxLow+byteDef["Size"]-1
+        if (byteIdxHigh == byteIdxLow):
+            texOut += str(byteIdxHigh) + " & "
         else:
-            texOut += " & "
+            texOut += str(byteIdxLow) + "-" + str(byteIdxHigh) + " & "
+        byteIdxLow = byteIdxLow+byteDef["Size"]
+        
         texOut += " & " # Bit
         if ("Signed" in byteDef):
             texOut += byteDef["Signed"] + " & "
@@ -87,10 +79,7 @@ def genCANTex(config):
             texOut += byteDef["Units"] + " & "
         else:
             texOut += " & "
-        if ("Name" in byteDef):
-            texOut += byteDef["Name"]
-        else:
-            texOut += " & "
+        texOut += byteDef["Name"]
 
         texOut += "\\\\\hline\n"
         if ("bits" in byteDef):

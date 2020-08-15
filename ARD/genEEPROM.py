@@ -1,17 +1,12 @@
 import json, os, genGeneric, struct, time
 
-eepromLayoutFilePath = "config/EEPROMLAYOUT.json"
+allJsonData = []
 
-def genEEPROMBIN():
-    with open("config/EEPROM.json", 'r') as EEPROMConfigs:
-        EBconfigs = json.load(EEPROMConfigs)
-    with open(eepromLayoutFilePath, 'r') as EEPROMConfigs:
-        layouts = json.load(EEPROMConfigs)
-    with open("config/CAN.json", 'r') as CANFile:
-        CANIDs = json.load(CANFile)
-
-    for EBconfig in EBconfigs:
-        binOut = getBin(EBconfig, layouts, CANIDs)
+def genEEPROMBIN(jsonData):
+    global allJsonData
+    allJsonData = jsonData
+    for EBconfig in jsonData['EEPROM']:
+        binOut = getBin(EBconfig)
         if (binOut == ""):
             return ""
         # Create a new file based on the EB Name and write the binary to it
@@ -21,10 +16,10 @@ def genEEPROMBIN():
     return "Success"
 
 # Generates the proper binary for the given EBconfig
-def getBin(EBconfig, layouts, CANIDs):    
+def getBin(EBconfig):    
     # Find the proper layout for the given EEPROM file
     configLayout = ""
-    for layout in layouts:
+    for layout in allJsonData['EEPROMLAYOUT']:
         if (layout['VersionName'] == EBconfig['Layout Version Name']):
             configLayout = layout
             break
@@ -58,14 +53,14 @@ def getBin(EBconfig, layouts, CANIDs):
         # Check if the memory location is for a sensor
         # The first word in a sensor location will be a generic sensor name like PT0 or TC1 etc
         elif (memoryLocation['Name'].split(' ')[0] in EBconfig):
-            binOut += sensorMemLocationToBin(memoryLocation, EBconfig, CANIDs)
+            binOut += sensorMemLocationToBin(memoryLocation, EBconfig)
         # Default to null initialized
         else:
             binOut += packMemoryLocation(memoryLocation['Data Type'], 0)
     return binOut
 
 # Generate the proper value for the given sensor memory location
-def sensorMemLocationToBin(memoryLocation, EBconfig, CANIDs):
+def sensorMemLocationToBin(memoryLocation, EBconfig):
     # Find the sensor for this memory location
     sensorConfig = ""
     sensorType = ""
@@ -81,28 +76,26 @@ def sensorMemLocationToBin(memoryLocation, EBconfig, CANIDs):
 
     # CanID related memory locations
     if (memoryLocation['Name'].find("Data CanID") != -1):
-        canID = findCANID('CANID', sensorConfig['CANID_DATA'], CANIDs)
+        canID = findCANID('CANID', sensorConfig['CANID_DATA'])
         if canID == "":
             genGeneric.warning(f"Invalid CANID \"{sensorConfig['CANID_DATA']}\" for CANID_DATA for \"{sensorConfig['Usage']}\" in EB config \"{EBconfig['EB Name']}\" in  file \"{eepromLayoutFilePath}\".")
         return packMemoryLocation(memoryLocation['Data Type'], int(sensorConfig['CANID_DATA']))
     
     elif (memoryLocation['Name'].find("Current CanID") != -1):
-        canID = findCANID('CANID', sensorConfig['CANID_CURRENT'], CANIDs)
+        canID = findCANID('CANID', sensorConfig['CANID_CURRENT'])
         if canID == "":
             genGeneric.warning(f"Invalid CANID \"{sensorConfig['CANID_CURRENT']}\" for CANID_CURRENT for \"{sensorConfig['Usage']}\" in EB config \"{EBconfig['EB Name']}\" in  file \"{eepromLayoutFilePath}\".")
         return packMemoryLocation(memoryLocation['Data Type'], int(sensorConfig['CANID_CURRENT']))
     
     elif (memoryLocation['Name'].find("Data Frequency") != -1):
-        canID = findCANID('CANID', sensorConfig['CANID_DATA'], CANIDs)
+        canID = findCANID('CANID', sensorConfig['CANID_DATA'])
         if canID == "":
             genGeneric.warning(f"Invalid CANID \"{sensorConfig['CANID_DATA']}\" for CANID_DATA for \"{sensorConfig['Usage']}\" in EB config \"{EBconfig['EB Name']}\" in  file \"{eepromLayoutFilePath}\".")
         return packMemoryLocation(memoryLocation['Data Type'], canID['CANID_FREQUENCY'])
 
     # Filter related memory locations
     if (memoryLocation['Name'].find("Filter") != -1):
-        with open("config/FILTERS.json", 'r') as filtersJSON:
-            filters = json.load(filtersJSON)
-        for filterType in filters:
+        for filterType in allJsonData['FILTERS']:
             if filterType['Name'] == sensorConfig['Filter']:
                 # Assume the coefficient is the last word in the name
                 filterCoefficient = memoryLocation['Name'].split(' ')[-1]
@@ -111,9 +104,7 @@ def sensorMemLocationToBin(memoryLocation, EBconfig, CANIDs):
         return packMemoryLocation(memoryLocation['Data Type'], 0)
     
     # Hardware related memory locations
-    with open("config/HARDWARE.json", 'r') as hardwareJSON:
-        hardware = json.load(hardwareJSON)
-    for hardwareComponent in hardware:
+    for hardwareComponent in allJsonData['HARDWARE']:
         if (sensorConfig['Serial Number'] != hardwareComponent['Serial Number']):
             continue
         # Found corresponding hardware, look for the particular parameter
@@ -126,8 +117,8 @@ def sensorMemLocationToBin(memoryLocation, EBconfig, CANIDs):
     genGeneric.warning(f"Unable to find value for memory location \"{memoryLocation['Name']}\" in EB config \"{EBconfig['EB Name']}\" in  file \"{eepromLayoutFilePath}\".")
     return packMemoryLocation(memoryLocation['Data Type'], 0)
 
-def findCANID(parameter, value, canIDs):
-    for canID in canIDs:
+def findCANID(parameter, value):
+    for canID in allJsonData['CAN']:
         if (canID[parameter] == value):
             return canID
     return ""

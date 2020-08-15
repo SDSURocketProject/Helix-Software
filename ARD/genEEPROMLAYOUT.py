@@ -1,18 +1,14 @@
 import json, os, genGeneric
 
-def getLatex():
+def getLatex(jsonData):
     texOut = ""
     texOut += genGeneric.autogenWarnStart("EEPROM Layouts", os.path.abspath(__file__))
-	
-    with open("config/EEPROMLAYOUT.json") as EEPROMConfigs:
-        EEPROMLayouts = json.load(EEPROMConfigs)
     
     texOut += "\section{EEPROM Layouts}\n"
-    texOut += genLayoutVersionIDs(EEPROMLayouts)
+    texOut += genLayoutVersionIDs(jsonData['EEPROMLAYOUT'])
 
-    for layout in EEPROMLayouts:
+    for layout in jsonData['EEPROMLAYOUT']:
         texOut += genEEPROMTex(layout)
-    
     
     texOut += genGeneric.autogenWarnEnd("EEPROM Layouts", os.path.abspath(__file__))
     return texOut
@@ -99,23 +95,16 @@ def genEEPROMTex(layout):
         texOut += "\\newpage\n\n"
     return texOut
 
-def genEEPROMHEADER():
-    with open("config/EEPROMLAYOUT.json", 'r') as EEPROMConfigs:
-        layouts = json.load(EEPROMConfigs)
-
+def genEEPROMHEADER(jsonData):
     headerOut = ""
     headerOut += genGeneric.autogenWarnStart("EEPROM Layout Config", os.path.abspath(__file__), commentChar="//")
     headerOut += "\n#ifndef EEPROM_LAYOUT_HEADER_H_\n"
     headerOut += "#define EEPROM_LAYOUT_HEADER_H_\n\n"
-    
     headerOut += "#include <stdint.h>\n\n"
 
     layoutVersionIDs = {}
     # Create struct definitions
-    for layout in layouts:
-        if (int(layout['VersionID']) in layoutVersionIDs):
-            print("Multiple EEPROM layouts declared with the same VersionID \'" + int(layout['VersionID']) + "\'\n")
-            return ""
+    for layout in jsonData['EEPROMLAYOUT']:
         layoutVersionIDs[int(layout['VersionID'])] = layout['VersionName'].lower().replace(" ", "_")
 
         headerOut += "// EEPROM Layout Version ID " + layout['VersionID'] + "\n"

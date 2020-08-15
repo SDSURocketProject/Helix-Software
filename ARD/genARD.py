@@ -78,12 +78,11 @@ if __name__ == "__main__":
 
     # Generate C/C++ Files
     print("Generating \"CANIDs.h\" for Helix-OBC-Firmware")
-    headerCAN = genCAN.getHeader()
     with open ("../Helix-OBC-Firmware/inc/CANIDs.h", "w") as CAN_HEADER:
-        CAN_HEADER.write(headerCAN)
+        CAN_HEADER.write(genCAN.getHeader(jsonData))
 
     print("Generating \"EEPROM_Layout.h\" for Helix-OBC-Firmware")
-    headerEEPROMLAYOUT = genEEPROMLAYOUT.genEEPROMHEADER()
+    headerEEPROMLAYOUT = genEEPROMLAYOUT.genEEPROMHEADER(jsonData)
     with open ("../Helix-OBC-Firmware/inc/EEPROM_Layout.h", "w") as EEPROM_LAYOUT_HEADER:
         EEPROM_LAYOUT_HEADER.write(headerEEPROMLAYOUT)
 
@@ -105,8 +104,8 @@ if __name__ == "__main__":
     with open ("tex/HARDWARE.tex", "w") as HARDWARE_TEX:
         HARDWARE_TEX.write(latexHARDWARE)
 
-    print("Generating \"tex/STATES.tex\"")
     # STATES
+    print("Generating \"tex/STATES.tex\"")
     latexSTATES = parseOBCDocs.getLatex()
     if (latexSTATES == ""):
         print("Failed to get documentation from Helix-OBC-Firmware documentation, exiting...")
@@ -116,15 +115,13 @@ if __name__ == "__main__":
 
     # CAN
     print("Generating \"tex/CANIDs.tex\"")
-    latexCAN = genCAN.getLatex()
     with open ("tex/CANIDs.tex", "w") as CAN_TEX:
-        CAN_TEX.write(latexCAN)
+        CAN_TEX.write(genCAN.getLatex(jsonData))
 
     # EEPROM
     print("Generating \"tex/EEPROMLAYOUT.tex\"")
-    latexEEPROMLAYOUT = genEEPROMLAYOUT.getLatex()
     with open ("tex/EEPROMLAYOUT.tex", "w") as EEPROMLAYOUT_TEX:
-        EEPROMLAYOUT_TEX.write(latexEEPROMLAYOUT)
+        EEPROMLAYOUT_TEX.write(genEEPROMLAYOUT.getLatex(jsonData))
 
     # Generate Tex
     print("Generating \"ARD.pdf\"")
@@ -146,5 +143,5 @@ if __name__ == "__main__":
 
     # Generate Binary Files
     print("Generating EEPROM memory files")
-    genEEPROM.genEEPROMBIN()
+    genEEPROM.genEEPROMBIN(jsonData)
     
