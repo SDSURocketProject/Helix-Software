@@ -72,7 +72,7 @@ void eventParse(bounded_buffer<struct can_frame>& canEventQueue) {
     enum STATES currentState = STATE_LEAK_CHECK;
     enum STATES nextState = STATE_LEAK_CHECK;
 
-    while (canEvent.can_id != CANIDS_QUIT) {
+    while (canEvent.can_id != CANIDS_EXTENDED_QUIT) {
         // Get next item off can event queue
         canEventQueue.pop_back(&canEvent);
 

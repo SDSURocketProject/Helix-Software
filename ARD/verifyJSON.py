@@ -27,7 +27,7 @@ def verifyJSON(jsonData, jsonFileLocations):
     warningCount += verifyEEPROM(jsonData['EEPROM'], jsonData['HARDWARE'])
     warningCount += verifyEEPROMLAYOUT(jsonData['EEPROMLAYOUT'])
     warningCount += verifyFILTERS()
-    warningCount += verifyHARDWARE()
+    warningCount += verifyHARDWARE(jsonData['HARDWARE'])
     warningCount += verifySTATES(jsonData['STATES'])
 
     if warningCount > 0:
@@ -254,7 +254,58 @@ def verifyEEPROMLAYOUTData(layout):
 def verifyFILTERS():
     return 0
 
-def verifyHARDWARE():
+def verifyHARDWARE(hardwareDefinitions):
+    warningCount = 0 
+    for hardware in hardwareDefinitions:
+        if "Hardware Type" not in hardware:
+            warningCount += verifyWarning(f"\"Hardware Type\" field is required. Hardware \"{hardware}\" in \"{EEPROMLAYOUTfile}\".")
+            continue
+        if hardware['Hardware Type'] == "Pressure Transducer":
+            warningCount += verifyHARDWAREPT(hardware)
+        elif hardware['Hardware Type'] == "Thermocouple":
+            pass
+        elif hardware['Hardware Type'] == "RTD":
+            pass
+        elif hardware['Hardware Type'] == "Hall Effect Sensor":
+            pass
+        elif hardware['Hardware Type'] == "Capacitance Sensor":
+            pass
+        else:
+            warningCount += verifyWarning(f"Unrecognized hardware type \"{hardware}\" found in \"{EEPROMLAYOUTfile}\".")
+        
+    return warningCount
+
+validHARDWAREPTParameters = [
+    "Model Number"
+    "Serial Number"
+    "Datasheet Link"
+    "Sensing Units"
+    "Pressure Port Type"
+    "Accuracy"
+    "Min Pressure"
+    "Max Pressure"
+    "Sample Rate"
+    "Min Output Voltage"
+    "Max Output Voltage"
+    "Min Input Voltage"
+    "Max Input Voltage"
+    "Min Temperature"
+    "Max Temperature"
+    "Calibration Polyfit p1"
+    "Calibration Polyfit p2"
+    "Calibration Polyfit p3"
+    "Calibration Polyfit p4"
+    "Calibration Polyfit p5"
+    "Calibration Polyfit p6"
+    "Calibration Polyfit p7"
+]
+
+def verifyHARDWAREPT(hardware):
+    if "Model Number" not in hardware:
+        pass
+    
+    for parameter in hardware:
+        pass
     return 0
 
 def verifySTATES(states):
@@ -403,3 +454,6 @@ def isValidC(value, cType):
 def verifyWarning(message):
     genGeneric.warning(message)
     return 1
+
+if __name__ == "__main__":
+    pass

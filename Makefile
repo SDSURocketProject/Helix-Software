@@ -9,7 +9,7 @@ ARD-headers:
 	make -C ARD/ headers
 
 OBC-firmware: ARD-headers
-	cd Helix-OBC-Firmware && make
+	cd Helix-OBC-Firmware && make all
 
 OBC-firmware-documentation: ARD-headers
 	cd Helix-OBC-Firmware && make documentation

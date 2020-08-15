@@ -7,18 +7,18 @@
 #include <chrono>
 
 static enum STATES parseHeliumPressurePTData(can_frame *data) {
-    //struct helium_pressure_pt_data *pressurePTData = data;
+    //struct heliumPressurePtData *pressurePTData = data;
     //! Print out CANID and Data from the can_frame
     //std::cout << "CANID: " << data->can_id << "\n";
     //std::cout << "Data: " << data->data << "\n";
 
-    struct helium_pressure_pt_data *canData = reinterpret_cast<struct helium_pressure_pt_data *>(data->data);
+    struct heliumPressurePtData *canData = reinterpret_cast<struct heliumPressurePtData *>(data->data);
 
 //    BOOST_LOG_TRIVIAL(trace) << "CANID: " << data->can_id;
-//    BOOST_LOG_TRIVIAL(info) << "Data: " << canData->helium_pressure;
+//    BOOST_LOG_TRIVIAL(info) << "Data: " << canData->heliumPressure;
 
-    if (canData->helium_pressure > 50) {
-        BOOST_LOG_TRIVIAL(warning) << "Warning helium pressure too high: " << canData->helium_pressure;
+    if (canData->heliumPressure > 50) {
+        BOOST_LOG_TRIVIAL(warning) << "Warning helium pressure too high: " << canData->heliumPressure;
     }
 
     //! Continue in the ground safe state state.

@@ -2,6 +2,7 @@
 #include <thread>
 #include <chrono>
 #include <boost/log/trivial.hpp>
+#include "Helix-OBC-Firmware.h"
 #include "eventTimer.h"
 #include "CANIDs.h"
 
@@ -17,7 +18,7 @@ void testing(bounded_buffer<struct can_frame>& thing) {
     canData.heliumPressure = 100;
 
     for (unsigned int i = 0; i < 50*10; i++) {
-        canData.utc_time = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();
+        canData.timeSinceSystemStart = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();
 #if 0
         if (canData.heliumPressure < 320) {
             canData.heliumPressure += 2;
@@ -33,7 +34,7 @@ void testing(bounded_buffer<struct can_frame>& thing) {
         std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }
 
-    data.can_id = CANIDS_QUIT;
+    data.can_id = CANIDS_EXTENDED_QUIT;
     thing.push_front(data);
     BOOST_LOG_TRIVIAL(warning) << "End of testing thread";
 }
