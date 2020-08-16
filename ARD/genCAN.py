@@ -134,9 +134,6 @@ def bitDefToDefine(byteDefinition, CANIDName):
         else:
             # Multiple bits set
             numBitsToSet = 1 + int(bitDef.split('-')[1]) - int(bitDef.split('-')[0])
-            print(numBitsToSet)
-            print(bitCount)
-            print()
             bitSet = (2**numBitsToSet-1) << bitCount
             bitCount += numBitsToSet
         # Build up the #define from the parameters
