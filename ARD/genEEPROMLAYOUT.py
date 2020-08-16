@@ -108,7 +108,7 @@ def genEEPROMHEADER(jsonData):
         layoutVersionIDs[int(layout['VersionID'])] = layout['VersionName'].lower().replace(" ", "_")
 
         headerOut += "// EEPROM Layout Version ID " + layout['VersionID'] + "\n"
-        headerOut += "struct " + layout['VersionName'].lower().replace(" ", "_") + " {\n"
+        headerOut += "struct " + genGeneric.makeCName(layout['VersionName'], "variable") + " {\n"
         for memLoc in layout['Data']:
             # Create variable type
             if (memLoc['Data Type'] == "H" or memLoc['Data Type'] == "I" or memLoc['Data Type'] == "L" or memLoc['Data Type'] == "Q"):
@@ -127,12 +127,12 @@ def genEEPROMHEADER(jsonData):
                 headerOut += "\tvoid *"
             # Add name after variable type
             headerOut += memLoc['Name'].replace(" ", "_") + ";\n"
-        headerOut += "}; // " + layout['VersionName'].lower().replace(" ", "_") + "\n\n"
+        headerOut += "}" + " __attribute((aligned (1)))" + "; // " + genGeneric.makeCName(layout['VersionName'], "variable") + "\n\n"
 
     # Create enum of versionIDs
     headerOut += "enum layoutVersionIDs {\n"
     for ID in layoutVersionIDs:
-        headerOut += "\t" + layoutVersionIDs[ID] + ", \t // " + str(ID) + "\n"
+        headerOut += "\t" + genGeneric.makeCName(layoutVersionIDs[ID], "#define") + ", \t // " + str(ID) + "\n"
     headerOut += "\tMAX_LAYOUT_VERSION_IDS\n"
     headerOut += "};\n\n"
 

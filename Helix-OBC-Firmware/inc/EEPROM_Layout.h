@@ -9,7 +9,7 @@
 #include <stdint.h>
 
 // EEPROM Layout Version ID 1
-struct sensor_board_layout_rev_1 {
+struct sensorBoardLayoutRev1 {
 	uint32_t Layout_Rev_Number;
 	uint32_t EEPROM_Layout_Compile_Time;
 	uint32_t Board_Status;
@@ -125,10 +125,10 @@ struct sensor_board_layout_rev_1 {
 	float CS0_Biquad_Filter_b2;
 	float CS0_Biquad_Filter_a1;
 	float CS0_Biquad_Filter_a2;
-}; // sensor_board_layout_rev_1
+} __attribute((aligned (1))); // sensorBoardLayoutRev1
 
 // EEPROM Layout Version ID 2
-struct power_distro_board_layout_rev_1 {
+struct powerDistroBoardLayoutRev1 {
 	uint32_t Board_Status;
 	uint32_t Offboard_Battery_Voltage_CANID;
 	uint32_t Offboard_Battery_Current_CANID;
@@ -138,11 +138,11 @@ struct power_distro_board_layout_rev_1 {
 	uint32_t Helix_Loop_CW_Current_CANID;
 	uint32_t Helix_Loop_CCW_Voltage_CANID;
 	uint32_t Helix_Loop_CCW_Current_CANID;
-}; // power_distro_board_layout_rev_1
+} __attribute((aligned (1))); // powerDistroBoardLayoutRev1
 
 enum layoutVersionIDs {
-	sensor_board_layout_rev_1, 	 // 1
-	power_distro_board_layout_rev_1, 	 // 2
+	SENSOR_BOARD_LAYOUT_REV_1, 	 // 1
+	POWER_DISTRO_BOARD_LAYOUT_REV_1, 	 // 2
 	MAX_LAYOUT_VERSION_IDS
 };
 
