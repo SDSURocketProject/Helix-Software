@@ -127,9 +127,9 @@ def verifyCANBytes(ID):
                 warningCount += verifyWarning(f"\"Signed\" parameter in byte definition must be either \"True\" or \"False\". Byte definition #{byteDefCount} in CANID \"{ID['CANID']}\" in \"{CANfile}\".")
         bitCount = 0
         if "bits" in byteDef:
-            for bitDef in byteDef['bits'][0]:
-                if not isValidC(byteDef['bits'][0][bitDef].replace(' ', '_'), "#define"):
-                    warningCount += verifyWarning(f"\"{byteDef['bits'][0][bitDef]}\" cannot be converted to a valid C/C++ macro name. Bit definition in byte definition #{byteDefCount} in CANID \"{ID['CANID']}\" in \"{CANfile}\".")
+            for bitDef in byteDef['bits']:
+                if not isValidC(byteDef['bits'][bitDef].replace(' ', '_'), "#define"):
+                    warningCount += verifyWarning(f"\"{byteDef['bits'][bitDef]}\" cannot be converted to a valid C/C++ macro name. Bit definition in byte definition #{byteDefCount} in CANID \"{ID['CANID']}\" in \"{CANfile}\".")
                 if '-' in bitDef:
                     bitCount += 1 + int(bitDef.split('-')[1]) - int(bitDef.split('-')[0])
                 else:

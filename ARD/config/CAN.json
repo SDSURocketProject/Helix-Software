@@ -39,11 +39,10 @@
                 "Name":"Status",
                 "Signed":"False",
                 "Units":"",
-                "bits":[
-                    {
-                        "0-1":"System Status"
-                    }
-                ]
+                "bits":
+                {
+                    "0-1":"System Status"
+                }
             }
         ]
     },
@@ -57,11 +56,10 @@
                 "Name":"Status",
                 "Signed":"False",
                 "Units":"",
-                "bits":[
-                    {
-                        "0":"Armed"
-                    }
-                ]
+                "bits":
+                {
+                    "0":"Armed"
+                }
             }
         ]
     },
@@ -75,11 +73,10 @@
                 "Name":"Status",
                 "Signed":"False",
                 "Units":"",
-                "bits":[
-                    {
-                        "0":"Arm Recovery"
-                    }
-                ]
+                "bits":
+                {
+                    "0":"Arm Recovery"
+                }
             }
         ]
     },
@@ -93,11 +90,10 @@
                 "Name":"Status",
                 "Signed":"False",
                 "Units":"",
-                "bits":[
-                    {
-                        "0":"Detatch Second Stage"
-                    }
-                ]
+                "bits":
+                {
+                    "0":"Detatch Second Stage"
+                }
             }
         ]
     },

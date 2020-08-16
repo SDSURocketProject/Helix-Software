@@ -84,9 +84,7 @@ def genCANTex(config):
         texOut += "\\\\\hline\n"
         if ("bits" in byteDef):
             for bitDef in byteDef["bits"]:
-                for i in bitDef:
-                    texOut += " & " + i + " & & & & " + bitDef[i] + "\\\\\hline\n"
-        
+                texOut += " & " + bitDef + " & & & & " + byteDef["bits"][bitDef] + "\\\\\hline\n"
     
     texOut += "\end{tabular}\n"
     return texOut
@@ -112,13 +110,40 @@ def genCANHeader(config, states):
     headerOut += "};\n\n"
 
     for CANID in config:
-        headerOut += "struct " + genGeneric.makeCName(CANID["CANID_NAME"], "variable") + " {\n"
+        canStructDef = "struct " + genGeneric.makeCName(CANID["CANID_NAME"], "variable") + " {\n"
         for byteDef in CANID["bytes"]:
-            headerOut += "\t" + canIDByteToStdInt(byteDef) + " " + genGeneric.makeCName(byteDef["Name"], "variable") + ";\n"
-        headerOut += "};\n\n"
+            if "bits" in byteDef:
+                headerOut += bitDefToDefine(byteDef, CANID['CANID_NAME'])
+            canStructDef += "\t" + canIDByteToStdInt(byteDef) + " " + genGeneric.makeCName(byteDef["Name"], "variable") + ";\n"
+        canStructDef += "}" + " __attribute((aligned (1)))" + ";\n\n"
+        headerOut += canStructDef
 
     headerOut += "#endif // CANIDS_H_\n"
     return headerOut
+
+def bitDefToDefine(byteDefinition, CANIDName):
+    bitCount = 0
+    output = ""
+    bitDefinitions = byteDefinition['bits']
+    for bitDef in bitDefinitions:
+        bitSet = 0
+        if len(bitDef) == 1:
+            # Only a single bit
+            bitSet = 0x01 << bitCount
+            bitCount += 1
+        else:
+            # Multiple bits set
+            numBitsToSet = 1 + int(bitDef.split('-')[1]) - int(bitDef.split('-')[0])
+            print(numBitsToSet)
+            print(bitCount)
+            print()
+            bitSet = (2**numBitsToSet-1) << bitCount
+            bitCount += numBitsToSet
+        # Build up the #define from the parameters
+        # Currently it uses the full name, we might later want to change that to only use the first letters of each name to make the #define smaller
+        output += "#define " + genGeneric.makeCName(CANIDName, "#define") + "_" + genGeneric.makeCName(byteDefinition['Name'], "#define") + "_" + genGeneric.makeCName(bitDefinitions[bitDef], "#define") + " "
+        output += "0x" + str(bitSet.to_bytes(byteDefinition['Size'], byteorder='big').hex()).upper() + "\n"
+    return output
 
 def getCANBusLoad(canIDs):
     # Calculate the total number of bits that need to be transmitted per second
