@@ -146,9 +146,38 @@ def verifyCANBytes(ID):
 # verifyEEPROM
 #############################################################################################################
 
+validEEPROMPTParameters = {
+    "Serial Number":"string",
+    "Usage":"string",
+    "CANID_DATA":"int",
+    "CANID_CURRENT":"int",
+    "Filter":"string"
+}
+
+validEEPROMTCParameters = {
+    "Serial Number":"string",
+    "Usage":"string",
+    "CANID_DATA":"int",
+    "Filter":"string"
+}
+
+validEEPROMRTDParameters = {
+    "Serial Number":"string",
+    "Usage":"string",
+    "CANID_DATA":"int",
+    "Filter":"string"
+}
+
+validEEPROMHALLParameters = {
+    "Serial Number":"string",
+    "Usage":"string",
+    "CANID_DATA":"int",
+    "CANID_CURRENT":"int"
+}
+
 def verifyEEPROM(eepromConfigs, hardware):
     warningCount = 0
-
+    
     for boardConfig in eepromConfigs:
         if "EB Name" not in boardConfig:
             warningCount += verifyWarning(f"\"EB Name\" field is required for EEPROM config. Board config \"{boardConfig}\" in \"{EEPROMfile}\".")
@@ -166,6 +195,21 @@ def verifyEEPROM(eepromConfigs, hardware):
 
     return warningCount
 
+def verifyEEPROMSensor(params, paramRequirements, ebName, sensorName):
+    warningCount = 0
+    paramCount = []
+    for param in params:
+        if param not in paramRequirements:
+            warningCount += verifyWarning(f"Unrecognized field \"{param}\" found in EEPROM config. \"{sensorName}\" in \"{ebName}\" in \"{EEPROMfile}\".")
+        elif not canConvert(param, paramRequirements[param]):
+            warningCount += verifyWarning(f"Field \"{param}\" must be convertable to \"{paramRequirements[param]}\". \"{sensorName}\" in \"{ebName}\" in \"{EEPROMfile}\".")
+        
+        if param in paramCount:
+            warningCount += verifyWarning(f"Duplicate field \"{param}\" found in EEPROM config. \"{sensorName}\" in \"{ebName}\" in \"{EEPROMfile}\".")
+        else:
+            paramCount.append(param)
+    
+    return warningCount
 #############################################################################################################
 # verifyEEPROMLAYOUT
 #############################################################################################################
