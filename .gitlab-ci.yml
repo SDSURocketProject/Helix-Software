@@ -12,7 +12,7 @@ genARD:
         - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
         - apk update && apk add python3 texlive-full openssh-client
     script:
-        - python3 ARD/genARD.py
+        - make
         - ssh deployuser@elon.sdsurocketproject.org "rm -f /var/www/html/wikistatic/Helix-Software/ARD/ARD.pdf"
         - scp ARD/ARD.pdf deployuser@elon.sdsurocketproject.org:/var/www/html/wikistatic/Helix-Software/ARD/ARD.pdf
     only:
