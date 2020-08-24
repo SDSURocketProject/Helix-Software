@@ -10,7 +10,7 @@ genARD:
         - echo -e "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
         - chmod 600 ~/.ssh/id_rsa
         - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-        - apk update && apk add python3 texlive-full openssh-client make build-essential doxygen clang-format
+        - apk update && apk add python3 texlive-full openssh-client doxygen alpine-sdk linux-headers boost-dev
     script:
         - make
         - ssh deployuser@elon.sdsurocketproject.org "rm -f /var/www/html/wikistatic/Helix-Software/ARD/ARD.pdf"

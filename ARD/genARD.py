@@ -126,13 +126,13 @@ if __name__ == "__main__":
         HARDWARE_TEX.write(latexHARDWARE)
 
     # STATES
-    print("Generating \"tex/STATES.tex\"")
-    latexSTATES = parseOBCDocs.getLatex(jsonData)
-    if (latexSTATES == ""):
-        print("Failed to get documentation from Helix-OBC-Firmware documentation, exiting...")
-        quit()
-    with open ("tex/STATES.tex", "w") as STATES_TEX:
-        STATES_TEX.write(latexSTATES)
+    #print("Generating \"tex/STATES.tex\"")
+    #latexSTATES = parseOBCDocs.getLatex(jsonData)
+    #if (latexSTATES == ""):
+    #    print("Failed to get documentation from Helix-OBC-Firmware documentation, exiting...")
+    #    quit()
+    #with open ("tex/STATES.tex", "w") as STATES_TEX:
+    #    STATES_TEX.write(latexSTATES)
 
     # CAN
     print("Generating \"tex/CANIDs.tex\"")
