@@ -5,7 +5,8 @@ import apt
 
 if __name__ == "__main__":
     aptPackagesToInstall = ["tar", "git", "build-essential", "doxygen", "clang-format", "texlive-xetex", "texlive-fonts-recommended"]
-
+    pip3PackagesToInstall = ["numpy", "matplotlib"]
+    
     precompiledBoostArmurl = "http://elon.sdsurocketproject.org/wikistatic/BeagleBoneSetup/boost_1_72_0_arm.tar.gz"
     precompiledBoostx86url = "http://elon.sdsurocketproject.org/wikistatic/BeagleBoneSetup/boost_1_72_0_x86.tar.gz"
     precompiledGCCArm = "http://elon.sdsurocketproject.org/wikistatic/BeagleBoneSetup/gcc-arm-8.3-2019.03-x86_64-arm-linux-gnueabihf.tar.xz"
@@ -35,8 +36,13 @@ if __name__ == "__main__":
 
                 print(f"Installing {package}...")
                 os.system(f"apt-get -yq install {package}")
+        
+        for package in pip3PackagesToInstall:
+            print(f"Installing python3 {package}...")
+            os.system(f"pip3 -q install {package}")
+        
         print("")
-
+    
     installDir = os.path.normpath(args.install_directory)
 
     if (args.skip_install_dev_tools == False):

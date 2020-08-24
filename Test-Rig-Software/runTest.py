@@ -1,56 +1,94 @@
-import csv, time
+import tests.leakCheckSuccess as leakCheckSuccess
+import tests.leakCheckFailure as leakCheckFailure
+import numpy as np
+import matplotlib.pyplot as plt
+import time
 
-headerValueToColumn = {
-    "time" : -1,
-    "TRB0-PT0" : -1,
-    "TRB0-PT1" : -1,
-    "TRB0-PT2" : -1,
-    "TRB0-TC0" : -1,
-    "TRB0-TC1" : -1,
-    "TRB0-RTD0" : -1,
-    "TRB0-RTD1" : -1,
-    "TRB0-HE0" : -1,
-    "TRB0-HE1" : -1,
-    "TRB0-HE2" : -1,
-    "TRB1-PT0" : -1,
-    "TRB1-PT1" : -1,
-    "TRB1-PT2" : -1,
-    "TRB1-TC0" : -1,
-    "TRB1-TC1" : -1,
-    "TRB1-RTD0" : -1,
-    "TRB1-RTD1" : -1,
-    "TRB1-HE0" : -1,
-    "TRB1-HE1" : -1,
-    "TRB1-HE2" : -1
-}
+sensors = [
+    "Helium Pressure Pt Data",
+    "Lox Pressure Pt Data",
+    "Ethanol Pressure Pt Data",
+    "Chamber Pressure Pt Data",
+    "Helium Fill Valve Hall Effect State",
+    "Lox Fill Valve Hall Effect State",
+    "Ethanol Fill Valve Hall Effect State",
+    "Lox Tank Liquid Level Data",
+    "Ethanol Tank Liquid Level Data",
+    "Lox Tank Temperature Data",
+    "Ethanol Tank Temperature Data",
+    "Nozzle Temperature Data",
+    "Helium Pressure Pt Current",
+    "Lox Pressure Pt Current",
+    "Ethanol Pressure Pt Current",
+    "Chamber Pressure Pt Current",
+    "Helium Fill Valve Hall Effect Current",
+    "Lox Fill Valve Hall Effect Current",
+    "Ethanol Fill Valve Hall Effect Current"
+]
 
-def runTest(filePath):
-    csvTest = csv.reader(filePath, delimiter=',')
-    csvHeader = csvTest.next()
+verifySensors = [
+    "Helium Pressure Pt Data",
+    "Lox Pressure Pt Data",
+    "Ethanol Pressure Pt Data",
+    "Chamber Pressure Pt Data",
+    "Helium Fill Valve Hall Effect State",
+    "Lox Fill Valve Hall Effect State",
+    "Ethanol Fill Valve Hall Effect State",
+    "Lox Tank Liquid Level Data",
+    "Ethanol Tank Liquid Level Data",
+    "Lox Tank Temperature Data",
+    "Ethanol Tank Temperature Data",
+    "Nozzle Temperature Data"
+]
 
-    index = 0
-    for item in csvHeader:
-        try:
-            headerValueToColumn[item] = index
-        except KeyError:
-            print(f"Invalid column \"{item}\" in test {filePath}")
-            return -1
-        index = index + 1
-
-    for value in headerValueToColumn:
-        if value == -1:
-            print(f'{value} not found in test {filePath}')
-            return -1
-
-    lastLine = csvTest.next()
-    timeIndex = csvHeader.index('time')
-
-    sendCommands(csvHeader, lastLine)
-
-    for line in csvTest:
-        time.sleep()
-        sendCommands(csvHeader, line)
-        lastLine = line
-
-def sendCommands(header, values):
+def sendCommand(sensor, value):
     pass
+
+def runTest(testCase, outputsLogFile):
+    start = time.time()
+    value = 0
+    for timePoint in np.linspace(0, testCase.getTestTime(), round(testCase.getTestTime()/0.1)):
+        startLoopTime = time.time()
+        logLine = ""
+        
+        for sensor in sensors:
+            value = testCase.getSensorValue(sensor, timePoint)
+            logLine += str(value) + ', '
+            sendCommand(sensor, value)
+
+        outputsLogFile.write(logLine[:-2])
+
+        endLoopTime = time.time()
+        sleepTime = 0.1 - (endLoopTime - startLoopTime)
+        if (sleepTime < 0):
+            print("Missed loop timing in runTest")
+        else:
+            time.sleep(sleepTime)
+
+    return time.time()-start
+
+def runTestCases(testCases, testName):
+    with open(f"testLogs/{testName}.log") as logFile:
+        print(f"Starting test {testName}")
+        for testCase in testCases:
+            print(f"Starting test case {testCase.testName()}")
+            runTest(testCase, logFile)
+
+def plotTest(testCase, value, title="", interval=0.1):
+    x = []
+    y = []
+    for timePoint in np.linspace(0, testCase.getTestTime(), round(testCase.getTestTime()/interval)):
+        x.append(round(timePoint, 3))
+        y.append(testCase.getSensorValue(value, round(timePoint, 3)))
+    plt.plot(x, y)
+    plt.ylabel(value)
+    plt.xlabel("Time")
+    plt.title(title)
+    plt.show()
+
+if __name__ == "__main__":
+    testCase = leakCheckSuccess.leakCheckSuccess()
+    testCase2 = leakCheckFailure.leakCheckOverpressHelium()
+
+    #plotTest(testCase, "Helium Pressure Pt Data", "Leak check success")
+    plotTest(testCase2, "Helium Pressure Pt Data", "Leak check with helium overpressurization")
