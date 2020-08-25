@@ -90,5 +90,5 @@ if __name__ == "__main__":
     testCase = leakCheckSuccess.leakCheckSuccess()
     testCase2 = leakCheckFailure.leakCheckOverpressHelium()
 
-    #plotTest(testCase, "Helium Pressure Pt Data", "Leak check success")
+    plotTest(testCase, "Helium Pressure Pt Data", "Leak check success")
     plotTest(testCase2, "Helium Pressure Pt Data", "Leak check with helium overpressurization")

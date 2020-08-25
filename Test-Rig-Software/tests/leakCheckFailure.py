@@ -15,19 +15,8 @@ class leakCheckOverpressHelium(leakCheckSuccess.leakCheckSuccess):
 
     def getHeliumPressurePtData(self, time):
         pressure = 0
-        if (self.getState(time) == "PRE_TEST"):
-            pressure = 0
-        elif (self.getState(time) == "PRESSURIZE"):
-            x = [
-                self.statesStart['PRESSURIZE'],
-                self.statesEnd['PRESSURIZE'],
-                self.statesLength['PRESSURIZE']*.5 + self.statesStart['PRESSURIZE']
-            ]
-            y = [0, self.maxHeliumPressure, self.maxHeliumPressure*.75]
-            poly = np.polyfit(x, y, 5)
-            pressure = round(np.polyval(poly, time))
-            if pressure > self.maxHeliumPressure:
-                pressure = self.maxHeliumPressure
+        if (time < self.statesStart['LEAK_CHECKING']):
+            pressure = leakCheckSuccess.leakCheckSuccess.getHeliumPressurePtData(self, time)
         elif (self.getState(time) == "LEAK_CHECKING"):
             x = [
                 self.statesStart['LEAK_CHECKING'],
@@ -39,4 +28,62 @@ class leakCheckOverpressHelium(leakCheckSuccess.leakCheckSuccess):
             pressure = round(np.polyval(poly, time))
         else:
             pressure = self.maxHeliumPressure*1.5
+        return pressure
+
+class leakCheckOverpressLox(leakCheckSuccess.leakCheckSuccess):
+    def testName(self):
+        return "Leak check with Lox overpressurization"
+
+    def getTestTime(self):
+        return self.statesEnd['LEAK_CHECKING']
+
+    def isTestFinished(self, time):
+        if (time > getTestTime(time)):
+            return True
+        return False
+
+    def getLoxPressurePtData(self, time):
+        pressure = 0
+        if (time < self.statesStart['LEAK_CHECKING']):
+            pressure = leakCheckSuccess.leakCheckSuccess.getLoxPressurePtData(self, time)
+        elif (self.getState(time) == "LEAK_CHECKING"):
+            x = [
+                self.statesStart['LEAK_CHECKING'],
+                self.statesEnd['LEAK_CHECKING'],
+                (self.statesEnd['LEAK_CHECKING'] - self.statesStart['LEAK_CHECKING'])/2 + self.statesStart['LEAK_CHECKING']
+            ]
+            y = [self.maxLOXPressure, self.maxLOXPressure*1.5, self.maxLOXPressure*1.5*.75]
+            poly = np.polyfit(x, y, 5)
+            pressure = round(np.polyval(poly, time))
+        else:
+            pressure = self.maxLOXPressure*1.5
+        return pressure
+
+class leakCheckOverpressEthanol(leakCheckSuccess.leakCheckSuccess):
+    def testName(self):
+        return "Leak check with Ethanol overpressurization"
+
+    def getTestTime(self):
+        return self.statesEnd['LEAK_CHECKING']
+
+    def isTestFinished(self, time):
+        if (time > getTestTime(time)):
+            return True
+        return False
+
+    def getEthanolPressurePtData(self, time):
+        pressure = 0
+        if (time < self.statesStart['LEAK_CHECKING']):
+            pressure = leakCheckSuccess.leakCheckSuccess.getEthanolPressurePtData(self, time)
+        elif (self.getState(time) == "LEAK_CHECKING"):
+            x = [
+                self.statesStart['LEAK_CHECKING'],
+                self.statesEnd['LEAK_CHECKING'],
+                (self.statesEnd['LEAK_CHECKING'] - self.statesStart['LEAK_CHECKING'])/2 + self.statesStart['LEAK_CHECKING']
+            ]
+            y = [self.maxEthanolPressure, self.maxEthanolPressure*1.5, self.maxEthanolPressure*1.5*.75]
+            poly = np.polyfit(x, y, 5)
+            pressure = round(np.polyval(poly, time))
+        else:
+            pressure = self.maxEthanolPressure*1.5
         return pressure

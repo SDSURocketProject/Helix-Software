@@ -125,7 +125,7 @@ class leakCheckSuccess(testTemplate.testTemplate):
             pressure = self.maxLOXPressure
         return pressure
 
-    def getLOXPressurePtData(self, time):
+    def getEthanolPressurePtData(self, time):
         pressure = 0
         if (self.getState(time) == "PRE_TEST"):
             pressure = 0
