@@ -1,6 +1,9 @@
 
 
 class testTemplate():
+    """Base class for a test rig test
+    
+    """
     def __init__(self):
         statesEndTimes = {}
         statesStartTimes = {}

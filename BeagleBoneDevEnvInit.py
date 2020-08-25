@@ -5,7 +5,7 @@ import apt
 
 if __name__ == "__main__":
     aptPackagesToInstall = ["tar", "git", "build-essential", "doxygen", "clang-format", "texlive-xetex", "texlive-fonts-recommended"]
-    pip3PackagesToInstall = ["numpy", "matplotlib"]
+    pip3PackagesToInstall = ["numpy", "matplotlib", "sphinx"]
     
     precompiledBoostArmurl = "http://elon.sdsurocketproject.org/wikistatic/BeagleBoneSetup/boost_1_72_0_arm.tar.gz"
     precompiledBoostx86url = "http://elon.sdsurocketproject.org/wikistatic/BeagleBoneSetup/boost_1_72_0_x86.tar.gz"

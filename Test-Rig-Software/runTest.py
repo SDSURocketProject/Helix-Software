@@ -45,6 +45,13 @@ def sendCommand(sensor, value):
     pass
 
 def runTest(testCase, outputsLogFile):
+    """Runs a single test case
+
+    :param [testCases]: A test case derived from the testTemplate class
+    :param [testName]: The file that test sensor values will be written to
+
+    :return: Returns the amount of time it took for this test to complete
+    """
     start = time.time()
     value = 0
     for timePoint in np.linspace(0, testCase.getTestTime(), round(testCase.getTestTime()/0.1)):
@@ -68,6 +75,13 @@ def runTest(testCase, outputsLogFile):
     return time.time()-start
 
 def runTestCases(testCases, testName):
+    """Runs multiple test cases sequentially
+
+    :param [testCases]: A list of test cases derived from the testTemplate class
+    :param [testName]: The name of this group of tests, use for log files
+
+    :return: Returns nothing
+    """
     with open(f"testLogs/{testName}.log") as logFile:
         print(f"Starting test {testName}")
         for testCase in testCases:
@@ -75,6 +89,15 @@ def runTestCases(testCases, testName):
             runTest(testCase, logFile)
 
 def plotTest(testCase, value, title="", interval=0.1):
+    """Uses matplotlib to graph the value of a sensor for a given test case
+
+    :param [testCase]: The test case to graph
+    :param [value]: The sensor to plot on the graph
+    :param [title]: The title to put on the graph
+    :param [iterval]: The space between points on the x axis of the graph
+
+    :return: Returns nothing
+    """
     x = []
     y = []
     for timePoint in np.linspace(0, testCase.getTestTime(), round(testCase.getTestTime()/interval)):
