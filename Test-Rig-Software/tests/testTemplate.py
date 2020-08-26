@@ -134,32 +134,32 @@ class testTemplate():
         return False
 
     def getHeliumFillValveHallEffectState(self, time):
-        return False
+        return 0
     def verifyHeliumFillValveHallEffectState(self, time, measurement):
-        if (abs(measurement - getHeliumFillValveHallEffectState(time)) == True):
+        if (abs(measurement - getHeliumFillValveHallEffectState(time)) == 1):
             return True
         # Give some slack time for the system
-        elif (abs(measurement - getHeliumFillValveHallEffectState(time - self.HeliumFillValveHallEffectTolerance)) == True):
+        elif (abs(measurement - getHeliumFillValveHallEffectState(time - self.HeliumFillValveHallEffectTolerance)) == 1):
             return True
         return False
 
     def getLoxFillValveHallEffectState(self, time):
-        return False
+        return 0
     def verifyLoxFillValveHallEffectState(self, time, measurement):
-        if (abs(measurement - getLoxFillValveHallEffectState(time)) == True):
+        if (abs(measurement - getLoxFillValveHallEffectState(time)) == 1):
             return True
         # Give some slack time for the system
-        elif (abs(measurement - getLoxFillValveHallEffectState(time - self.LoxFillValveHallEffectTolerance)) == True):
+        elif (abs(measurement - getLoxFillValveHallEffectState(time - self.LoxFillValveHallEffectTolerance)) == 1):
             return True
         return False
 
     def getEthanolFillValveHallEffectState(self, time):
-        return False
+        return 0
     def verifyEthanolFillValveHallEffectState(self, time, measurement):
-        if (abs(measurement - getEthanolFillValveHallEffectState(time)) == True):
+        if (abs(measurement - getEthanolFillValveHallEffectState(time)) == 1):
             return True
         # Give some slack time for the system
-        elif (abs(measurement - getEthanolFillValveHallEffectState(time - self.EthanolFillValveHallEffectTolerance)) == True):
+        elif (abs(measurement - getEthanolFillValveHallEffectState(time - self.EthanolFillValveHallEffectTolerance)) == 1):
             return True
         return False
 

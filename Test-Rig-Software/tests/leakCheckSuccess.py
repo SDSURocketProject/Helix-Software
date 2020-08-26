@@ -158,18 +158,18 @@ class leakCheckSuccess(testTemplate.testTemplate):
 
     def getHeliumFillValveHallEffectState(self, time):
         if (time > self.statesStart['DE_PRESSURIZE'] and time < self.statesEnd['DE_PRESSURIZE']):
-            return True
-        return False
+            return 1
+        return 0
 
     def getLoxFillValveHallEffectState(self, time):
         if (time > self.statesStart['DE_PRESSURIZE'] and time < self.statesEnd['DE_PRESSURIZE']):
-            return True
-        return False
+            return 1
+        return 0
 
     def getEthanolFillValveHallEffectState(self, time):
         if (time > self.statesStart['DE_PRESSURIZE'] and time < self.statesEnd['DE_PRESSURIZE']):
-            return True
-        return False
+            return 1
+        return 0
 
     def getLoxTankLiquidLevelData(self, time):
         level = 0
