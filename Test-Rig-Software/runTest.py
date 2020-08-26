@@ -42,15 +42,27 @@ verifySensors = [
 ]
 
 def sendCommand(sensor, value):
+    """Outputs a sensor value to the Helix SEB.
+
+    :param sensor: The sensor to output the value to
+    :type  sensor: string
+    :param value: The value to output
+    :type  value: float
+
+    :return: Returns nothing
+    """
     pass
 
 def runTest(testCase, outputsLogFile):
-    """Runs a single test case
+    """Runs a single test case.
 
-    :param [testCases]: A test case derived from the testTemplate class
-    :param [testName]: The file that test sensor values will be written to
+    :param testCases: A test case
+    :type  testCases: An object derived from the testTemplate class
+    :param outputsLogFile: The file that test sensor values will be written to
+    :type  outputsLogFile: string
 
     :return: Returns the amount of time it took for this test to complete
+    :rtype: float
     """
     start = time.time()
     value = 0
@@ -75,10 +87,13 @@ def runTest(testCase, outputsLogFile):
     return time.time()-start
 
 def runTestCases(testCases, testName):
-    """Runs multiple test cases sequentially
+    """Runs multiple test cases sequentially.
 
-    :param [testCases]: A list of test cases derived from the testTemplate class
-    :param [testName]: The name of this group of tests, use for log files
+    :param testCases: A list of test cases
+    :type  testCases: A list of objects derived from the testTemplate class
+    :param testName:  The name of this group of tests, use for log files
+    :type  testName:  string
+
 
     :return: Returns nothing
     """
@@ -89,12 +104,16 @@ def runTestCases(testCases, testName):
             runTest(testCase, logFile)
 
 def plotTest(testCase, value, title="", interval=0.1):
-    """Uses matplotlib to graph the value of a sensor for a given test case
+    """Uses matplotlib to graph the value of a sensor for a given test case.
 
-    :param [testCase]: The test case to graph
-    :param [value]: The sensor to plot on the graph
-    :param [title]: The title to put on the graph
-    :param [iterval]: The space between points on the x axis of the graph
+    :param testCase: The test case to graph
+    :type  testCase: An object derived from the testTemplate class
+    :param value: The sensor to plot on the graph
+    :type  value: string
+    :param title: The title to put on the graph
+    :type  title: string
+    :param interval: The space between points on the x axis of the graph
+    :type  interval: float
 
     :return: Returns nothing
     """
