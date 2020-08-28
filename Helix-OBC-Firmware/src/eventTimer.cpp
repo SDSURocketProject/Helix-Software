@@ -7,7 +7,7 @@
 #include <boost/circular_buffer.hpp>
 #include <boost/log/trivial.hpp>
 
-//!< Contains a can frame to be sent to the CANBUS queue after the wakeTime has passed.
+//!< Contains a can frame to be sent to the eventQueue after the wakeTime has passed.
 struct timer_can_frame {
     struct can_frame canFrame;
     std::chrono::time_point<std::chrono::system_clock> wakeTime;
@@ -28,11 +28,11 @@ std::atomic<bool> runEventTimer;
 std::atomic<bool> skipPushEventTimer;
 
 /**
- * @brief Event timer thread that pushes can_frames onto the the CANBus queue at designated times.
- * @param[in] &CANBus Queue containing all of the messages to be processed by the core event thread.
+ * @brief Event timer thread that pushes can_frames onto the the eventQueue at designated times.
+ * @param[in] &eventQueue Queue containing all of the messages to be processed by the core event thread.
  * @return
  */
-void eventTimer(bounded_buffer<struct can_frame>& CANBus) {
+void eventTimer(bounded_buffer<struct can_frame>& eventQueue) {
     auto timerFrame = timerQueue.begin();
 
     BOOST_LOG_TRIVIAL(trace) << "Start eventTimer thread";
@@ -69,7 +69,7 @@ void eventTimer(bounded_buffer<struct can_frame>& CANBus) {
 
         // Time has ellapsed and the timerQueue has not been cleared, send message
         if (std::chrono::system_clock::now() > timerFrame->wakeTime && !timerQueue.empty()) {
-            CANBus.push_front(timerFrame->canFrame);
+            eventQueue.push_front(timerFrame->canFrame);
             timerQueue.erase(timerFrame);
         }
     }

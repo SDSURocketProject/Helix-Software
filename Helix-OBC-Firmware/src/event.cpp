@@ -36,7 +36,7 @@ static uint32_t checkInitFunction(enum STATES state, std::string stateName, uint
     }
 }
 
-void eventParse(bounded_buffer<struct can_frame>& canEventQueue) {
+void eventParse(bounded_buffer<struct can_frame>& eventQueue) {
     uint32_t result = 0;
 
     BOOST_LOG_TRIVIAL(trace) << "Start event thread";
@@ -68,32 +68,32 @@ void eventParse(bounded_buffer<struct can_frame>& canEventQueue) {
         // exit?
     }
     
-    struct can_frame canEvent;
+    struct can_frame event;
     enum STATES currentState = STATE_LEAK_CHECK;
     enum STATES nextState = STATE_LEAK_CHECK;
 
-    while (canEvent.can_id != CANIDS_EXTENDED_QUIT) {
+    while (event.can_id != CANIDS_EXTENDED_QUIT) {
         // Get next item off can event queue
-        canEventQueue.pop_back(&canEvent);
+        eventQueue.pop_back(&event);
 
         // Check flags from CAN Bus transaction
-        if (canEvent.can_id & CAN_EFF_FLAG) {
+        if (event.can_id & CAN_EFF_FLAG) {
             // EFF/SFF is set in the MSB
         }
-        else if (canEvent.can_id & CAN_RTR_FLAG) {
+        else if (event.can_id & CAN_RTR_FLAG) {
             // remote transmission request
         }
-        else if (canEvent.can_id & CAN_ERR_FLAG) {
+        else if (event.can_id & CAN_ERR_FLAG) {
             // error message frame
             continue;
         }
 
         // Check if current state implements functionality for the received CAN event
-        if (canParseFunctions[currentState][canEvent.can_id] != NULL) {
-            nextState = canParseFunctions[currentState][canEvent.can_id](&canEvent);
+        if (canParseFunctions[currentState][event.can_id] != NULL) {
+            nextState = canParseFunctions[currentState][event.can_id](&event);
         }
         else {
-            canParseFunctionsDefault[canEvent.can_id](&canEvent);
+            canParseFunctionsDefault[event.can_id](&event);
         }
 
         // If transitioning between states call the corresponding exit state callback and enter state callback

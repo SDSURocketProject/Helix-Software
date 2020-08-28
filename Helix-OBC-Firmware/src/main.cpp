@@ -55,16 +55,16 @@ int initLogger() {
 }
 
 int main () {
-    bounded_buffer<struct can_frame> CANBus(50);
+    bounded_buffer<struct can_frame> eventQueue(50);
 
     initLogger();
     logging::add_common_attributes();
 
-    std::thread eventThread(eventParse, std::ref(CANBus));
+    std::thread eventThread(eventParse, std::ref(eventQueue));
 
-    std::thread testThreadThread(testing, std::ref(CANBus));
+    std::thread testThreadThread(testing, std::ref(eventQueue));
 
-    std::thread eventTimerThread(eventTimer, std::ref(CANBus));
+    std::thread eventTimerThread(eventTimer, std::ref(eventQueue));
 
     eventThread.join();
     testThreadThread.join();

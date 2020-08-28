@@ -6,7 +6,7 @@
 #include "eventTimer.h"
 #include "CANIDs.h"
 
-void testing(bounded_buffer<struct can_frame>& thing) {
+void testing(bounded_buffer<struct can_frame>& eventQueue) {
     struct can_frame data;
 
     BOOST_LOG_TRIVIAL(trace) << "Start test thread";
@@ -30,12 +30,12 @@ void testing(bounded_buffer<struct can_frame>& thing) {
 #endif
         memcpy(data.data, &canData, sizeof(struct heliumPressurePtData));
 
-        thing.push_front(data);
+        eventQueue.push_front(data);
         std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }
 
     data.can_id = CANIDS_EXTENDED_QUIT;
-    thing.push_front(data);
+    eventQueue.push_front(data);
     BOOST_LOG_TRIVIAL(warning) << "End of testing thread";
 }
 
