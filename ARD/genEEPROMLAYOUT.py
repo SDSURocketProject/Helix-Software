@@ -1,6 +1,15 @@
 import json, os, genGeneric
 
 def getLatex(jsonData):
+    """
+    Generates the latex that will be used in the "EEPROM Layouts" section of the ARD.
+
+    :param jsonData: Contains the json data loaded in from the config files
+    :type  jsonData: Dict between the the config file and the JSON data that it contains
+
+    :return: Latex file contents
+    :rtype: string
+    """
     texOut = ""
     texOut += genGeneric.autogenWarnStart("EEPROM Layouts", os.path.abspath(__file__))
     
@@ -14,6 +23,16 @@ def getLatex(jsonData):
     return texOut
 
 def genLayoutVersionIDs(layouts):
+    """
+    Generates a small latex table giving a summary of all the different EEPROM
+    layouts that are currently supported.
+
+    :param layouts: Contains a single layout from the EEPROMLAYOUT config file
+    :type  layouts: dict
+
+    :return: Returns a string containing the latex for the summary of EEPROM layouts
+    :rtype: string
+    """
     texOut = ""
     texOut += "\subsection{Layout Version IDs}\n"
     texOut += "\\begin{tabular}{ |l|l| }\n"
@@ -26,6 +45,16 @@ def genLayoutVersionIDs(layouts):
     return texOut
 
 def genEEPROMTex(layout):
+    """Generates the table giving the exhaustive list of memory locations in
+    the EEPROM layout.
+
+    :param layouts: Contains a single layout from the EEPROMLAYOUT config file
+    :type  layouts: dict
+
+    :return: Returns a string containing the latex table for the given layout
+    :rtype: string
+    """
+
     texOut = ""
     texOut += "\subsection{" + layout["VersionName"] + "}\n"
 
@@ -96,6 +125,16 @@ def genEEPROMTex(layout):
     return texOut
 
 def genEEPROMHEADER(jsonData):
+    """
+    Generates the C/CPP header file that can be used for accessing memory
+    locations in EEPROM.
+
+    :param jsonData: Contains the json data loaded in from the config files
+    :type  jsonData: Dict between the the config file and the JSON data that it contains
+
+    :return: Header file contents
+    :rtype: string
+    """
     headerOut = ""
     headerOut += genGeneric.autogenWarnStart("EEPROM Layout Config", os.path.abspath(__file__), commentChar="//")
     headerOut += "\n#ifndef EEPROM_LAYOUT_HEADER_H_\n"

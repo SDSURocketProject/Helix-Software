@@ -7,3 +7,4 @@ ARD Scripts
    genARD
    genGeneric
    genCAN
+   genEEPROMLAYOUT
