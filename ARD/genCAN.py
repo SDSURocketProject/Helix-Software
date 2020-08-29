@@ -1,6 +1,15 @@
 import json, os, genGeneric, math
 
 def getLatex(jsonData):
+    """This function uses the CAN config file to generate a latex file that
+    can later be compiled into the ARD as the "CAN IDs" section.
+
+    :param jsonData: Contains the json data loaded in from the config files
+    :type  jsonData: Dict between the the config file and the JSON data that it contains
+
+    :return: Latex file contents
+    :rtype: string
+    """
     texOut = ""
     texOut += genGeneric.autogenWarnStart("CAN Config", os.path.abspath(__file__))
     
@@ -28,13 +37,19 @@ def getLatex(jsonData):
     for ID in jsonData['CAN']:
         texOut += genCANTex(ID)
 
-
-    
     texOut += genGeneric.autogenWarnEnd("CAN Config", os.path.abspath(__file__))
     
     return texOut
 
 def getHeader(jsonData):
+    """Generates a C/C++ header file from the CAN config file.
+
+    :param jsonData: Contains the json data loaded in from the config files
+    :type  jsonData: Dict between the the config file and the JSON data that it contains
+
+    :return: Contents of the header file
+    :rtype: string
+    """
     headerOut = ""
     headerOut += genGeneric.autogenWarnStart("CAN Config", os.path.abspath(__file__), commentChar="//")
 
@@ -44,6 +59,15 @@ def getHeader(jsonData):
     return headerOut
 
 def genCANTex(config):
+    """Converts a single CAN ID into the latex for the ARD.
+
+    :param config: CAN ID
+    :type  config: Dict
+
+    :return: Latex output for the given CAN ID
+    :rtype: string
+    """
+
     texOut = ""
 
     texOut += "\subsection{ID " + config["CANID"] + " - " + config["CANID_NAME"] +"}\n"
@@ -90,6 +114,17 @@ def genCANTex(config):
     return texOut
 
 def genCANHeader(config, states):
+    """Generates a C/C++ header file from the CAN config file.
+
+    :param config: CAN ID
+    :type  config: Dict
+    :param states: 
+    :type  states: List
+
+    :return: Contents of the C/C++ header file.
+    :rtype: string
+    """
+
     headerOut = ""
     headerOut += "#ifndef CANIDS_H_\n"
     headerOut += "#define CANIDS_H_\n\n"
@@ -122,6 +157,18 @@ def genCANHeader(config, states):
     return headerOut
 
 def bitDefToDefine(byteDefinition, CANIDName):
+    """Converts a bit definition for a CAN data member to corresponding #defines
+    that can be used in C and C++ programs.
+
+    :param byteDefinition: Byte definition for a CAN ID
+    :type  byteDefinition: Dict
+    :param CANIDName: Name of this CAN ID
+    :type  CANIDName: string
+
+    :return: Returns the #defines for the CAN ID byte definition
+    :rtype: string
+    """
+
     bitCount = 0
     output = ""
     bitDefinitions = byteDefinition['bits']
@@ -143,6 +190,15 @@ def bitDefToDefine(byteDefinition, CANIDName):
     return output
 
 def getCANBusLoad(canIDs):
+    """Calculates the minimum and maximum number of bits that will need to be
+    transmitted per second to send all of these CAN IDs
+
+    :param canIDs: List of CAN IDs
+    :type  canIDs: list
+
+    :return: Minimum and maximum number of bits
+    :rtype: tuple (int, int)
+    """
     # Calculate the total number of bits that need to be transmitted per second
     minimumBits = 0
     maximumBits = 0
@@ -178,6 +234,15 @@ def getCANBusLoad(canIDs):
 
 # Go from byte definition to standard stdint.h value (ie unsigned 4 byte in -> uint32_t)
 def canIDByteToStdInt(byteDef):
+    """Convert from a CANID byte definition to the proper stdint.h type.
+    (ie unsigned 4 byte in -> uint32_t)
+
+    :param byteDefinition: Byte definition for a CAN ID
+    :type  byteDefinition: Dict
+
+    :return: stding.h type
+    :rtype: string
+    """
     valOut = ""
     if (byteDef["Signed"] == "False"):
         valOut += "u"
