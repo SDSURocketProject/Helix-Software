@@ -9,3 +9,4 @@ ARD Scripts
    genCAN
    genEEPROMLAYOUT
    genEEPROM
+   genHARDWARE

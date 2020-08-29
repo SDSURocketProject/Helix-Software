@@ -1,6 +1,16 @@
 import json, os, genGeneric
 
 def getLatex(jsonData):
+    """
+    This function uses the HARDWARE config file to generate a latex file that
+    can later be compiled into the ARD as the "Hardware" section.
+
+    :param jsonData: Contains the json data loaded in from the config files
+    :type  jsonData: Dict between the the config file and the JSON data that it contains
+
+    :return: Latex file contents
+    :rtype: string
+    """
     # Sort hardware based on hardware type
     PTs = []
     TCs = []
@@ -39,6 +49,23 @@ def getLatex(jsonData):
     return texOut
 
 def genHARDWARETex(PTs, TCs, RTDs, HEs, SEBconfigs):
+    """
+    Geneates the latex table for each of the given sensor.
+
+    :param PTs: The pressure transducer definitions that should be converted into latex
+    :type  PTs: dict
+    :param TCs: The thermocouple definitions that should be converted into latex
+    :type  TCs: dict
+    :param RTDs: The RTD definitions that should be converted into latex
+    :type  RTDs: dict
+    :param HEs: The hall effect sensor definitions that should be converted into latex
+    :type  HEs: dict
+    :param SEBconfigs: List of all the extionsion board configs
+    :type  SEBconfigs: list
+
+    :return: Returns the latex for all of the sensors
+    :rtype: string
+    """
     texOut = ""
 
     # Parse pressure transducers
