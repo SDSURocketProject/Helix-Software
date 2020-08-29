@@ -3,6 +3,16 @@ import json, os, genGeneric, struct, time
 allJsonData = []
 
 def genEEPROMBIN(jsonData):
+    """
+    Generates each of the binary files that can be flashed onto the EEPROM
+    of each Sensor Board.
+
+    :param jsonData: Contains the json data loaded in from the config files
+    :type  jsonData: Dict between the the config file and the JSON data that it contains
+
+    :return: Returns the string "success" upon success
+    :rtype: string
+    """
     global allJsonData
     allJsonData = jsonData
     for EBconfig in jsonData['EEPROM']:
@@ -16,7 +26,16 @@ def genEEPROMBIN(jsonData):
     return "Success"
 
 # Generates the proper binary for the given EBconfig
-def getBin(EBconfig):    
+def getBin(EBconfig):
+    """
+    Generates the binary that should be flashed onto the specified extension board.
+
+    :param EBconfig: Contains a single EEPROM configuration from the EEPROM config file
+    :type  EBconfig: dict
+
+    :return: The binary corresponding to the specified extension board
+    :type: packed struct
+    """
     # Find the proper layout for the given EEPROM file
     configLayout = ""
     for layout in allJsonData['EEPROMLAYOUT']:
@@ -61,6 +80,18 @@ def getBin(EBconfig):
 
 # Generate the proper value for the given sensor memory location
 def sensorMemLocationToBin(memoryLocation, EBconfig):
+    """
+    If a memory location inside a particular EEPROM layout comes from a sensor
+    then this function will generate the appropriate binary value.
+
+    :param memoryLocation: A sensor memory location from the EEPROMLAYOUT config file
+    :type  memoryLocation: dict
+    :param EBconfig: The EEPROM config that this memory location is from
+    :type  EBconfig: dict
+
+    :return: Returns a packed struct with the appropriate binary value
+    :rtype: packed struct
+    """
     # Find the sensor for this memory location
     sensorConfig = ""
     sensorType = ""
@@ -118,6 +149,18 @@ def sensorMemLocationToBin(memoryLocation, EBconfig):
     return packMemoryLocation(memoryLocation['Data Type'], 0)
 
 def findCANID(parameter, value):
+    """
+    Searches through the list of CAN IDs for the one whose given parameter
+    is equal to the given value.
+
+    :param parameter: The parameter from a CAN ID that we are matching to value
+    :type  parameter: string
+    :param value: The value that should match to the given CAN IDs parameter
+    :type  value: string
+
+    :return: Returns the CAN ID that matches
+    :rtype: dict
+    """
     for canID in allJsonData['CAN']:
         if (canID[parameter] == value):
             return canID
@@ -125,6 +168,18 @@ def findCANID(parameter, value):
 
 # Pack the given value into a struct with the given datatype
 def packMemoryLocation(dataType, value):
+    """
+    Converts the given value to binary using the dataType to describe the format
+    of the binary.
+
+    :param dataType: Describes the format of the resulting binary
+    :type  dataType: string
+    :param value: The value to be converted into binary
+    :type  value: Must be convertable to int or float
+
+    :return: Returns the resulting binary
+    :rtype: packed struct
+    """
     memValue = ""
     try:
         if (dataType == "I"):

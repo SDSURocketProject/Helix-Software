@@ -8,3 +8,4 @@ ARD Scripts
    genGeneric
    genCAN
    genEEPROMLAYOUT
+   genEEPROM
