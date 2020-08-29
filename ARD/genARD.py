@@ -8,77 +8,60 @@ import genHARDWARE
 import parseOBCDocs
 import verifyJSON
 
-defaultFileLocations = {
-    "--can-file":"config/CAN.json",
-    "--eeprom-file":"config/EEPROM.json",
-    "--eepromlayout-file":"config/EEPROMLAYOUT.json",
-    "--filters-file":"config/FILTERS.json",
-    "--hardware-file":"config/HARDWARE.json",
-    "--states-file":"config/STATES.json",
-    "--CANIDs-header":"../Helix-OBC-Firmware/inc/CANIDs.h",
-    "--eepromlayout-header":"../Helix-OBC-Firmware/inc/EEPROM_Layout.h"
-}
+def loadJSONFiles(defaultFileLocations):
+    """Loads the JSON data in from the config files.
 
-jsonData = {
-    "CAN":[],
-    "EEPROM":[],
-    "EEPROMLAYOUT":[],
-    "FILTERS":[],
-    "HARDWARE":[],
-    "STATES":[]
-}
+    :param defaultFileLocations: Contains the file locations that the outputs should be written to
+    :type  defaultFileLocations: Dict between the command line argument for the file and the path to the file
 
-if __name__ == "__main__":
-    
-    # If script is being run from top level directory we need to cd to the ARD directory    
-    if (os.getcwd().split('/')[-1] != "ARD"):
-        os.chdir("ARD/")
+    :return: The json data loaded in from the config files
+    :rtype: Dict between the the config file and the JSON data that it contains
+    """
 
-    # Override default file locations if specified in command line args
-    for location in defaultFileLocations:
-        if location in sys.argv:
-            defaultFileLocations[location] = sys.argv[sys.argv.find(location)+1]
-
-    # Load config files
-    openingFile = defaultFileLocations['--can-file']
+    jsonData = {
+        "CAN":[],
+        "EEPROM":[],
+        "EEPROMLAYOUT":[],
+        "FILTERS":[],
+        "HARDWARE":[],
+        "STATES":[]
+    }
+    fileLocToJson = {
+        "--can-file":"CAN",
+        "--eeprom-file":"EEPROM",
+        "--eepromlayout-file":"EEPROMLAYOUT",
+        "--filters-file":"FILTERS",
+        "--hardware-file":"HARDWARE",
+        "--states-file":"STATES"
+    }
     try:
-        CAN =          open(defaultFileLocations['--can-file'], 'r')
-        openingFile = defaultFileLocations['--eeprom-file']
-        EEPROM =       open(defaultFileLocations['--eeprom-file'], 'r')
-        openingFile = defaultFileLocations['--eepromlayout-file']
-        EEPROMLAYOUT = open(defaultFileLocations['--eepromlayout-file'], 'r')
-        openingFile = defaultFileLocations['--filters-file']
-        FILTERS =      open(defaultFileLocations['--filters-file'], 'r')
-        openingFile = defaultFileLocations['--hardware-file']
-        HARDWARE =     open(defaultFileLocations['--hardware-file'], 'r')
-        openingFile = defaultFileLocations['--states-file']
-        STATES =       open(defaultFileLocations['--states-file'], 'r')
+        for key in defaultFileLocations:
+            if key not in fileLocToJson:
+                continue
+            print(key)
+            openingFile = defaultFileLocations[key]
+            print(openingFile)
+            data = open(defaultFileLocations[key], 'r')
+            print(fileLocToJson[key])
+            jsonData[fileLocToJson[key]] = json.load(data)
+            data.close()
     except:
-        genGeneric.error(f"File {openingFile} does not exist.")
+        print(f"File {openingFile} does not exist.")
     
-    # Load json data from config files
-    openingFile = defaultFileLocations['--can-file']
-    try:
-        jsonData['CAN'] =          json.load(CAN)
-        openingFile = defaultFileLocations['--eeprom-file']
-        jsonData['EEPROM'] =       json.load(EEPROM)
-        openingFile = defaultFileLocations['--eepromlayout-file']
-        jsonData['EEPROMLAYOUT'] = json.load(EEPROMLAYOUT)
-        openingFile = defaultFileLocations['--filters-file']
-        jsonData['FILTERS'] =      json.load(FILTERS)
-        openingFile = defaultFileLocations['--hardware-file']
-        jsonData['HARDWARE'] =     json.load(HARDWARE)
-        openingFile = defaultFileLocations['--states-file']
-        jsonData['STATES'] =       json.load(STATES)
-    except json.decoder.JSONDecodeError:
-        genGeneric.error(f"{openingFile} is not a valid JSON file, check for syntax errors.")
+    return jsonData
 
-    if ("--skip-verify" not in sys.argv):
-        print("Verifying JSON files are valid")
-        verifyJSON.verifyJSON(jsonData, defaultFileLocations)
-        # verifyJSON will call exit() if it fails
 
-    # Generate C/C++ Files
+def genC(defaultFileLocations, jsonData):
+    """Generates the C/C++ header files that are needed by the flight software
+    projects.
+
+    :param defaultFileLocations: Contains the file locations that the outputs should be written to
+    :type  defaultFileLocations: Dict between the command line argument for the file and the path to the file
+    :param jsonData: Contains the json data loaded in from the config files
+    :type  jsonData: Dict between the the config file and the JSON data that it contains
+
+    :return: Returns nothing
+    """
     print("Generating \"CANIDs.h\" for Helix-OBC-Firmware")
     newCANIDsHeader = genCAN.getHeader(jsonData)
     with open(defaultFileLocations['--CANIDs-header'], 'r') as CAN_HEADER:
@@ -103,18 +86,17 @@ if __name__ == "__main__":
         with open (defaultFileLocations['--eepromlayout-header'], "w") as EEPROM_LAYOUT_HEADER:
             EEPROM_LAYOUT_HEADER.write(newEEPROMLAYOUTHeader)
 
-    #headerEEPROMLAYOUT = genEEPROMLAYOUT.genEEPROMHEADER(jsonData)
-    #with open ("../Helix-OBC-Firmware/inc/EEPROM_Layout.h", "w") as EEPROM_LAYOUT_HEADER:
-    #    EEPROM_LAYOUT_HEADER.write(headerEEPROMLAYOUT)
 
-    if ("--headers-only" in sys.argv):
-        exit(0)
-    
-    # Create tex directory if it doesn't already exist
-    try:
-        os.mkdir("tex")
-    except FileExistsError:
-        pass
+def genTex(defaultFileLocations, jsonData):
+    """Generates the latex files that are needed by xelatex to generate ARD.pdf.
+
+    :param defaultFileLocations: Contains the file locations that the outputs should be written to
+    :type  defaultFileLocations: Dict between the command line argument for the file and the path to the file
+    :param jsonData: Contains the json data loaded in from the config files
+    :type  jsonData: Dict between the the config file and the JSON data that it contains
+
+    :return: Returns nothing
+    """
 
     # HARDWARE
     print("Generating \"tex/HARDWARE.tex\"")
@@ -125,15 +107,6 @@ if __name__ == "__main__":
     with open ("tex/HARDWARE.tex", "w") as HARDWARE_TEX:
         HARDWARE_TEX.write(latexHARDWARE)
 
-    # STATES
-    #print("Generating \"tex/STATES.tex\"")
-    #latexSTATES = parseOBCDocs.getLatex(jsonData)
-    #if (latexSTATES == ""):
-    #    print("Failed to get documentation from Helix-OBC-Firmware documentation, exiting...")
-    #    quit()
-    #with open ("tex/STATES.tex", "w") as STATES_TEX:
-    #    STATES_TEX.write(latexSTATES)
-
     # CAN
     print("Generating \"tex/CANIDs.tex\"")
     with open ("tex/CANIDs.tex", "w") as CAN_TEX:
@@ -143,6 +116,54 @@ if __name__ == "__main__":
     print("Generating \"tex/EEPROMLAYOUT.tex\"")
     with open ("tex/EEPROMLAYOUT.tex", "w") as EEPROMLAYOUT_TEX:
         EEPROMLAYOUT_TEX.write(genEEPROMLAYOUT.getLatex(jsonData))
+
+
+def genARD():
+    """This is the "main" function for generating the Avionics Reference
+    Document (ARD). This gets all of the config data and calls functions for
+    generating the ARD outputs.
+
+    :return: Returns nothing
+    """
+    defaultFileLocations = {
+        "--can-file":"config/CAN.json",
+        "--eeprom-file":"config/EEPROM.json",
+        "--eepromlayout-file":"config/EEPROMLAYOUT.json",
+        "--filters-file":"config/FILTERS.json",
+        "--hardware-file":"config/HARDWARE.json",
+        "--states-file":"config/STATES.json",
+        "--CANIDs-header":"../Helix-OBC-Firmware/inc/CANIDs.h",
+        "--eepromlayout-header":"../Helix-OBC-Firmware/inc/EEPROM_Layout.h"
+    }
+
+    # If script is being run from top level directory we need to cd to the ARD directory    
+    if (os.getcwd().split('/')[-1] != "ARD"):
+        os.chdir("ARD/")
+
+    # Override default file locations if specified in command line args
+    for location in defaultFileLocations:
+        if location in sys.argv:
+            defaultFileLocations[location] = sys.argv[sys.argv.find(location)+1]
+
+    jsonData = loadJSONFiles(defaultFileLocations)
+
+    if ("--skip-verify" not in sys.argv):
+        print("Verifying JSON files are valid")
+        verifyJSON.verifyJSON(jsonData, defaultFileLocations)
+        # verifyJSON will call exit() if it fails
+
+    genC(defaultFileLocations, jsonData)
+
+    if ("--headers-only" in sys.argv):
+        exit(0)
+    
+    # Create tex directory if it doesn't already exist
+    try:
+        os.mkdir("tex")
+    except FileExistsError:
+        pass
+
+    genTex(defaultFileLocations, jsonData)
 
     # Generate Tex
     print("Generating \"ARD.pdf\"")
@@ -166,3 +187,6 @@ if __name__ == "__main__":
     print("Generating EEPROM memory files")
     genEEPROM.genEEPROMBIN(jsonData)
     
+
+if __name__ == "__main__":
+    genARD()
