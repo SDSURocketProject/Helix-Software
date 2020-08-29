@@ -1,9 +1,16 @@
 
 all: OBC-firmware documentation
 
+# You can set these variables from the command line, and also
+# from the environment for the first two.
+SPHINXOPTS    ?=
+SPHINXBUILD   ?= sphinx-build
+SOURCEDIR     = docs
+BUILDDIR      = docs/build
 
 documentation: ARD-headers OBC-firmware-documentation
 	cd ARD && python3 genARD.py
+	cd ARD && $(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 ARD-headers:
 	make -C ARD/ headers

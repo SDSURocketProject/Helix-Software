@@ -38,11 +38,8 @@ def loadJSONFiles(defaultFileLocations):
         for key in defaultFileLocations:
             if key not in fileLocToJson:
                 continue
-            print(key)
             openingFile = defaultFileLocations[key]
-            print(openingFile)
             data = open(defaultFileLocations[key], 'r')
-            print(fileLocToJson[key])
             jsonData[fileLocToJson[key]] = json.load(data)
             data.close()
     except:
@@ -186,6 +183,8 @@ def genARD():
     # Generate Binary Files
     print("Generating EEPROM memory files")
     genEEPROM.genEEPROMBIN(jsonData)
+
+    print()
     
 
 if __name__ == "__main__":
