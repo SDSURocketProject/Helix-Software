@@ -11,6 +11,7 @@ BUILDDIR      = docs/build
 documentation: ARD-headers OBC-firmware-documentation
 	cd ARD && python3 genARD.py
 	cd ARD && $(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+	cd Test-Rig-Software/docs && make html
 
 ARD-headers:
 	make -C ARD/ headers
