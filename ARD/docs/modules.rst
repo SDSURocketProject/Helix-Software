@@ -5,4 +5,5 @@ ARD Scripts
    :maxdepth: 4
 
    genARD
+   genGeneric
    genCAN
