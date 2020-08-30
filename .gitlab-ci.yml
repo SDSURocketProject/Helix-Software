@@ -1,4 +1,4 @@
-image: alpine
+image: helix-software-build
 
 stages:
     - genARD
