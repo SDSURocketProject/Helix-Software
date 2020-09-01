@@ -8,6 +8,20 @@ HARDWAREfile = ""
 STATESfile = ""
 
 def verifyJSON(jsonData, jsonFileLocations):
+    """
+    Verifies that all of the config files needed by the ARD scripts are valid.
+    This function will call exit() with a failure if there are any mistakes in
+    the JSON files.
+
+    :param jsonData: Contains the json data loaded in from the config files
+    :type  jsonData: dict between the the config file and the JSON data that it contains
+    :param jsonFileLocations: File paths to each of the config files, used for diagnotic messages.
+    :type  jsonFileLocations: dict
+
+    :return: Returns True if there are no errors in any of the config files.
+    :rtype: bool
+    """
+
     global CANfile
     global EEPROMfile
     global EEPROMLAYOUTfile
@@ -61,6 +75,15 @@ validCANBytesParameters = [
 ]
 
 def verifyCAN(canIDs):
+    """
+    Verifies that all of the CAN IDs specified in the CAN config file are valid.
+
+    :param canIDs: All of the CANIDs pulled directly from the CAN config file
+    :type  canIDs: list
+
+    :return: The number of warnings generated from mistakes in config
+    :rtype: int
+    """
     usedIDs = []
     usedNames = []
     warningCount = 0
@@ -104,6 +127,16 @@ def verifyCAN(canIDs):
     return warningCount
 
 def verifyCANBytes(ID):
+    """
+    Verifies that the "bytes" section of a single CAN ID is correctly formatted.
+
+    :param canIDs: A single CAN ID
+    :type  canIDs: dict
+
+    :return: The number of warnings generated from mistakes in config
+    :rtype: int
+    """
+
     warningCount = 0
     byteDefCount = 1
     byteCount = 0
@@ -221,6 +254,16 @@ validEEPROMLAYOUTParameters = [
 ]
 
 def verifyEEPROMLAYOUT(eepromLayouts):
+    """
+    Verifies that all of the layouts specified in the EEPROM LAYOUTS config file
+    are valid.
+
+    :param eepromLayouts: All of the layouts pulled directly from the EEPROM LAYOUTS config file
+    :type  eepromLayouts: list
+
+    :return: The number of warnings generated from mistakes in config
+    :rtype: int
+    """
     warningCount = 0
     versionIDs = []
     versionNames = []
@@ -281,6 +324,15 @@ validEEPROMLAYOUTDataParameters = [
 ]
 
 def verifyEEPROMLAYOUTData(layout):
+    """
+    Verifies that a single EEPROM layout is valid.
+
+    :param layout: A single EEPROM layout from the EEPROM LAYOUTS config file
+    :type  layout: dict
+
+    :return: The number of warnings generated from mistakes in config
+    :rtype: int
+    """
     warningCount = 0
     for dataDef in layout['Data']:
         defNames = []
@@ -383,6 +435,17 @@ validHardwareHALLParameters = {
 }
 
 def verifyHARDWARE(hardwareDefinitions):
+    """
+    Verifies that all of the hardware definitions specified in the hardware
+    config file are valid.
+
+    :param hardwareDefinitions: All of the hardware definitions pulled directly from the hardware config file
+    :type  hardwareDefinitions: list
+
+    :return: The number of warnings generated from mistakes in config
+    :rtype: int
+    """
+
     warningCount = 0 
     modelNumbers = []
     for hardware in hardwareDefinitions:
@@ -413,6 +476,18 @@ def verifyHARDWARE(hardwareDefinitions):
     return warningCount
 
 def verifyHARDWAREParameters(hardware, validParameters):
+    """
+    Verifies that a single hardware definition is valid.
+
+    :param hardware: The hardware definition to verify
+    :type  hardware: dict
+    :param validParameters: Contains all of the valid parameters for the specified hardware
+    :type  validParameters: dict where the key is the valid parameter and the value is the type of that parameter
+
+    :return: The number of warnings generated from mistakes in config
+    :rtype: int
+    """
+
     warningCount = 0
     parameterList = []
     for parameter in hardware:
@@ -437,6 +512,16 @@ def verifyHARDWAREParameters(hardware, validParameters):
 #############################################################################################################
 
 def verifySTATES(states):
+    """
+    Verifies that all of the states specified in the states config file are valid.
+
+    :param states: All of the states pulled directly from the states config file
+    :type  states: list
+
+    :return: The number of warnings generated from mistakes in config
+    :rtype: int
+    """
+
     warningCount = 0
     for state in states:
         if not isValidC(state.replace(' ', '_'), "variable"):
@@ -565,6 +650,18 @@ cppKeywords = [
 ]
 
 def isValidC(value, cType):
+    """
+    Verifies that a given value can be converted to a valid C variable or macro name.
+
+    :param value: The value to be checked
+    :type  value: string
+    :param cType: The type that the value is to be converted to, "#define" or "variable"
+    :type  cType: string
+
+    :return: Returns True if the value can be converted to the specified C type
+    :rtype: bool
+    """
+
     if value in cppKeywords:
         return False
 
@@ -582,8 +679,19 @@ def isValidC(value, cType):
 
     return True
 
-# Check if the given value can be converted to the specified python type
 def canConvert(value, toType):
+    """
+    Checks if the given value can be converted to the specified python type.
+
+    :param value: The value to be checked
+    :type  value: string
+    :param cType: The type that the value is to be converted to
+    :type  cType: string
+
+    :return: Returns True if the value can be converted to the specified python type
+    :rtype: bool
+    """
+
     if toType == "string":
         try:
             str(value)
@@ -604,8 +712,16 @@ def canConvert(value, toType):
     
     return True
 
-# calls genGeneric warning and returns false for setting warningCount
 def verifyWarning(message):
+    """
+    Prints the warning to the screen and returns 1 to add to a count of warnings.
+
+    :param message: The message to be printed to the screen
+    :type  message: string
+
+    :return: Returns 1, this is intended to be added to a count of warnings.
+    :rtype: int
+    """
     genGeneric.warning(message)
     return 1
 
