@@ -6,6 +6,7 @@ ARD Scripts
 
    genARD
    genGeneric
+   verifyJSON
    genCAN
    genEEPROMLAYOUT
    genEEPROM
