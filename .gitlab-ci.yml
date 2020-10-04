@@ -1,7 +1,16 @@
 image: alpine
 
 stages:
+    - compileARD
     - genARD
+
+compileARD:
+    stage: compileARD
+    before_script:
+        - apk update && apk add python3 py3-pip texlive-full openssh-client doxygen alpine-sdk linux-headers boost-dev py3-numpy py3-matplotlib
+        - pip3 install sphinx sphinx-rtd-theme
+    script:
+        - make
 
 genARD:
     stage: genARD
