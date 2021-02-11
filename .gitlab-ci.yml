@@ -7,7 +7,7 @@ stages:
 compileARD:
     stage: compileARD
     before_script:
-        - apk update && apk add python3 py3-pip texlive-full openssh-client doxygen alpine-sdk linux-headers boost-dev py3-numpy py3-matplotlib
+        - apk update && apk add python3 py3-pip texlive-full openssh-client alpine-sdk
         - pip3 install sphinx sphinx-rtd-theme
     script:
         - make
@@ -19,14 +19,12 @@ genARD:
         - echo -e "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
         - chmod 600 ~/.ssh/id_rsa
         - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-        - apk update && apk add python3 py3-pip texlive-full openssh-client doxygen alpine-sdk linux-headers boost-dev rsync py3-numpy py3-matplotlib
+        - apk update && apk add python3 py3-pip texlive-full openssh-client alpine-sdk rsync
         - pip3 install sphinx sphinx-rtd-theme
     script:
         - make
         - ssh deployuser@elon.sdsurocketproject.org "rm -f /var/www/html/wikistatic/Helix-Software/ARD/ARD.pdf"
-        - scp ARD/ARD.pdf deployuser@elon.sdsurocketproject.org:/var/www/html/wikistatic/Helix-Software/ARD/ARD.pdf
-        - rsync -avP --delete ARD/docs/build/html/ deployuser@elon.sdsurocketproject.org:/var/www/html/wikistatic/Helix-Software-Documentation/ARD/
-        - rsync -avP --delete Helix-OBC-Firmware/documentation/html/ deployuser@elon.sdsurocketproject.org:/var/www/html/wikistatic/Helix-Software-Documentation/Helix-OBC-Firmware/
-        - rsync -avP --delete Test-Rig-Software/docs/build/html/ deployuser@elon.sdsurocketproject.org:/var/www/html/wikistatic/Helix-Software-Documentation/Test-Rig-Software/
+        - scp ARD.pdf deployuser@elon.sdsurocketproject.org:/var/www/html/wikistatic/Helix-Software/ARD/ARD.pdf
+        - rsync -avP --delete docs/build/html/ deployuser@elon.sdsurocketproject.org:/var/www/html/wikistatic/Helix-Software-Documentation/ARD/
     only:
         - master

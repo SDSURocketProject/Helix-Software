@@ -1,6 +1,9 @@
 # -------------------------Helix-------------------------
-ARD/ARD.pdf
-ARD/memory/
+ARD.pdf
+tex/
+docs/
+headers/
+memory/
 
 # -------------------------Latex-------------------------
 ## Core latex/pdflatex auxiliary files:

@@ -133,10 +133,6 @@ def genARD():
         "--eepromlayout-header":"headers/EEPROM_Layout.h"
     }
 
-    # If script is being run from top level directory we need to cd to the ARD directory    
-    if (os.getcwd().split('/')[-1] != "ARD"):
-        os.chdir("ARD/")
-
     # Override default file locations if specified in command line args
     for location in defaultFileLocations:
         if location in sys.argv:
