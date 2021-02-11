@@ -9,12 +9,12 @@ SOURCEDIR     = docs
 BUILDDIR      = docs/build
 
 all:
-	python3 genARD.py
+	python3 scripts/genARD.py
 	@$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 headers:
-	python3 genARD.py --headers-only
+	python3 scripts/genARD.py --headers-only
 
 clean:
-	-rm -R tex/ memory/ ARD.pdf *.aux *.lof *.log *.lot *.fls *.out *.toc *.fmt *.fot *.cb *.cb2 .*.lb *.synctex.gz
+	-rm -R tex/ memory/ headers/ ARD.pdf *.aux *.lof *.log *.lot *.fls *.out *.toc *.fmt *.fot *.cb *.cb2 .*.lb *.synctex.gz
 	

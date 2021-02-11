@@ -5,7 +5,6 @@ import genEEPROMLAYOUT
 import genEEPROM
 import genCAN
 import genHARDWARE
-import parseOBCDocs
 import verifyJSON
 
 def loadJSONFiles(defaultFileLocations):
@@ -61,27 +60,15 @@ def genC(defaultFileLocations, jsonData):
     """
     print("Generating \"CANIDs.h\" for Helix-OBC-Firmware")
     newCANIDsHeader = genCAN.getHeader(jsonData)
-    with open(defaultFileLocations['--CANIDs-header'], 'r') as CAN_HEADER:
-        existingCANIDsHeader = CAN_HEADER.read()
-        if (existingCANIDsHeader == newCANIDsHeader):
-            newCANIDsHeader = ""
 
-    # if newCANIDsHeader gets set to "" that means that we should not write out the file
-    if newCANIDsHeader != "":
-        with open (defaultFileLocations['--CANIDs-header'], "w") as CAN_HEADER:
-            CAN_HEADER.write(newCANIDsHeader)
+    with open (defaultFileLocations['--CANIDs-header'], "w") as CAN_HEADER:
+        CAN_HEADER.write(newCANIDsHeader)
 
     print("Generating \"EEPROM_Layout.h\" for Helix-OBC-Firmware")
     newEEPROMLAYOUTHeader = genEEPROMLAYOUT.genEEPROMHEADER(jsonData)
-    with open(defaultFileLocations['--eepromlayout-header'], 'r') as EEPROM_LAYOUT_HEADER:
-        existingEEPROMLAYOUTHeader = EEPROM_LAYOUT_HEADER.read()
-        if (existingEEPROMLAYOUTHeader == newEEPROMLAYOUTHeader):
-            newEEPROMLAYOUTHeader = ""
 
-    # if newEEPROMLAYOUTHeader gets set to "" that means that we should not write out the file
-    if newEEPROMLAYOUTHeader != "":
-        with open (defaultFileLocations['--eepromlayout-header'], "w") as EEPROM_LAYOUT_HEADER:
-            EEPROM_LAYOUT_HEADER.write(newEEPROMLAYOUTHeader)
+    with open (defaultFileLocations['--eepromlayout-header'], "w") as EEPROM_LAYOUT_HEADER:
+        EEPROM_LAYOUT_HEADER.write(newEEPROMLAYOUTHeader)
 
 
 def genTex(defaultFileLocations, jsonData):
@@ -144,6 +131,12 @@ def genARD():
         print("Verifying JSON files are valid")
         verifyJSON.verifyJSON(jsonData, defaultFileLocations)
         # verifyJSON will call exit() if it fails
+
+    # Create memory directory if it doesn't already exist
+    try:
+        os.mkdir("headers/")
+    except FileExistsError:
+        pass
 
     genC(defaultFileLocations, jsonData)
 
