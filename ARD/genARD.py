@@ -129,8 +129,8 @@ def genARD():
         "--filters-file":"config/FILTERS.json",
         "--hardware-file":"config/HARDWARE.json",
         "--states-file":"config/STATES.json",
-        "--CANIDs-header":"../Helix-OBC-Firmware/inc/CANIDs.h",
-        "--eepromlayout-header":"../Helix-OBC-Firmware/inc/EEPROM_Layout.h"
+        "--CANIDs-header":"headers/CANIDs.h",
+        "--eepromlayout-header":"headers/EEPROM_Layout.h"
     }
 
     # If script is being run from top level directory we need to cd to the ARD directory    
